@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "Chrome >= 50"
+          ]
+        }
+      }
+    ],
+    "react",
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "."
+        ]
+      }
+    ],
+    "transform-export-extensions"
+  ]
+}
