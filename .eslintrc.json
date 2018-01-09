@@ -1,0 +1,22 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "eqeqeq": 0,
+    "curly": 2,
+    "quotes": [1, "single"],
+    "semi": ["error", "always"]
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  }
+}
