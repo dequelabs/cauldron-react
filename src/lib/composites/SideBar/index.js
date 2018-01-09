@@ -43,8 +43,8 @@ export default class SideBar extends Component {
     const storeState = store.getState();
     const isOpen = storeState.menu.isOpen;
 
-    if (storeState.viewport.wide !== wide) {
-      this.setState({ wide: storeState.viewport.wide });
+    if (storeState.viewport.isWide !== wide) {
+      this.setState({ wide: storeState.viewport.isWide });
     } else if (typeof isOpen !== 'undefined' && isOpen !== expanded) {
       this.setState(prevState => ({ expanded: !prevState.expanded }));
     }
@@ -52,6 +52,7 @@ export default class SideBar extends Component {
 
   render() {
     const { expanded, wide } = this.state;
+    const expandedProp = wide ? {} : { 'aria-expanded': `${expanded}` };
 
     return ([
       <ul
@@ -59,7 +60,7 @@ export default class SideBar extends Component {
           'dqpl-show dqpl-active': expanded
         })}
         role='menu'
-        aria-expanded={`${expanded}`}
+        {...expandedProp}
         key={1}
       >
         {this.props.children}

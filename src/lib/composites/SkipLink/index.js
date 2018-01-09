@@ -4,8 +4,6 @@ import classNames from 'classnames';
 
 /**
  * <SkipLink target={'#foo'} />
- * or
- * <SkipLink target={myElementRef} />
  */
 export default class SkipLink extends Component {
   constructor() {

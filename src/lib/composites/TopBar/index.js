@@ -6,14 +6,12 @@ import MenuItem from '../../commons/MenuItem';
 import Icon from '../../commons/Icon';
 import { triggerToggle, sideBarTriggerIdentify } from '../../../actions/menu';
 
-class TopBar extends Component {
-  render() {
-    return (
-      <div className='dqpl-top-bar'>
-        <ul role='menubar'>{this.props.children}</ul>
-      </div>
-    );
-  }
+export default function TopBar(props) {
+  return (
+    <div className='dqpl-top-bar'>
+      <ul role='menubar'>{props.children}</ul>
+    </div>
+  );
 }
 
 TopBar.propTypes = {
@@ -23,11 +21,11 @@ TopBar.propTypes = {
   ]).isRequired
 };
 
-const Item = (props) => (
-  <MenuItem orientation={'horizontal'} stateKey={'topBar'} {...props} />
-);
+export function Item(props) {
+  return (<MenuItem orientation={'horizontal'} stateKey={'topBar'} {...props} />);
+}
 
-class Trigger extends Component {
+export class Trigger extends Component {
   constructor() {
     super();
 
@@ -82,4 +80,4 @@ class Trigger extends Component {
   }
 }
 
-export { TopBar as default, Item, Trigger };
+// export { TopBar as default, Item, Trigger };

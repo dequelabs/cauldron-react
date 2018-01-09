@@ -5,9 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --colors --config webpack.config.babel.js",
+    "lint": "eslint .",
     "prepack": "NODE_ENV=production webpack --config webpack.config.babel.js",
     "start": "webpack-dev-server --history-api-fallback --config webpack.config.demo.babel.js",
-    "test": "nyc --reporter=text npm run test:run",
+    "test": "nyc --reporter=text npm run test:run && npm run lint",
     "test:run": "babel-tape-runner \"test/src/**/*.js\" | faucet",
     "test:dev": "tape-watch -r babel-register \"test/src/**/*.js\" | faucet"
   },
