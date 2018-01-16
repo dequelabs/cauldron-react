@@ -13,6 +13,8 @@ $ npm start
 
 _see the `demo/` directory_
 
+_webpack-jarvis dashboard served @ port 1337_
+
 
 ## Building Cauldron React
 

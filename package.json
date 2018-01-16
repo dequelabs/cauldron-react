@@ -16,7 +16,7 @@
   "author": "Harris Schneiderman",
   "license": "MPL-2.0",
   "dependencies": {
-    "deque-pattern-library": "^2.3.4",
+    "deque-pattern-library": "^2.4.0",
     "focus-trap-react": "^3.0.5",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",

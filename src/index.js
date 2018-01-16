@@ -28,6 +28,7 @@ export Button from './lib/components/Button';
 export FirstTimePointOut from './lib/components/FirstTimePointOut';
 export Toast from './lib/components/Toast';
 export Link from './lib/components/Link';
+export Loader from './lib/components/Loader';
 
 /**
  * Helpers / Utils
