@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { Button, Modal, ModalContent, ModalFooter } from '../../../../';
+import { Button, Modal, ModalContent, ModalFooter } from 'src/';
 
 export default class Demo extends Component {
   constructor() {

@@ -26,3 +26,12 @@ export SkipLink from './lib/composites/SkipLink';
 
 export Button from './lib/components/Button';
 export FirstTimePointOut from './lib/components/FirstTimePointOut';
+export Toast from './lib/components/Toast';
+export Link from './lib/components/Link';
+
+/**
+ * Helpers / Utils
+ */
+
+export AriaIsolate from './lib/utils/aria-isolate';
+export focusableSelector from './lib/utils/focusable-selector';

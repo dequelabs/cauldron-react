@@ -79,5 +79,3 @@ export class Trigger extends Component {
     }
   }
 }
-
-// export { TopBar as default, Item, Trigger };

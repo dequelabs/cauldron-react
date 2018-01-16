@@ -11,6 +11,7 @@ import {
 import Home from './Home';
 import Button from './patterns/components/Button';
 import FirstTimePointOut from './patterns/components/FirstTimePointOut';
+import Toast from './patterns/components/Toast';
 import Alert from './patterns/composites/Alert';
 import Modal from './patterns/composites/Modal';
 
@@ -25,7 +26,7 @@ import {
   Offscreen,
   Icon,
   SkipLink
-} from '../';
+} from 'src/';
 
 // styles
 import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
@@ -56,7 +57,9 @@ const app = (
           <Link tabIndex={-1} to='/components/button'>{'Button'}</Link>
         </SideBarItem>
         <SideBarItem index={1}>
-          <Link tabIndex={-1} to='/components/first-time-point-out'>{'First time point out'}</Link>
+          <Link tabIndex={-1} to='/components/first-time-point-out'>
+            {'First time point out'}
+          </Link>
         </SideBarItem>
         <SideBarItem index={2}>
           <Link tabIndex={-1} to='/composites/alert'>{'Alert'}</Link>
@@ -64,12 +67,16 @@ const app = (
         <SideBarItem index={3}>
           <Link tabIndex={-1} to='/composites/modal'>{'Modal'}</Link>
         </SideBarItem>
+        <SideBarItem index={4}>
+          <Link tabIndex={-1} to='/components/toast'>{'Toast'}</Link>
+        </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/components/button' component={Button} />
           <Route exact path='/components/first-time-point-out' component={FirstTimePointOut} />
+          <Route exact path='/components/toast' component={Toast} />
           <Route exact path='/composites/alert' component={Alert} />
           <Route exact path='/composites/modal' component={Modal} />
         </Switch>
