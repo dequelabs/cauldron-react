@@ -18,6 +18,7 @@ export default class Demo extends Component {
   onToastDismiss() {
     const { type } = this.state;
     const trigger = this[type];
+
     // return focus back to the dismissed toast's trigger
     if (trigger) {
       trigger.focus();
