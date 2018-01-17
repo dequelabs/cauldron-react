@@ -52,7 +52,7 @@ test('__Toast Component__', t => {
     wrapper.setProps({ show: false });
 
     setTimeout(() => {
-      // enzyme is silly so I have to use getDOMNode here!?
+      // there is a bug relating to enzyme's hasClass so I am forced to use `getDOMNode()` here
       t.ok(wrapper.find('.dqpl-toast').getDOMNode().classList.contains('dqpl-hidden'));
     }, 200);
   });
