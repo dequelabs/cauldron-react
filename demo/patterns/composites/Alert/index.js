@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { Button, Alert, AlertActions } from '../../../../';
+import { Button, Alert, AlertActions } from 'src/';
 
 export default class Demo extends Component {
   constructor() {

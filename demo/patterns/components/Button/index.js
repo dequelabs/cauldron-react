@@ -1,6 +1,6 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
-import { Button } from '../../../../';
+import Highlight from 'demo/Highlight';
+import { Button } from 'src/';
 
 const Demo = () => (
   <div>
