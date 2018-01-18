@@ -52,8 +52,10 @@ export default class Toast extends Component {
     const { autoHide } = this.props;
 
     if (!destroy) {
-      // forced to setTimeout because css animations are silly like that
-      setTimeout(this.showToast, 100);
+      // Timeout because CSS display: none/block and opacity:
+      // 0/1 properties cannot be toggled in the same tick
+      // see: https://codepen.io/isnerms/pen/eyQaLP
+      setTimeout(this.showToast);
       if (autoHide) {
         setTimeout(this.dismissToast, autoHide);
       }
@@ -65,7 +67,10 @@ export default class Toast extends Component {
 
     if (destroy && nextProps.show) { // update from hidden to show
       this.setState({ animationClass: 'dqpl-fadein-setup' }, () => {
-        setTimeout(this.showToast, 100);
+        // Timeout because CSS display: none/block and opacity:
+        // 0/1 properties cannot be toggled in the same tick
+        // see: https://codepen.io/isnerms/pen/eyQaLP
+        setTimeout(this.showToast);
       });
     } else if (!destroy && !nextProps.show) {
       this.dismissToast();
@@ -115,6 +120,9 @@ export default class Toast extends Component {
     this.setState({
       animationClass: 'dqpl-fadein-setup'
     }, () => {
+      // Timeout because CSS display: none/block and opacity:
+      // 0/1 properties cannot be toggled in the same tick
+      // see: https://codepen.io/isnerms/pen/eyQaLP
       setTimeout(() => {
         if (type === 'action-needed') {
           tabIndexHandler(true, this.el);
@@ -122,7 +130,7 @@ export default class Toast extends Component {
         }
 
         this.setState({ destroy: true, animationClass: 'dqpl-hidden' }, onDismiss);
-      }, 100);
+      });
     });
   }
 
