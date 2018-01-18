@@ -17,7 +17,7 @@ test('__Toast Component__', t => {
     setTimeout(() => {
       t.equal(document.activeElement, wrapper.find('.dqpl-toast').getDOMNode());
       t.ok(wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup'));
-    }, 200); // wait for animation timeouts / async setState calls
+    }); // wait for animation timeouts / async setState calls
   });
 
   t.test('handles autoHide properly', t => {
@@ -43,7 +43,7 @@ test('__Toast Component__', t => {
     wrapper.setProps({ show: true });
     setTimeout(() => {
       t.ok(wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup'));
-    }, 200); // wait for animation timeouts / async setState calls
+    }); // wait for animation timeouts / async setState calls
   });
 
   t.test('handles transition from truthy show to falsey show prop', t => {
@@ -55,7 +55,7 @@ test('__Toast Component__', t => {
       // there is a bug relating to enzyme's hasClass so I am forced to use `getDOMNode()` here
       // see https://github.com/airbnb/enzyme/issues/1170
       t.ok(wrapper.find('.dqpl-toast').getDOMNode().classList.contains('dqpl-hidden'));
-    }, 200);
+    }); // wait for animation timeouts / async setState calls
   });
 
   t.test('renders the expected UI (icons classNames etc)', t => {
@@ -92,7 +92,7 @@ test('__Toast Component__', t => {
     setTimeout(() => {
       t.notOk(wrapper.find('.dqpl-toast-dismiss').exists());
       t.ok(wrapper.find('.dqpl-scrim-light').exists());
-    }, 200);
+    }); // wait for animation timeouts / async setState calls
   });
 
   t.test('clicking the dismiss button properly dismisses toast', t => {

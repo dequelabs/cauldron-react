@@ -1,7 +1,7 @@
 
 /**
  * Selector for NATURALLY focusable elements
- * @type {Array}
+ * @type {String}
  */
 const focusableSelector = [
   'a[href]',
