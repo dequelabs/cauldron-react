@@ -1,6 +1,6 @@
 {
   "name": "cauldron-react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Deque Cauldron React components",
   "main": "dist/cauldron.js",
   "scripts": {
