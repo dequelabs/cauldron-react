@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist/'),
-    filename: 'cauldron.js'
+    filename: 'cauldron.js',
+    libraryTarget: 'commonjs2'
   },
   devtool: isProd ? 'source-map' : 'eval-source-map'
 };
