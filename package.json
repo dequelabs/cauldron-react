@@ -1,7 +1,7 @@
 {
   "name": "cauldron-react",
   "version": "0.0.3",
-  "description": "Deque Cauldron React components",
+  "description": "Fully accessible react components library for Deque Cauldron",
   "main": "dist/cauldron.js",
   "scripts": {
     "build": "webpack --colors --config webpack.config.babel.js",
@@ -23,6 +23,10 @@
     "react": "^16.0.0",
     "react-syntax-highlighter": "^6.1.1",
     "redux": "^3.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dequelabs/cauldron-react.git"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
