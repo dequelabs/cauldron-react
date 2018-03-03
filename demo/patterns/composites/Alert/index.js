@@ -22,7 +22,7 @@ export default class Demo extends Component {
           onClose={this.toggleSimpleAlert}
           show={showSimpleAlert}
         >
-          {'Simple dismissable alert'}
+          {'Simple dismissible alert'}
           <AlertActions>
             <Button onClick={this.toggleSimpleAlert}>{'Ok'}</Button>
             <Button secondary={true} onClick={this.toggleSimpleAlert}>{'Cancel'}</Button>
@@ -50,7 +50,7 @@ class Demo extends Component {
           onClose={this.toggleSimpleAlert}
           show={showSimpleAlert}
         >
-          {'Simple dismissable alert'}
+          {'Simple dismissible alert'}
           <AlertActions>
             <Button onClick={this.toggleSimpleAlert}>{'Ok'}</Button>
             <Button secondary={true} onClick={this.toggleSimpleAlert}>{'Cancel'}</Button>

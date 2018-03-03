@@ -16,7 +16,7 @@ export default class Toast extends Component {
     ]).isRequired,
     // "confirmation", "caution", or "action-needed"
     type: PropTypes.string.isRequired,
-    // function to be exectued when toast is dismissed
+    // function to be executed when toast is dismissed
     onDismiss: PropTypes.func,
     // if provided, should be a number in ms
     autoHide: PropTypes.number,
