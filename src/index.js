@@ -30,9 +30,9 @@ export Toast from './lib/components/Toast';
 export Link from './lib/components/Link';
 export Loader from './lib/components/Loader';
 export OptionsMenu from './lib/components/OptionsMenu';
-export { default as OptionsMenuItem } from './lib/components/OptionsMenu/Item';
-export { default as OptionsMenuWrapper } from './lib/components/OptionsMenu/Wrapper';
-export { default as OptionsMenuTrigger } from './lib/components/OptionsMenu/Trigger';
+export OptionsMenuItem from './lib/components/OptionsMenuItem';
+export OptionsMenuTrigger from './lib/components/OptionsMenuTrigger';
+export OptionsMenuWrapper from './lib/components/OptionsMenuWrapper';
 
 /**
  * Helpers / Utils

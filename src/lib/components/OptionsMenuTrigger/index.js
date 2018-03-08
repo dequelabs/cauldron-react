@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Trigger extends Component {
+/**
+ * The trigger button component to be used as the component
+ * that triggers the opening of an <OptionsMenu />.
+ *
+ * NOTE: This component should be used to set/update the <OptionsMenu /> "show" property
+ */
+export default class OptionsMenuTrigger extends Component {
   static propTypes = {
     onKeyDown: PropTypes.func,
     onClick: PropTypes.func,

@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Trigger from 'src/lib/components/OptionsMenu/Trigger';
+import Trigger from 'src/lib/components/OptionsMenuTrigger';
 import 'test/helpers/setup';
 
 test('__OptionsMenuTrigger Component__', t => {
