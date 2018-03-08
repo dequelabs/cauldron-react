@@ -85,6 +85,26 @@ test('__Modal Composite__', t => {
     modal.unmount();
   });
 
+  t.test('passes additional props through to dialog element', t => {
+    let called = false;
+    const modal = mount(
+      <Modal
+        {...defaults}
+        show={true}
+        data-foo="true"
+        onKeyDown={() => called = true}
+      >
+        {'hi'}
+      </Modal>
+    );
+
+    modal.find('[role="dialog"]').simulate('keydown', { which: 9 });
+
+    t.ok(called);
+    t.ok(modal.find('[data-foo="true"]').exists());
+    t.end();
+  });
+
   t.test('does not render the close button given a thruthy "forceAction" prop', t => {
     t.plan(1);
     const modal = mount(
