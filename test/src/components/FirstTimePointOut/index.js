@@ -38,4 +38,13 @@ test('__FirstTimePointOut Component__', t => {
 
     ftpo.find('.dqpl-ftp-dismiss').simulate('click');
   });
+
+  t.test('accepts the dismissText prop', t => {
+    t.plan(1);
+    const ftpo = mount(
+      <FirstTimePointOut {...defaults} dismissText={'Fred'}>{'hello'}</FirstTimePointOut>
+    );
+
+    t.true(ftpo.find('.dqpl-ftp-dismiss[aria-label="Fred"]').exists());
+  });
 });

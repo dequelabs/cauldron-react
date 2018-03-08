@@ -7,7 +7,7 @@ const Demo = () => (
     <h1>First Time Point Out</h1>
     <h2>Demo</h2>
     <h3>With Arrow</h3>
-    <FirstTimePointOut headerId={'ftpo-head'}>
+    <FirstTimePointOut headerId={'ftpo-head'} dismissText={'Close'}>
       <h4 id={'ftpo-head'}>First time point out!</h4>
       <p>This is a first time point out with a pointer</p>
     </FirstTimePointOut>
