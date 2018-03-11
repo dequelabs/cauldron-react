@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import keyname from 'keyname';
 
 /**
  * The trigger button component to be used as the component
@@ -46,19 +47,22 @@ export default class OptionsMenuTrigger extends Component {
     );
   }
 
-  onClick() {
-    this.props.onClick();
-    this.setState(({ expanded }) => ({
-      expanded: !expanded
-    }));
+  onClick(e) {
+    this.props.onClick(e);
+
+    this.setState({
+      expanded: !this.state.expanded
+    });
   }
 
   onKeyDown(e) {
     this.props.onKeyDown(e);
+    const { which, target } = e;
+    const key = keyname(which);
 
-    if (e.which === 40) {
+    if (key === 'down') {
       e.preventDefault();
-      e.target.click();
+      target.click();
     }
   }
 }

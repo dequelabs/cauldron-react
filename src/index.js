@@ -29,10 +29,12 @@ export FirstTimePointOut from './lib/components/FirstTimePointOut';
 export Toast from './lib/components/Toast';
 export Link from './lib/components/Link';
 export Loader from './lib/components/Loader';
-export OptionsMenu from './lib/components/OptionsMenu';
-export OptionsMenuItem from './lib/components/OptionsMenuItem';
-export OptionsMenuTrigger from './lib/components/OptionsMenuTrigger';
-export OptionsMenuWrapper from './lib/components/OptionsMenuWrapper';
+export {
+  default as OptionsMenu,
+  OptionsMenuItem,
+  OptionsMenuTrigger,
+  OptionsMenuWrapper
+} from './lib/components/OptionsMenu';
 
 /**
  * Helpers / Utils
