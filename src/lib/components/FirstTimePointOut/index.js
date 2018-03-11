@@ -6,11 +6,7 @@ import './index.less';
 export default class FirstTimePointOut extends Component {
   static propTypes = {
     headerId: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.string
-    ]).isRequired,
+    children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
     noArrow: PropTypes.bool,
     onClose: PropTypes.func,
@@ -18,6 +14,8 @@ export default class FirstTimePointOut extends Component {
   }
 
   static defaultProps = {
+    ftpRef: () => {},
+    noArrow: false,
     onClose: () => {},
     dismissText: 'dismiss'
   }
