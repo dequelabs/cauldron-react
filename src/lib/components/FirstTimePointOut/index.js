@@ -4,6 +4,22 @@ import classNames from 'classnames';
 import './index.less';
 
 export default class FirstTimePointOut extends Component {
+  static propTypes = {
+    headerId: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    ftpRef: PropTypes.func,
+    noArrow: PropTypes.bool,
+    onClose: PropTypes.func,
+    dismissText: PropTypes.string
+  }
+
+  static defaultProps = {
+    ftpRef: () => {},
+    noArrow: false,
+    onClose: () => {},
+    dismissText: 'dismiss'
+  }
+
   constructor() {
     super();
 
@@ -13,7 +29,7 @@ export default class FirstTimePointOut extends Component {
 
   render() {
     const { show } = this.state;
-    const { headerId, ftpRef, children, noArrow } = this.props;
+    const { headerId, ftpRef, children, noArrow, dismissText } = this.props;
 
     if (!show) { return null; }
 
@@ -37,7 +53,7 @@ export default class FirstTimePointOut extends Component {
           <button
             className='dqpl-ftp-dismiss fa fa-close'
             type='button'
-            aria-label='dismiss'
+            aria-label={dismissText}
             onClick={this.onCloseClick}
           />
           <div className='dqpl-content' tabIndex='-1' ref={ftpRef}>{children}</div>
@@ -51,18 +67,6 @@ export default class FirstTimePointOut extends Component {
     this.props.onClose();
   }
 }
-
-FirstTimePointOut.propTypes = {
-  headerId: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]).isRequired,
-  ftpRef: PropTypes.func,
-  noArrow: PropTypes.bool,
-  onClose: PropTypes.func
-};
 
 FirstTimePointOut.defaultProps = {
   onClose: () => {}
