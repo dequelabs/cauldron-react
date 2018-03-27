@@ -20,10 +20,6 @@ export default class Modal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      show: props.show
-    };
-
     this.close = this.close.bind(this);
     this.focusHeading = this.focusHeading.bind(this);
   }
@@ -37,14 +33,14 @@ export default class Modal extends Component {
   componentWillReceiveProps(nextProps) {
     const { show } = nextProps;
 
-    if (show !== this.props.show) {
-      this.setState({ show }, () => {
-        if (!show) {
-          return this.close();
-        }
+    if (!show && this.props.show) {
+      this.close();
+    }
+  }
 
-        this.attachIsolator(this.focusHeading);
-      });
+  componentDidUpdate(prevProps) {
+    if (!prevProps.show && this.props.show) {
+      this.attachIsolator(this.focusHeading);
     }
   }
 
@@ -55,9 +51,15 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { show } = this.state;
     const {
-      modalRef, forceAction, className, children, closeButtonText, heading
+      modalRef,
+      forceAction,
+      className,
+      children,
+      closeButtonText,
+      heading,
+      show,
+      ...other
     } = this.props;
 
     if (!show) { return null; }
@@ -86,6 +88,7 @@ export default class Modal extends Component {
             this.element = el;
             modalRef(el);
           }}
+          {...other}
         >
           <div className='dqpl-dialog-inner'>
             <div className='dqpl-modal-header'>
@@ -108,7 +111,6 @@ export default class Modal extends Component {
 
   close() {
     this.state.isolator.deactivate();
-    this.setState({ show: false });
     this.props.onClose();
   }
 
