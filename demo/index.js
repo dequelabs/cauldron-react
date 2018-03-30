@@ -15,6 +15,7 @@ import Toast from './patterns/components/Toast';
 import Alert from './patterns/composites/Alert';
 import Modal from './patterns/composites/Modal';
 import Loader from './patterns/components/Loader';
+import OptionsMenu from './patterns/components/OptionsMenu';
 
 // import cauldron react components
 import {
@@ -74,6 +75,9 @@ const app = (
         <SideBarItem index={5}>
           <Link tabIndex={-1} to='/components/loader'>{'Loader'}</Link>
         </SideBarItem>
+        <SideBarItem index={6}>
+          <Link tabIndex={-1} to='/components/options-menu'>{'Options Menu'}</Link>
+        </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>
         <Switch>
@@ -82,6 +86,7 @@ const app = (
           <Route exact path='/components/first-time-point-out' component={FirstTimePointOut} />
           <Route exact path='/components/toast' component={Toast} />
           <Route exact path='/components/loader' component={Loader} />
+          <Route exact path='/components/options-menu' component={OptionsMenu} />
           <Route exact path='/composites/alert' component={Alert} />
           <Route exact path='/composites/modal' component={Modal} />
         </Switch>
