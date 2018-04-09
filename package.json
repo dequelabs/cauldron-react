@@ -22,7 +22,8 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-syntax-highlighter": "^6.1.1",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "unique-string": "^1.0.0"
   },
   "repository": {
     "type": "git",
