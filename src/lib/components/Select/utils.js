@@ -26,7 +26,8 @@ export const search = (key, options) => {
   keys.push(key);
   const toFind = keys.join('');
 
-  return options.findIndex(({ label, disabled }) => {
-    return !disabled && label.substr(0, toFind.length).toLowerCase() === toFind;
+  return options.findIndex(({ value, label, disabled }) => {
+    const text = label || value;
+    return !disabled && text.substr(0, toFind.length).toLowerCase() === toFind;
   });
 };

@@ -7,21 +7,29 @@ import { search, shouldSearch } from './utils';
 
 export default class Select extends Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    // ensure options is an array of objects with at least a "value" property
+    options: PropTypes.arrayOf((options, key, componentName, location, propFullName) => {
+      const option = options[key];
+      if (!option.value) {
+        return new Error(`Invalid prop ${propFullName} supplied to ${componentName}`);
+      }
+    }).isRequired,
     label: PropTypes.string.isRequired,
     listId: PropTypes.string.isRequired,
     selectedId: PropTypes.string.isRequired,
     className: PropTypes.string,
     onKeyDown: PropTypes.func,
     required: PropTypes.bool,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    value: PropTypes.string
   }
 
   static defaultProps = {
     className: '',
     required: false,
     onKeyDown: () => {},
-    onSelect: () => {}
+    onSelect: () => {},
+    value: null
   }
 
   constructor() {
@@ -33,16 +41,38 @@ export default class Select extends Component {
   }
 
   componentWillMount() {
-    const initiallySelected = this.props.options.findIndex(o => o.selected);
+    const { value, options } = this.props;
 
-    if (initiallySelected === -1) {
+    if (!value) {
+      return;
+    }
+
+    this.updateValue(options, value);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { value } = this.props;
+
+    if (nextProps.value && (value !== nextProps.value)) {
+      this.updateValue(nextProps.options, nextProps.value, nextProps.onSelect);
+    }
+  }
+
+  updateValue(options, value, onSelect) {
+    const activeIndex = options.findIndex(o => o.value === value);
+
+    if (activeIndex === -1) {
       return;
     }
 
     this.setState({
-      activeIndex: initiallySelected,
-      selectedIndex: initiallySelected
+      activeIndex,
+      selectedIndex: activeIndex
     });
+
+    if (onSelect) {
+      onSelect(options[activeIndex]);
+    }
   }
 
   render() {
@@ -51,11 +81,13 @@ export default class Select extends Component {
       className, label, required, selectedId, listId, options, onSelect, ...other
     } = this.props;
     const hasActiveOption = typeof activeIndex !== 'undefined';
+    const active = options[activeIndex];
+    const pseudoVal = hasActiveOption && active && (active.label || active.value);
     const labelId = uniqueString();
     const valueId = uniqueString();
 
     const opts = options.map((option, i) => {
-      const { label, disabled } = option;
+      const { value, label, disabled } = option;
 
       return (
         <li
@@ -78,7 +110,7 @@ export default class Select extends Component {
             this.focusSelect();
           }}
         >
-          {label}
+          {label || value}
         </li>
       );
     });
@@ -109,7 +141,7 @@ export default class Select extends Component {
             ref={select => this.select = select}
           >
             <div role='textbox' aria-readonly={true} className='dqpl-pseudo-value' id={valueId}>
-              {hasActiveOption && options[activeIndex].label}
+              {pseudoVal}
             </div>
           </div>
           <ul

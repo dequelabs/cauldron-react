@@ -14,11 +14,12 @@ const withDefaultSelected = (otherProps = {}) => {
     <Select
       {...defaultProps}
       {...otherProps}
+      value='Bill'
       options={[
-        { label: 'Fred' },
-        { label: 'Bill', selected: true },
-        { label: 'Ted' },
-        { label: 'Bob' }
+        { value: 'Fred' },
+        { value: 'Bill' },
+        { value: 'Ted' },
+        { value: 'Bob' }
       ]}
     />
   );
@@ -29,9 +30,9 @@ const basicSelect = (otherProps = {}) => {
       {...defaultProps}
       {...otherProps}
       options={[
-        { label: 'a' },
-        { label: 'b' },
-        { label: 'c' }
+        { value: 'a' },
+        { value: 'b' },
+        { value: 'c' }
       ]}
     />
   );
@@ -65,14 +66,30 @@ test('Select Component', t => {
     t.end();
   });
 
+  t.test('handles programmatically selecting an option (via the `value` prop)', t => {
+    let called = false;
+    const select = basicSelect({
+      onSelect: () => called = true
+    });
+    select.setProps({
+      value: 'c'
+    });
+
+    t.equal(select.state('selectedIndex'), 2);
+    t.equal(select.state('activeIndex'), 2);
+    t.true(called);
+    t.end();
+  });
+
   t.test('sets option attributes properly', t => {
     const select = mount(
       <Select
         {...defaultProps}
+        value='a'
         options={[
-          { selected: true, label: 'a', },
-          { disabled: true, label: 'b' },
-          { label: 'c' }
+          { value: 'a', },
+          { disabled: true, value: 'b' },
+          { value: 'c' }
         ]}
       />
     );
@@ -171,12 +188,13 @@ test('Select Component', t => {
       const wrapper = mount(
         <Select
           {...defaultProps}
+          value='Bar'
           options={[
-            { selected: true, label: 'Bar' },
-            { label: 'Foo' },
-            { label: 'Far' },
-            { label: 'Fan' },
-            { label: 'Fun' },
+            { value: 'Bar' },
+            { value: 'Foo' },
+            { value: 'Far' },
+            { value: 'Fan' },
+            { value: 'Fun' },
           ]}
         />
       );
@@ -197,9 +215,9 @@ test('Select Component', t => {
       <Select
         {...defaultProps}
         options={[
-          { label: 'one' },
-          { label: 'two', disabled: true },
-          { label: 'three' }
+          { value: 'one' },
+          { value: 'two', disabled: true },
+          { value: 'three' }
         ]}
       />
     );
