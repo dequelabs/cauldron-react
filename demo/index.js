@@ -80,7 +80,7 @@ const app = (
           <Link tabIndex={-1} to='/components/options-menu'>{'Options Menu'}</Link>
         </SideBarItem>
         <SideBarItem index={7}>
-          <Link tabIndex={-1} to='/components/select'>{'Select'}</Link>
+          <Link tabIndex={-1} to='/components/select'>Select</Link>
         </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>

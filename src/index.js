@@ -35,7 +35,7 @@ export {
   OptionsMenuTrigger,
   OptionsMenuWrapper
 } from './lib/components/OptionsMenu';
-export { default as Select, SelectOption } from './lib/components/Select';
+export Select from './lib/components/Select';
 
 /**
  * Helpers / Utils

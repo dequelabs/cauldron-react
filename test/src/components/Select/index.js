@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Select, { SelectOption } from 'src/lib/components/Select';
+import Select from 'src/lib/components/Select';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -11,21 +11,29 @@ const defaultProps = {
 };
 const withDefaultSelected = (otherProps = {}) => {
   return mount(
-    <Select {...defaultProps} {...otherProps}>
-      <SelectOption value='Fred' />
-      <SelectOption selected value='Bill' />
-      <SelectOption value='Ted' />
-      <SelectOption value='Bob' />
-    </Select>
+    <Select
+      {...defaultProps}
+      {...otherProps}
+      options={[
+        { label: 'Fred' },
+        { label: 'Bill', selected: true },
+        { label: 'Ted' },
+        { label: 'Bob' }
+      ]}
+    />
   );
 };
 const basicSelect = (otherProps = {}) => {
   return mount(
-    <Select {...defaultProps} {...otherProps}>
-      <SelectOption value='a' />
-      <SelectOption value='b' />
-      <SelectOption value='c' />
-    </Select>
+    <Select
+      {...defaultProps}
+      {...otherProps}
+      options={[
+        { label: 'a' },
+        { label: 'b' },
+        { label: 'c' }
+      ]}
+    />
   );
 };
 
@@ -59,21 +67,21 @@ test('Select Component', t => {
 
   t.test('sets option attributes properly', t => {
     const select = mount(
-      <Select {...defaultProps}>
-        <SelectOption selected value='a' data-foo='cats' />
-        <SelectOption disabled value='b' data-foo='cats' />
-        <SelectOption value='c' data-foo='cats' />
-      </Select>
+      <Select
+        {...defaultProps}
+        options={[
+          { selected: true, label: 'a', },
+          { disabled: true, label: 'b' },
+          { label: 'c' }
+        ]}
+      />
     );
     const opts = select.find('.dqpl-option[role="option"]');
     t.equal(opts.length, 3);
-
     opts.forEach((opt, i) => {
-      const node = opt.getDOMNode();
       t.equal(opt.hasClass('dqpl-option-active'), i == 0);
-      t.equal(node.getAttribute('aria-selected'), `${i === 0}`);
-      t.equal(node.getAttribute('aria-disabled'), `${i === 1}`);
-      t.equal(node.getAttribute('data-foo'), 'cats');
+      t.true(opt.is({ 'aria-selected': i === 0 }));
+      t[i === 1].call(null, opt.is({ 'aria-disabled': true }));
     });
 
     t.end();
@@ -161,13 +169,16 @@ test('Select Component', t => {
 
     t.test('handles searching', t => {
       const wrapper = mount(
-        <Select {...defaultProps}>
-          <SelectOption selected value='Bar' />
-          <SelectOption value='Foo' />
-          <SelectOption value='Far' />
-          <SelectOption value='Fan' />
-          <SelectOption value='Fun' />
-        </Select>
+        <Select
+          {...defaultProps}
+          options={[
+            { selected: true, label: 'Bar' },
+            { label: 'Foo' },
+            { label: 'Far' },
+            { label: 'Fan' },
+            { label: 'Fun' },
+          ]}
+        />
       );
       // open the list
       wrapper.setState({ expanded: true });
@@ -179,5 +190,33 @@ test('Select Component', t => {
       t.equal(wrapper.state('activeIndex'), 4);
       t.end();
     });
+  });
+
+  t.test('skips disabled items', t => {
+    const wrapper = mount(
+      <Select
+        {...defaultProps}
+        options={[
+          { label: 'one' },
+          { label: 'two', disabled: true },
+          { label: 'three' }
+        ]}
+      />
+    );
+    wrapper.setState({ expanded: true });
+    wrapper.find('[role="combobox"]').simulate('keydown', { which: 40 });
+    t.equal(wrapper.state('activeIndex'), 2);
+    t.end();
+  });
+
+  t.test('handles top/bottom boundaries', t => {
+    const wrapper = basicSelect();
+    wrapper.setState({ expanded: true, activeIndex: 0 });
+    wrapper.find('[role="combobox"]').simulate('keydown', { which: 38 });
+    t.equal(wrapper.state('activeIndex'), 0);
+    wrapper.setState({ activeIndex: 2 });
+    wrapper.find('[role="combobox"]').simulate('keydown', { which: 40 });
+    t.equal(wrapper.state('activeIndex'), 2);
+    t.end();
   });
 });

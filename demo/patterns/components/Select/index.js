@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight from '../../../Highlight';
-import { Select, SelectOption, Button } from 'src/';
+import { Select, Button } from 'src/';
 import './index.css';
 
 const Demo = () => (
@@ -9,18 +9,19 @@ const Demo = () => (
     <h2>Demo</h2>
     <div>
       <Select
-        label={'Day'}
+        label='Day'
         selectedId='day-selected'
         listId='day-list'
-      >
-        <SelectOption selected value='Monday' />
-        <SelectOption value='Tuesday' />
-        <SelectOption value='Wednesday' />
-        <SelectOption value='Thursday' />
-        <SelectOption value='Friday' />
-        <SelectOption disabled={true} value='Saturday' />
-        <SelectOption value='Sunday' />
-      </Select>
+        options={[
+          { label: 'Monday', selected: true },
+          { label: 'Tuesday' },
+          { label: 'Wednesday' },
+          { label: 'Thursday' },
+          { label: 'Friday' },
+          { label: 'Saturday', disabled: true },
+          { label: 'Sunday' }
+        ]}
+      />
       <Button className='select-demo-button'>Submit</Button>
     </div>
     <h2>Code Sample</h2>

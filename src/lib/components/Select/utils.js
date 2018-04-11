@@ -8,8 +8,8 @@ let keys = [];
  * @return {Boolean}
  */
 export const shouldSearch = key => {
-  var isLetter = key >= 65 && key <= 90;
-  var isNumber = key >= 48 && key <= 57;
+  const isLetter = key >= 65 && key <= 90;
+  const isNumber = key >= 48 && key <= 57;
   return isLetter || isNumber;
 };
 
@@ -26,7 +26,7 @@ export const search = (key, options) => {
   keys.push(key);
   const toFind = keys.join('');
 
-  return options.findIndex(({ value, disabled }) => {
-    return !disabled && value.substr(0, toFind.length).toLowerCase() === toFind;
+  return options.findIndex(({ label, disabled }) => {
+    return !disabled && label.substr(0, toFind.length).toLowerCase() === toFind;
   });
 };
