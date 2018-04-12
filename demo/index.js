@@ -16,6 +16,7 @@ import Alert from './patterns/composites/Alert';
 import Modal from './patterns/composites/Modal';
 import Loader from './patterns/components/Loader';
 import OptionsMenu from './patterns/components/OptionsMenu';
+import Select from './patterns/components/Select';
 
 // import cauldron react components
 import {
@@ -78,6 +79,9 @@ const app = (
         <SideBarItem index={6}>
           <Link tabIndex={-1} to='/components/options-menu'>{'Options Menu'}</Link>
         </SideBarItem>
+        <SideBarItem index={7}>
+          <Link tabIndex={-1} to='/components/select'>Select</Link>
+        </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>
         <Switch>
@@ -89,6 +93,7 @@ const app = (
           <Route exact path='/components/options-menu' component={OptionsMenu} />
           <Route exact path='/composites/alert' component={Alert} />
           <Route exact path='/composites/modal' component={Modal} />
+          <Route exact path='/components/select' component={Select} />
         </Switch>
       </Workspace>
     </div>
