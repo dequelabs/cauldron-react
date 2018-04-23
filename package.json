@@ -10,7 +10,7 @@
     "prepack": "NODE_ENV=production webpack --config webpack.config.babel.js",
     "start": "webpack-dev-server --history-api-fallback --config webpack.config.demo.babel.js",
     "release": "standard-version",
-    "test": "nyc --reporter=text npm run test:run && npm run lint",
+    "test": "nyc npm run test:run && npm run lint && nsp check",
     "test:run": "tape -r babel-register \"test/src/**/*.js\" | tap-spec",
     "test:dev": "tape-watch -r babel-register \"test/src/**/*.js\" | tap-spec"
   },
@@ -57,6 +57,7 @@
     "jsdom-global": "^3.0.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "nsp": "^3.2.1",
     "nyc": "^11.3.0",
     "proxyquire": "^1.8.0",
     "react-dom": "^16.0.0",
@@ -72,5 +73,21 @@
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-jarvis": "^0.1.1"
+  },
+  "nyc": {
+    "checkCoverage": true,
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "statements": 90,
+    "branches": 80,
+    "functions": 80,
+    "lines": 90,
+    "exclude": [
+      "dist",
+      "coverage",
+      "test/**/*.js"
+    ]
   }
 }
