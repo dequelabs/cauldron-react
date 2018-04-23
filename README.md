@@ -23,13 +23,13 @@ _see the `demo/` directory_
 ## Build
 
 ```sh
-$ yarn run build
+$ yarn build
 ```
 
-NOTE: for production build run `$ yarn run prepack`
+NOTE: for production build run `$ yarn prepack`
 
 ## Test
 
 ```sh
-$ yarn test # or `yarn run test:dev`
+$ yarn test # or `yarn test:dev`
 ```
