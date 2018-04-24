@@ -31,5 +31,11 @@ NOTE: for production build run `$ yarn prepack`
 ## Test
 
 ```sh
-$ yarn test # or `yarn test:dev`
+$ yarn test
+```
+
+or to have tests automagically re-run when files change
+
+```sh
+$ yarn test:dev
 ```
