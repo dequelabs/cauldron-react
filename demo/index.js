@@ -84,7 +84,7 @@ const app = (
           <Link tabIndex={-1} to='/components/select'>Select</Link>
         </SideBarItem>
         <SideBarItem index={8}>
-          <Link tabIndex={-1} to='/components/radio-group'>RadioGroup</Link>
+          <Link tabIndex={-1} to='/components/radio-group'>Radio Group</Link>
         </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>

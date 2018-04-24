@@ -54,7 +54,10 @@ export default class RadioGroup extends Component {
       const isFocused = this.state.focusIndex === index;
 
       return (
-        <div className={classNames('dqpl-radio-wrap dqpl-flexr', className)} key={index}>
+        <div
+          className={classNames('dqpl-radio-wrap dqpl-flexr', className)}
+          key={id}
+        >
           <input
             type='radio'
             name={name}
