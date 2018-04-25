@@ -36,6 +36,8 @@ export {
   OptionsMenuWrapper
 } from './lib/components/OptionsMenu';
 export Select from './lib/components/Select';
+export RadioGroup from './lib/components/RadioGroup';
+
 
 /**
  * Helpers / Utils
