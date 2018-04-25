@@ -18,6 +18,7 @@ import Loader from './patterns/components/Loader';
 import OptionsMenu from './patterns/components/OptionsMenu';
 import Select from './patterns/components/Select';
 import RadioGroup from './patterns/components/RadioGroup';
+import Checkbox from './patterns/components/Checkbox';
 
 // import cauldron react components
 import {
@@ -86,6 +87,9 @@ const app = (
         <SideBarItem index={8}>
           <Link tabIndex={-1} to='/components/radio-group'>Radio Group</Link>
         </SideBarItem>
+        <SideBarItem index={9}>
+          <Link tabIndex={-1} to='/components/checkbox'>Checkbox</Link>
+        </SideBarItem>
       </SideBar>
       <Workspace id='main-content'>
         <Switch>
@@ -99,6 +103,7 @@ const app = (
           <Route exact path='/composites/modal' component={Modal} />
           <Route exact path='/components/select' component={Select} />
           <Route exact path='/components/radio-group' component={RadioGroup} />
+          <Route exact path='/components/checkbox' component={Checkbox} />
         </Switch>
       </Workspace>
     </div>
