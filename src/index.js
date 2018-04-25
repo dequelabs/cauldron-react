@@ -36,6 +36,7 @@ export {
   OptionsMenuWrapper
 } from './lib/components/OptionsMenu';
 export Select from './lib/components/Select';
+export RadioGroup from './lib/components/RadioGroup';
 export Checkbox from './lib/components/Checkbox';
 
 /**
