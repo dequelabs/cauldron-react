@@ -2,7 +2,7 @@ import 'test/helpers/setup';
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import MenuItem from 'src/lib/commons/Menuitem';
+import MenuItem from 'src/lib/commons/MenuItem';
 
 test('__commons/MenuItem__', t => {
   t.test('clicks first direct child link given a click', t => {
