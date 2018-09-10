@@ -45,12 +45,12 @@ export default class Scrim extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { show } = this.props;
-    const changed = typeof show !== 'undefined' && nextProps.show !== show;
+    const changed = typeof show !== 'undefined' && prevProps.show !== show;
 
     if (changed) {
-      if (nextProps.show) {
+      if (!prevProps.show) {
         return this.fadeIn();
       }
 

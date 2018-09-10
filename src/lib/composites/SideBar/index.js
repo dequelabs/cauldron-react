@@ -1,78 +1,146 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import store from '../../../store';
-import MenuItem from '../../commons/MenuItem';
+import keyname from 'keyname';
 import Scrim from '../../commons/Scrim';
-import { onResize, isWide } from '../../../actions/viewport';
-
-export const Item = (props) => (
-  <MenuItem
-    orientation={'vertical'}
-    stateKey={'sideBar'}
-    {...props}
-  />
-);
+import { isWide } from '../../utils/viewport';
 
 export default class SideBar extends Component {
-  constructor() {
-    super();
-
-    // initial state
-    this.state = {
-      expanded: false,
-      wide: isWide()
-    };
-
-    // events
-    this.handleChange = this.handleChange.bind(this);
-    store.subscribe(this.handleChange);
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onDismiss: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    show: PropTypes.bool
   }
 
-  componentWillMount() {
-    onResize();
-    window.addEventListener('resize', onResize);
+  static defaultProps = {
+    className: '',
+    show: false
+  }
+
+  menuItems = []
+
+  constructor() {
+    super();
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onResize = this.onResize.bind(this);
+    this.state = {
+      focusIndex: 0,
+      wide: isWide()
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.onResize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', onResize);
+    window.removeEventListener('resize', this.onResize);
   }
 
-  handleChange() {
-    const { wide, expanded } = this.state;
-    const storeState = store.getState();
-    const isOpen = storeState.menu.isOpen;
+  onResize() {
+    const wide = isWide();
 
-    if (storeState.viewport.isWide !== wide) {
-      this.setState({ wide: storeState.viewport.isWide });
-    } else if (typeof isOpen !== 'undefined' && isOpen !== expanded) {
-      this.setState(prevState => ({ expanded: !prevState.expanded }));
+    if (wide === this.state.wide) {
+      return;
+    }
+
+    this.setState({ wide });
+  }
+
+  onKeyDown(e) {
+    const { children, onDismiss } = this.props;
+    const { focusIndex } = this.state;
+    const key = keyname(e.which);
+
+    switch (key) {
+      case 'up': {
+        const newFocusIndex = focusIndex === 0
+          ? Children.count(children) - 1
+          : focusIndex - 1;
+        e.preventDefault();
+        this.setState({ focusIndex: newFocusIndex });
+        this.menuItems[newFocusIndex].focus();
+
+        break;
+      }
+
+      case 'down': {
+        const newFocusIndex = (focusIndex === Children.count(children) - 1)
+          ? 0
+          : focusIndex + 1;
+        e.preventDefault();
+        this.setState({ focusIndex: newFocusIndex });
+        this.menuItems[newFocusIndex].focus();
+
+        break;
+      }
+
+      case 'esc':
+        onDismiss();
+
+        break;
     }
   }
 
-  render() {
-    const { expanded, wide } = this.state;
-    const expandedProp = wide ? {} : { 'aria-expanded': `${expanded}` };
+  componentDidUpdate(prevProps) {
+    const { show } = this.props;
 
-    return ([
-      <ul
-        className={classNames('dqpl-side-bar', {
-          'dqpl-show dqpl-active': expanded
-        })}
-        role='menu'
-        {...expandedProp}
-        key={1}
-      >
-        {this.props.children}
-      </ul>,
-      <Scrim show={wide ? false : expanded} key={2} />
-    ]);
+    if (prevProps.show === show ) {
+      return;
+    }
+
+    this.animate();
+  }
+
+  animate() {
+    const { show } = this.props;
+    const [ first, second ] = show
+      ? ['dqpl-show', 'dqpl-show dqpl-active']
+      : ['dqpl-show', ''];
+
+    this.setState({ animateClass: first });
+    // css3 animations require transition classes to be added on separate tics
+    setTimeout(() => {
+      this.setState({ animateClass: second });
+
+      if (show) {
+        this.menuItems[this.state.focusIndex].focus();
+      }
+    }, 100); // slide out animation requires a min timeout of 100ms
+  }
+
+  render() {
+    this.menuItems = [];
+    const { focusIndex, animateClass, wide } = this.state;
+    // disabling no-unused-vars to prevent onDismiss from being passed through to dom element
+    // eslint-disable-next-line no-unused-vars
+    const { children, className, show, onDismiss, ...other } = this.props;
+    const listProps = { ...other };
+
+    if (!wide) {
+      listProps['aria-expanded'] = show;
+    }
+
+    return (
+      <Fragment>
+        <ul
+          className={classNames('dqpl-side-bar', className, animateClass)}
+          {...listProps}
+        >
+          {
+            Children.map(children, (child, index) => (
+              cloneElement(child, {
+                key: index,
+                onKeyDown: this.onKeyDown,
+                tabIndex: focusIndex === index ? 0 : -1,
+                menuItemRef: menuItem => this.menuItems[index] = menuItem
+              })
+            ))
+          }
+        </ul>
+        <Scrim show={!wide && show} />
+      </Fragment>
+    );
   }
 }
-
-SideBar.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ]).isRequired
-};

@@ -50,4 +50,10 @@ test('__Toast/utils__', t => {
       t.equal(targets[0].getAttribute('data-cached-tabindex'), '0');
     });
   });
+
+  t.test('teardown', t => {
+    document.body.innerHTML = '';
+    t.pass();
+    t.end();
+  });
 });

@@ -7,13 +7,15 @@ export Workspace from './lib/Workspace';
 export Icon from './lib/commons/Icon';
 export Offscreen from './lib/commons/Offscreen';
 export Scrim from './lib/commons/Scrim';
+export MenuItem from './lib/commons/MenuItem';
 
 /**
  * Composites
  */
 
-export TopBar, {
-  Item as TopBarItem, Trigger as TopBarTrigger
+export {
+  default as TopBar,
+  TopBarTrigger,
 } from './lib/composites/TopBar';
 export SideBar, { Item as SideBarItem } from './lib/composites/SideBar';
 export Alert, { Actions as AlertActions } from './lib/composites/Alert';

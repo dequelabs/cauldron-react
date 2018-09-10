@@ -62,7 +62,9 @@ export default class Toast extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  // TODO: getting rid of the destroy state all together would simplify this
+  // (if props.show changes => do the show/hide stuff)
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { destroy } = this.state;
 
     if (destroy && nextProps.show) { // update from hidden to show

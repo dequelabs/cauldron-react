@@ -27,7 +27,7 @@ test('Checkbox Component', t => {
     t.false(checkbox.getDOMNode().checked);
     t.false(wrapper.find('.dqpl-checkbox').hasClass('fa-check-o'));
 
-    checkbox.simulate('click');
+    checkbox.simulate('change');
 
     t.true(checkbox.getDOMNode().checked);
     t.true(wrapper.find('.dqpl-checkbox').hasClass('fa-check-square'));
