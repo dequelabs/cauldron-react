@@ -38,18 +38,20 @@ export default class Alert extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { show } = nextProps;
+  componentDidUpdate(prevProps) {
+    const showChange = prevProps.show !== this.props.show;
 
-    if (show !== this.props.show) {
-      this.setState({ show }, () => {
-        if (!show) {
-          return this.close();
-        }
-
-        this.attachIsolator(this.focusContent);
-      });
+    if (!showChange) {
+      return;
     }
+
+    this.setState({ show: this.props.show }, () => {
+      if (this.props.show) {
+        this.attachIsolator(this.focusContent);
+      } else {
+        this.close();
+      }
+    });
   }
 
   attachIsolator(done) {

@@ -50,13 +50,13 @@ export default class Checkbox extends Component {
         <input
           type='checkbox'
           checked={checked}
+          onChange={this.onCheckboxClick}
           disabled={disabled}
           name={name}
           id={id}
           value={value}
           onFocus={this.toggleFocus}
           onBlur={this.toggleFocus}
-          onClick={this.onCheckboxClick}
           ref={checkbox => this.checkbox = checkbox}
         />
         <div

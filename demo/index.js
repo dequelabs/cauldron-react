@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -23,91 +23,126 @@ import Checkbox from './patterns/components/Checkbox';
 // import cauldron react components
 import {
   TopBar,
-  TopBarItem,
   Workspace,
   TopBarTrigger,
   SideBar,
-  SideBarItem,
-  Offscreen,
-  Icon,
-  SkipLink
+  SkipLink,
+  MenuItem
 } from 'src/';
 
 // styles
 import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
 import './index.css';
 
-const app = (
-  <Router>
-    <div>
-      <SkipLink target={'#main-content'} />
-      <TopBar>
-        <TopBarTrigger index={0} />
-        <TopBarItem index={1}>
-          <Link tabIndex={-1} to='/'>Cauldron React</Link>
-        </TopBarItem>
-        <TopBarItem index={2} className='dqpl-right-aligned'>
-          <a
-            href={'https://github.com/dequelabs/pattern-library/wiki'}
-            target={'_blank'}
+class App extends Component {
+  state = { show: false }
+  constructor() {
+    super();
+    this.onTriggerClick = this.onTriggerClick.bind(this);
+  }
+
+  onTriggerClick() {
+    const { show } = this.state;
+
+    if (show && this.topBarTrigger) {
+      this.topBarTrigger.focus();
+    }
+
+    this.setState({ show: !show });
+  }
+
+  renderSideBarLink(to, text) {
+    return (
+      <Link
+        to={to}
+        onClick={() => {
+          this.setState({ show: false });
+          this.workspace.focus();
+        }}
+        tabIndex={-1}
+      >
+        {text}
+      </Link>
+    );
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <SkipLink target={'#main-content'} />
+          <TopBar hasTrigger={true}>
+            <TopBarTrigger
+              onClick={this.onTriggerClick}
+              menuItemRef={el => this.topBarTrigger = el}
+            />
+            <MenuItem>
+              <Link tabIndex={-1} to='/'>Cauldron</Link>
+            </MenuItem>
+            <MenuItem className='dqpl-right-aligned'>
+              <a
+                tabIndex={-1}
+                href='https://github.com/dequelabs/cauldron-react'
+                className='fa fa-github'
+                aria-label='Cauldron React on GitHub'
+              />
+            </MenuItem>
+          </TopBar>
+          <SideBar show={this.state.show} onDismiss={this.onTriggerClick}>
+            <MenuItem>
+              {this.renderSideBarLink('/components/button', 'Button')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/first-time-point-out', 'First time point out')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/composites/alert', 'Alert')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/composites/modal', 'Modal')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/toast', 'Toast')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/loader', 'Loader')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/options-menu', 'Options Menu')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/select', 'Select')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/radio-group', 'Radio Group')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
+            </MenuItem>
+          </SideBar>
+          <Workspace
+            id='main-content'
+            workspaceRef={el => this.workspace = el}
             tabIndex={-1}
           >
-            <Offscreen>React Cauldron Help (opens in a new tab)</Offscreen>
-            <Icon type={'fa-question-circle'} />
-          </a>
-        </TopBarItem>
-      </TopBar>
-      <SideBar>
-        <SideBarItem index={0}>
-          <Link tabIndex={-1} to='/components/button'>Button</Link>
-        </SideBarItem>
-        <SideBarItem index={1}>
-          <Link tabIndex={-1} to='/components/first-time-point-out'>
-            First time point out
-          </Link>
-        </SideBarItem>
-        <SideBarItem index={2}>
-          <Link tabIndex={-1} to='/composites/alert'>Alert</Link>
-        </SideBarItem>
-        <SideBarItem index={3}>
-          <Link tabIndex={-1} to='/composites/modal'>Modal</Link>
-        </SideBarItem>
-        <SideBarItem index={4}>
-          <Link tabIndex={-1} to='/components/toast'>Toast</Link>
-        </SideBarItem>
-        <SideBarItem index={5}>
-          <Link tabIndex={-1} to='/components/loader'>Loader</Link>
-        </SideBarItem>
-        <SideBarItem index={6}>
-          <Link tabIndex={-1} to='/components/options-menu'>Options Menu</Link>
-        </SideBarItem>
-        <SideBarItem index={7}>
-          <Link tabIndex={-1} to='/components/select'>Select</Link>
-        </SideBarItem>
-        <SideBarItem index={8}>
-          <Link tabIndex={-1} to='/components/radio-group'>Radio Group</Link>
-        </SideBarItem>
-        <SideBarItem index={9}>
-          <Link tabIndex={-1} to='/components/checkbox'>Checkbox</Link>
-        </SideBarItem>
-      </SideBar>
-      <Workspace id='main-content'>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/components/button' component={Button} />
-          <Route exact path='/components/first-time-point-out' component={FirstTimePointOut} />
-          <Route exact path='/components/toast' component={Toast} />
-          <Route exact path='/components/loader' component={Loader} />
-          <Route exact path='/components/options-menu' component={OptionsMenu} />
-          <Route exact path='/composites/alert' component={Alert} />
-          <Route exact path='/composites/modal' component={Modal} />
-          <Route exact path='/components/select' component={Select} />
-          <Route exact path='/components/radio-group' component={RadioGroup} />
-          <Route exact path='/components/checkbox' component={Checkbox} />
-        </Switch>
-      </Workspace>
-    </div>
-  </Router>
-);
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/components/button' component={Button} />
+              <Route exact path='/components/first-time-point-out' component={FirstTimePointOut} />
+              <Route exact path='/components/toast' component={Toast} />
+              <Route exact path='/components/loader' component={Loader} />
+              <Route exact path='/components/options-menu' component={OptionsMenu} />
+              <Route exact path='/composites/alert' component={Alert} />
+              <Route exact path='/composites/modal' component={Modal} />
+              <Route exact path='/components/select' component={Select} />
+              <Route exact path='/components/radio-group' component={RadioGroup} />
+              <Route exact path='/components/checkbox' component={Checkbox} />
+            </Switch>
+          </Workspace>
+        </div>
+      </Router>
+    );
+  }
+}
 
-render(app, document.getElementById('root'));
+render(<App />, document.getElementById('root'));

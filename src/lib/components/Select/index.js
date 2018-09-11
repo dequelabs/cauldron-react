@@ -40,7 +40,7 @@ export default class Select extends Component {
     this.focusSelect = this.focusSelect.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { value, options } = this.props;
 
     if (!value) {
@@ -50,11 +50,11 @@ export default class Select extends Component {
     this.updateValue(options, value);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { value } = this.props;
+  componentDidUpdate(prevProps) {
+    const { value, options, onSelect } = this.props;
 
-    if (nextProps.value && (value !== nextProps.value)) {
-      this.updateValue(nextProps.options, nextProps.value, nextProps.onSelect);
+    if (value !== prevProps.value) {
+      this.updateValue(options, value, onSelect);
     }
   }
 

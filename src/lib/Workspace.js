@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Workspace = ({children, ...other}) => (
-  <div className='dqpl-layout'>
-    <div
-      className='dqpl-main-content'
-      role='main'
-      {...other}
-    >
-      {children}
-    </div>
-  </div>
-);
+export default class Workspace extends Component {
+  static propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]).isRequired,
+    workspaceRef: PropTypes.func
+  }
 
+  static defaultProps = {
+    workspaceRef: () => {}
+  }
 
-Workspace.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]).isRequired
-};
+  render() {
+    const { children, workspaceRef, ...other } = this.props;
 
-export default Workspace;
+    return (
+      <div className='dqpl-layout'>
+        <div
+          className='dqpl-main-content'
+          role='main'
+          ref={workspaceRef}
+          {...other}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  }
+}

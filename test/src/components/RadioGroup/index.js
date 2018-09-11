@@ -67,4 +67,13 @@ test('RadioGroup Component', t => {
     t.equal(wrapper.state('value'), defaultProps.radios[0].value);
     t.end();
   });
+
+  t.test('handles clicks on the dqpl-overlay-radio element', t => {
+    const wrapper = mount(<RadioGroup {...defaultProps} />);
+    const isChecked = () => wrapper.find('[type="radio"]').at(0).getDOMNode().checked;
+    t.false(isChecked());
+    wrapper.find('.dqpl-overlay-radio').at(0).simulate('click');
+    t.true(isChecked());
+    t.end();
+  });
 });

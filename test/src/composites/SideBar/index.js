@@ -1,106 +1,96 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import test from 'tape';
 import proxyquire from 'proxyquire';
 import { mount } from 'enzyme';
-import * as viewportActions from 'src/actions/viewport';
 import 'test/helpers/setup';
 
 proxyquire.noCallThru();
 
-const defaultState = {
-  menu: { isOpen: false },
-  viewport: { isWide: true }
-};
+const MenuItem = ({ menuItemRef }) => (<div ref={menuItemRef} />);
+MenuItem.propTypes = { menuItemRef: PropTypes.func };
 
 const SideBar = proxyquire('../../../../src/lib/composites/SideBar', {
-  '../../../store': {
-    subscribe: () => {},
-    getState: () => defaultState
+  '../../utils/viewport': {
+    isWide: () => false
   }
 }).default;
+const mountWrapper = (onDismiss = (() => {})) => (
+  mount(
+    <SideBar onDismiss={onDismiss}>
+      <MenuItem />
+      <MenuItem />
+      <MenuItem />
+    </SideBar>
+  )
+);
+const noop = () => {};
 
 test('__composites/SideBar__', t => {
-  t.test('_onResize_', t => {
-    t.test('calls on `onResize` upon mounting', t => {
-      t.plan(1);
+  t.test('properly handles viewport resize', t => {
+    t.plan(1);
+    const wrapper = mountWrapper();
+    wrapper.setState({ wide: true });
+    wrapper.instance().onResize();
+    t.equal(wrapper.state('wide'), false);
+  });
 
-      let called = false;
-      const SideBar = proxyquire('../../../../src/lib/composites/SideBar', {
-        '../../../actions/viewport': {
-          ...viewportActions,
-          onResize: () => called = true
-        }
-      }).default;
+  t.test('keydowns', t => {
+    t.test('handles UP arrow', t => {
+      t.plan(2);
+      const wrapper = mountWrapper();
+      const e = { which: 38, preventDefault: noop };
 
-      mount(<SideBar><div /></SideBar>);
-      t.ok(called);
-    });
-
-    t.test('calls `onResize` upon window resize', t => {
-      t.plan(1);
-
-      let called = false;
-      const SideBar = proxyquire('../../../../src/lib/composites/SideBar', {
-        '../../../actions/viewport': {
-          ...viewportActions,
-          onResize: () => called = true
-        }
-      }).default;
-
-      mount(<SideBar><div /></SideBar>);
-      called = false; // reset it after mounting
-      // simulate a window resize event
-      const e = new Event('resize');
-      window.dispatchEvent(e);
-
-      t.ok(called);
+      // from 2nd to 1st
+      wrapper.setState({ focusIndex: 1 });
+      wrapper.instance().onKeyDown(e);
+      t.equal(wrapper.state('focusIndex'), 0);
+      // from 1st to 3rd
+      wrapper.setState({ focusIndex: 0 });
+      wrapper.instance().onKeyDown(e);
+      t.equal(wrapper.state('focusIndex'), 2);
     });
   });
 
-  t.test('_handleChange_', t => {
-    t.test('handles viewport `isWide` changes', t => {
-      t.plan(1);
-      const wrapper = mount(<SideBar><div /></SideBar>);
+  t.test('handles DOWN arrow', t => {
+    t.plan(2);
+    const wrapper = mountWrapper();
+    const e = { which: 40, preventDefault: noop };
 
-      wrapper.setState({ wide: false }, () => {
-        wrapper.instance().handleChange();
-        setTimeout(() => { // let setState inside of component finish
-          t.ok(wrapper.state('wide'));
-        });
-      });
-    });
-
-    t.test('handles expanded `isOpen` changes', t => {
-      t.plan(1);
-      const wrapper = mount(<SideBar><div /></SideBar>);
-
-      wrapper.setState({ expanded: true }, () => {
-        wrapper.instance().handleChange();
-
-        setTimeout(() => { // let setState inside of component finish
-          t.notOk(wrapper.state('expanded'));
-        });
-      });
-    });
+    // from 1st to 2nd
+    wrapper.setState({ focusIndex: 0 });
+    wrapper.instance().onKeyDown(e);
+    t.equal(wrapper.state('focusIndex'), 1);
+    // from 3rd to 1st
+    wrapper.setState({ focusIndex: 2 });
+    wrapper.instance().onKeyDown(e);
+    t.equal(wrapper.state('focusIndex'), 0);
   });
 
-  t.test('_render_', t => {
-    t.test('given a narrow viewport sets aria-expanded properly', t => {
-      t.plan(1);
-      const wrapper = mount(<SideBar><div /></SideBar>);
+  t.test('handles escape (calls onDismiss)', t => {
+    t.plan(1);
+    let called = false;
+    const wrapper = mountWrapper(() => called = true);
 
-      wrapper.setState({ wide: false, expanded: true }, () => {
-        t.equal(wrapper.find('ul').getDOMNode().getAttribute('aria-expanded'), 'true');
-      });
-    });
+    const e = { which: 27 };
+    wrapper.instance().onKeyDown(e);
+    t.true(called);
+  });
 
-    t.test('given a wide viewport, does not set aria-expanded', t => {
-      t.plan(1);
-      const wrapper = mount(<SideBar><div /></SideBar>);
+  t.test('given a show prop change', t => {
+    t.test('animates / toggles display', t => {
+      t.plan(2);
+      const wrapper = mountWrapper();
+      wrapper.setProps({ show: true });
 
-      wrapper.setState({ wide: true }, () => {
-        t.notOk(wrapper.find('ul').getDOMNode().hasAttribute('aria-expanded'));
-      });
+      setTimeout(() => {
+        t.equal(wrapper.state('animateClass'), 'dqpl-show dqpl-active');
+        wrapper.setProps({ show: false });
+
+        setTimeout(() => {
+          t.equal(wrapper.state('animateClass'), '');
+        }, 101);
+      }, 101); // wait for animation classes to get added
     });
   });
 });

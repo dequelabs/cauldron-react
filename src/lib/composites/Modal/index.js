@@ -30,17 +30,11 @@ export default class Modal extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { show } = nextProps;
-
-    if (!show && this.props.show) {
-      this.close();
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (!prevProps.show && this.props.show) {
       this.attachIsolator(this.focusHeading);
+    } else if (prevProps.show && !this.props.show) {
+      this.close();
     }
   }
 
