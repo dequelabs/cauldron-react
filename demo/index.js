@@ -51,8 +51,8 @@ class App extends Component {
     this.setState({ show: !show });
   }
 
-  render() {
-    const SideBarLink = ({ to, children }) => (
+  renderSideBarLink(to, text) {
+    return (
       <Link
         to={to}
         onClick={() => {
@@ -61,9 +61,12 @@ class App extends Component {
         }}
         tabIndex={-1}
       >
-        {children}
+        {text}
       </Link>
     );
+  }
+
+  render() {
     return (
       <Router>
         <div>
@@ -87,36 +90,34 @@ class App extends Component {
           </TopBar>
           <SideBar show={this.state.show} onDismiss={this.onTriggerClick}>
             <MenuItem>
-              <SideBarLink to='/components/button'>Button</SideBarLink>
+              {this.renderSideBarLink('/components/button', 'Button')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/first-time-point-out'>
-                First time point out
-              </SideBarLink>
+              {this.renderSideBarLink('/components/first-time-point-out', 'First time point out')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/composites/alert'>Alert</SideBarLink>
+              {this.renderSideBarLink('/composites/alert', 'Alert')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/composites/modal'>Modal</SideBarLink>
+              {this.renderSideBarLink('/composites/modal', 'Modal')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/toast'>Toast</SideBarLink>
+              {this.renderSideBarLink('/components/toast', 'Toast')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/loader'>Loader</SideBarLink>
+              {this.renderSideBarLink('/components/loader', 'Loader')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/options-menu'>Options Menu</SideBarLink>
+              {this.renderSideBarLink('/components/options-menu', 'Options Menu')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/select'>Select</SideBarLink>
+              {this.renderSideBarLink('/components/select', 'Select')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/radio-group'>Radio Group</SideBarLink>
+              {this.renderSideBarLink('/components/radio-group', 'Radio Group')}
             </MenuItem>
             <MenuItem>
-              <SideBarLink to='/components/checkbox'>Checkbox</SideBarLink>
+              {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
             </MenuItem>
           </SideBar>
           <Workspace
