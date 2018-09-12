@@ -129,7 +129,8 @@ export default class Select extends Component {
         </li>
       );
     });
-
+    // to make the "dqpl-label" div behave like a native label,
+    // here we add a click listener which focuses the combobox
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div className="dqpl-field-wrap">
