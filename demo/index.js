@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 // import demo views
 import Home from './Home';
@@ -35,7 +30,7 @@ import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
 import './index.css';
 
 class App extends Component {
-  state = { show: false }
+  state = { show: false };
   constructor() {
     super();
     this.onTriggerClick = this.onTriggerClick.bind(this);
@@ -67,6 +62,7 @@ class App extends Component {
   }
 
   render() {
+    /* eslint-disable jsx-a11y/anchor-has-content */
     return (
       <Router>
         <div>
@@ -74,17 +70,19 @@ class App extends Component {
           <TopBar hasTrigger={true}>
             <TopBarTrigger
               onClick={this.onTriggerClick}
-              menuItemRef={el => this.topBarTrigger = el}
+              menuItemRef={el => (this.topBarTrigger = el)}
             />
             <MenuItem>
-              <Link tabIndex={-1} to='/'>Cauldron</Link>
+              <Link tabIndex={-1} to="/">
+                Cauldron
+              </Link>
             </MenuItem>
-            <MenuItem className='dqpl-right-aligned'>
+            <MenuItem className="dqpl-right-aligned">
               <a
                 tabIndex={-1}
-                href='https://github.com/dequelabs/cauldron-react'
-                className='fa fa-github'
-                aria-label='Cauldron React on GitHub'
+                href="https://github.com/dequelabs/cauldron-react"
+                className="fa fa-github"
+                aria-label="Cauldron React on GitHub"
               />
             </MenuItem>
           </TopBar>
@@ -93,7 +91,10 @@ class App extends Component {
               {this.renderSideBarLink('/components/button', 'Button')}
             </MenuItem>
             <MenuItem>
-              {this.renderSideBarLink('/components/first-time-point-out', 'First time point out')}
+              {this.renderSideBarLink(
+                '/components/first-time-point-out',
+                'First time point out'
+              )}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/composites/alert', 'Alert')}
@@ -108,7 +109,10 @@ class App extends Component {
               {this.renderSideBarLink('/components/loader', 'Loader')}
             </MenuItem>
             <MenuItem>
-              {this.renderSideBarLink('/components/options-menu', 'Options Menu')}
+              {this.renderSideBarLink(
+                '/components/options-menu',
+                'Options Menu'
+              )}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/select', 'Select')}
@@ -121,27 +125,40 @@ class App extends Component {
             </MenuItem>
           </SideBar>
           <Workspace
-            id='main-content'
-            workspaceRef={el => this.workspace = el}
+            id="main-content"
+            workspaceRef={el => (this.workspace = el)}
             tabIndex={-1}
           >
             <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/components/button' component={Button} />
-              <Route exact path='/components/first-time-point-out' component={FirstTimePointOut} />
-              <Route exact path='/components/toast' component={Toast} />
-              <Route exact path='/components/loader' component={Loader} />
-              <Route exact path='/components/options-menu' component={OptionsMenu} />
-              <Route exact path='/composites/alert' component={Alert} />
-              <Route exact path='/composites/modal' component={Modal} />
-              <Route exact path='/components/select' component={Select} />
-              <Route exact path='/components/radio-group' component={RadioGroup} />
-              <Route exact path='/components/checkbox' component={Checkbox} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/components/button" component={Button} />
+              <Route
+                exact
+                path="/components/first-time-point-out"
+                component={FirstTimePointOut}
+              />
+              <Route exact path="/components/toast" component={Toast} />
+              <Route exact path="/components/loader" component={Loader} />
+              <Route
+                exact
+                path="/components/options-menu"
+                component={OptionsMenu}
+              />
+              <Route exact path="/composites/alert" component={Alert} />
+              <Route exact path="/composites/modal" component={Modal} />
+              <Route exact path="/components/select" component={Select} />
+              <Route
+                exact
+                path="/components/radio-group"
+                component={RadioGroup}
+              />
+              <Route exact path="/components/checkbox" component={Checkbox} />
             </Switch>
           </Workspace>
         </div>
       </Router>
     );
+    /* eslint-enable jsx-a11y/anchor-has-content */
   }
 }
 

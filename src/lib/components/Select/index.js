@@ -8,12 +8,16 @@ import { search, shouldSearch } from './utils';
 export default class Select extends Component {
   static propTypes = {
     // ensure options is an array of objects with at least a "value" property
-    options: PropTypes.arrayOf((options, key, componentName, location, propFullName) => {
-      const option = options[key];
-      if (!option.value) {
-        return new Error(`Invalid prop ${propFullName} supplied to ${componentName}`);
+    options: PropTypes.arrayOf(
+      (options, key, componentName, location, propFullName) => {
+        const option = options[key];
+        if (!option.value) {
+          return new Error(
+            `Invalid prop ${propFullName} supplied to ${componentName}`
+          );
+        }
       }
-    }).isRequired,
+    ).isRequired,
     label: PropTypes.string.isRequired,
     listId: PropTypes.string.isRequired,
     selectedId: PropTypes.string.isRequired,
@@ -22,7 +26,7 @@ export default class Select extends Component {
     required: PropTypes.bool,
     onSelect: PropTypes.func,
     value: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     className: '',
@@ -30,7 +34,7 @@ export default class Select extends Component {
     onKeyDown: () => {},
     onSelect: () => {},
     value: null
-  }
+  };
 
   constructor() {
     super();
@@ -78,29 +82,40 @@ export default class Select extends Component {
   render() {
     const { expanded, activeIndex, selectedIndex } = this.state;
     const {
-      className, label, required, selectedId, listId, options, onSelect, ...other
+      className,
+      label,
+      required,
+      selectedId,
+      listId,
+      options,
+      onSelect,
+      ...other
     } = this.props;
     const hasActiveOption = typeof activeIndex !== 'undefined';
     const active = options[activeIndex];
-    const pseudoVal = hasActiveOption && active && (active.label || active.value);
+    const pseudoVal =
+      hasActiveOption && active && (active.label || active.value);
     const labelId = uniqueString();
     const valueId = uniqueString();
 
     const opts = options.map((option, i) => {
       const { value, label, disabled } = option;
-
+      // we don't need key events here because focus stays on the combobox element
+      /* eslint-disable jsx-a11y/click-events-have-key-events */
       return (
         <li
           key={`${selectedId}-${i}`}
           className={classNames('dqpl-option', {
             'dqpl-option-active': hasActiveOption ? activeIndex === i : i === 0
           })}
-          role='option'
+          role="option"
           aria-selected={selectedIndex === i}
           aria-disabled={disabled}
           id={activeIndex === i ? selectedId : undefined}
           onClick={() => {
-            if (disabled) { return; }
+            if (disabled) {
+              return;
+            }
             this.setState({
               activeIndex: i,
               selectedIndex: i,
@@ -115,38 +130,40 @@ export default class Select extends Component {
       );
     });
 
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <div className='dqpl-field-wrap'>
-        <div
-          className='dqpl-label'
-          id={labelId}
-          onClick={this.focusSelect}
-        >
+      <div className="dqpl-field-wrap">
+        <div className="dqpl-label" id={labelId} onClick={this.focusSelect}>
           {label}
         </div>
-        <div className='dqpl-select'>
+        <div className="dqpl-select">
           <div
             {...other}
             className={classNames('dqpl-combobox', className)}
             tabIndex={0}
-            role='combobox'
-            aria-autocomplete='none'
+            role="combobox"
+            aria-autocomplete="none"
             aria-expanded={expanded}
             aria-required={required}
             aria-labelledby={`${labelId} ${valueId}`}
-            aria-owns={listId}
+            aria-controls={listId}
             aria-activedescendant={hasActiveOption ? selectedId : ''}
             onKeyDown={this.onKeyDown}
             onClick={this.onClick}
-            ref={select => this.select = select}
+            ref={select => (this.select = select)}
           >
-            <div role='textbox' aria-readonly={true} className='dqpl-pseudo-value' id={valueId}>
+            <div
+              role="textbox"
+              aria-readonly={true}
+              className="dqpl-pseudo-value"
+              id={valueId}
+            >
               {pseudoVal}
             </div>
           </div>
           <ul
             id={listId}
-            role='listbox'
+            role="listbox"
             className={classNames('dqpl-listbox', {
               'dqpl-listbox-show': expanded
             })}
@@ -156,13 +173,15 @@ export default class Select extends Component {
         </div>
       </div>
     );
+    /* eslint-enable jsx-a11y/click-events-have-key-events jsx-a11y/no-static-element-interactions */
   }
 
   findAdjacentEnabledOption(dir) {
     const { options } = this.props;
     const { activeIndex = 0 } = this.state;
     const d = dir === 'up' ? -1 : 1;
-    let adjacentIndex, i = activeIndex + d;
+    let adjacentIndex,
+      i = activeIndex + d;
 
     while (options[i] && typeof adjacentIndex === 'undefined') {
       if (!options[i].disabled) {
@@ -199,7 +218,9 @@ export default class Select extends Component {
       }
 
       case 'up': {
-        if (!expanded) { return; }
+        if (!expanded) {
+          return;
+        }
         e.preventDefault();
         const next = this.findAdjacentEnabledOption('up');
 
