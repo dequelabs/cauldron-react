@@ -10,14 +10,14 @@ test('__commons/MenuItem__', t => {
     let clicked = false;
     const wrapper = mount(
       <MenuItem>
-        <a />
+        <a href="/foo">Foo</a>
       </MenuItem>
     );
     wrapper
       .find('a')
       .getDOMNode()
       // enzyme's simulate won't trigger an onClick on the above <a />
-      .addEventListener('click', () => clicked = true);
+      .addEventListener('click', () => (clicked = true));
 
     wrapper.simulate('click');
     t.true(clicked);
@@ -26,9 +26,8 @@ test('__commons/MenuItem__', t => {
   t.test('calls onClick prop', t => {
     t.plan(1);
     let clicked = false;
-    const click = () => clicked = true;
-    mount(<MenuItem onClick={click}>BOOGNISH</MenuItem>)
-      .simulate('click');
+    const click = () => (clicked = true);
+    mount(<MenuItem onClick={click}>BOOGNISH</MenuItem>).simulate('click');
 
     t.true(clicked);
   });
@@ -51,7 +50,7 @@ test('__commons/MenuItem__', t => {
   t.test('supports menuItemRef props', t => {
     t.plan(1);
     let called = false;
-    const ref = () => called = true;
+    const ref = () => (called = true);
     mount(<MenuItem menuItemRef={ref}>BOOGNISH</MenuItem>);
     t.true(called);
   });

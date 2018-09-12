@@ -7,11 +7,11 @@ export default class OptionsMenu extends Component {
     id: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     show: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     show: false
-  }
+  };
 
   constructor() {
     super();
@@ -24,9 +24,11 @@ export default class OptionsMenu extends Component {
     const { itemIndex } = this.state;
     const { show } = this.props;
 
-    if (!prevProps.show && show && this.itemRefs.length) { // handles opens
+    if (!prevProps.show && show && this.itemRefs.length) {
+      // handles opens
       this.itemRefs[0].focus();
-    } else if (prevState.itemIndex !== itemIndex) { // handle up/down arrows
+    } else if (prevState.itemIndex !== itemIndex) {
+      // handle up/down arrows
       this.itemRefs[itemIndex].focus();
     }
   }
@@ -36,10 +38,10 @@ export default class OptionsMenu extends Component {
     const items = children.map(({ props }, i) => (
       <li
         key={`${id}-${i}`}
-        className='dqpl-options-menuitem'
+        className="dqpl-options-menuitem"
         tabIndex={-1}
-        role='menuitem'
-        ref={el => this.itemRefs[i] = el}
+        role="menuitem"
+        ref={el => (this.itemRefs[i] = el)}
         {...props}
       />
     ));
@@ -47,9 +49,10 @@ export default class OptionsMenu extends Component {
     return (
       <ul
         {...other}
-        className='dqpl-options-menu'
+        className="dqpl-options-menu"
         aria-expanded={show}
         id={id}
+        role="menu"
         onKeyDown={this.onKeyDown}
       >
         {items}
