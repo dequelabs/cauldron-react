@@ -13,13 +13,13 @@ export MenuItem from './lib/commons/MenuItem';
  * Composites
  */
 
-export {
-  default as TopBar,
-  TopBarTrigger,
-} from './lib/composites/TopBar';
+export { default as TopBar, TopBarTrigger } from './lib/composites/TopBar';
 export SideBar, { Item as SideBarItem } from './lib/composites/SideBar';
 export Alert, { Actions as AlertActions } from './lib/composites/Alert';
-export Modal, { Content as ModalContent, Footer as ModalFooter } from './lib/composites/Modal';
+export Modal, {
+  Content as ModalContent,
+  Footer as ModalFooter
+} from './lib/composites/Modal';
 export SkipLink from './lib/composites/SkipLink';
 
 /**
@@ -40,6 +40,7 @@ export {
 export Select from './lib/components/Select';
 export RadioGroup from './lib/components/RadioGroup';
 export Checkbox from './lib/components/Checkbox';
+export Tooltip from './lib/components/Tooltip';
 
 /**
  * Helpers / Utils
