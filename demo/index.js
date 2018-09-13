@@ -14,6 +14,7 @@ import OptionsMenu from './patterns/components/OptionsMenu';
 import Select from './patterns/components/Select';
 import RadioGroup from './patterns/components/RadioGroup';
 import Checkbox from './patterns/components/Checkbox';
+import Tooltip from './patterns/components/Tooltip';
 
 // import cauldron react components
 import {
@@ -123,6 +124,9 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
             </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/tooltip', 'Tooltip')}
+            </MenuItem>
           </SideBar>
           <Workspace
             id="main-content"
@@ -153,6 +157,7 @@ class App extends Component {
                 component={RadioGroup}
               />
               <Route exact path="/components/checkbox" component={Checkbox} />
+              <Route exact path="/components/tooltip" component={Tooltip} />
             </Switch>
           </Workspace>
         </div>
