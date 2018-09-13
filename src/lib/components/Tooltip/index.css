@@ -5,6 +5,7 @@
 .dqpl-rc-tooltip .rc-tooltip-inner {
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
   min-width: 145px;
+  max-width: 200px;
   box-sizing: border-box;
   border: 1px solid #999999;
   border-radius: 2px;
