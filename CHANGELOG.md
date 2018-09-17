@@ -13,9 +13,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-- adds <RadioGroup /> component ([#24](https://github.com/dequelabs/cauldron-react/issues/24)) ([9ae5276](https://github.com/dequelabs/cauldron-react/commit/9ae5276))
+- adds RadioGroup component ([#24](https://github.com/dequelabs/cauldron-react/issues/24)) ([9ae5276](https://github.com/dequelabs/cauldron-react/commit/9ae5276))
 - adds Checkbox component (closes [#21](https://github.com/dequelabs/cauldron-react/issues/21)) ([#26](https://github.com/dequelabs/cauldron-react/issues/26)) ([41c08c0](https://github.com/dequelabs/cauldron-react/commit/41c08c0))
-- implements <Select /> (closes [#6](https://github.com/dequelabs/cauldron-react/issues/6)) ([#19](https://github.com/dequelabs/cauldron-react/issues/19)) ([a195e1e](https://github.com/dequelabs/cauldron-react/commit/a195e1e))
+- implements Select (closes [#6](https://github.com/dequelabs/cauldron-react/issues/6)) ([#19](https://github.com/dequelabs/cauldron-react/issues/19)) ([a195e1e](https://github.com/dequelabs/cauldron-react/commit/a195e1e))
 - options menu, trigger, wrapper, and item components ([#14](https://github.com/dequelabs/cauldron-react/issues/14)) ([76dcfec](https://github.com/dequelabs/cauldron-react/commit/76dcfec))
 
 <a name="0.0.3"></a>
