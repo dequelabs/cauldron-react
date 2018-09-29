@@ -4,7 +4,7 @@
       "env"
     ],
     "react",
-    "stage-2"
+    "stage-0"
   ],
   "plugins": [
     "transform-runtime",
