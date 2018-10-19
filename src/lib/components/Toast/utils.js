@@ -5,11 +5,11 @@ import queryAll from 'src/lib/utils/query-all';
  * Maps toast types to their classNames and icons
  */
 export const typeMap = {
-  'confirmation': {
+  confirmation: {
     className: 'success',
     icon: 'fa-info-circle'
   },
-  'caution': {
+  caution: {
     className: 'warning',
     icon: 'fa-warning'
   },
@@ -20,7 +20,8 @@ export const typeMap = {
 };
 
 export const tabIndexHandler = (reset, toast) => {
-  if (reset) { // restore tab indicies that we clobbered
+  if (reset) {
+    // restore tab indicies that we clobbered
     return queryAll('[data-cached-tabindex]').forEach(el => {
       el.tabIndex = el.getAttribute('data-cached-tabindex');
     });

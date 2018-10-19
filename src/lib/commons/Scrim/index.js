@@ -25,7 +25,9 @@ export default class Scrim extends Component {
 
       // using setTimeout because css transitions require us to add the classes separately
       setTimeout(() => {
-        if (!this.el) { return; }
+        if (!this.el) {
+          return;
+        }
 
         this.setState({
           animationClass: 'dqpl-scrim-show dqpl-scrim-fade-in'
@@ -65,7 +67,12 @@ export default class Scrim extends Component {
       return null;
     }
 
-    return (<div ref={el => this.el = el} className={`dqpl-scrim ${animationClass}`} />);
+    return (
+      <div
+        ref={el => (this.el = el)}
+        className={`dqpl-scrim ${animationClass}`}
+      />
+    );
   }
 }
 

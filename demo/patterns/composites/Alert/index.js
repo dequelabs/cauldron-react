@@ -18,18 +18,17 @@ export default class Demo extends Component {
         <h1>{'Alert'}</h1>
         <h2>{'Demo'}</h2>
         <Button onClick={this.toggleSimpleAlert}>{'Simple Alert'}</Button>
-        <Alert
-          onClose={this.toggleSimpleAlert}
-          show={showSimpleAlert}
-        >
+        <Alert onClose={this.toggleSimpleAlert} show={showSimpleAlert}>
           {'Simple dismissable alert'}
           <AlertActions>
             <Button onClick={this.toggleSimpleAlert}>{'Ok'}</Button>
-            <Button secondary={true} onClick={this.toggleSimpleAlert}>{'Cancel'}</Button>
+            <Button secondary={true} onClick={this.toggleSimpleAlert}>
+              {'Cancel'}
+            </Button>
           </AlertActions>
         </Alert>
         <h2>{'Code Sample'}</h2>
-        <Highlight langauge='javascript'>
+        <Highlight langauge="javascript">
           {`
 import React, { Component } from 'react';
 import { Button, Alert, AlertActions } from 'cauldron-react';
@@ -73,7 +72,7 @@ class Demo extends Component {
   }
 
   toggleSimpleAlert() {
-    this.setState(({showSimpleAlert}) => {
+    this.setState(({ showSimpleAlert }) => {
       return { showSimpleAlert: !showSimpleAlert };
     });
   }

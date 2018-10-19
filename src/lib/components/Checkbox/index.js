@@ -12,13 +12,13 @@ export default class Checkbox extends Component {
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     className: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     checked: false,
     disabled: false,
     onClick: () => {}
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -43,12 +43,23 @@ export default class Checkbox extends Component {
 
   render() {
     const { checked, focused } = this.state;
-    const { id, value, name, label, disabled, className, ...others } = this.props;
+    const {
+      id,
+      value,
+      name,
+      label,
+      disabled,
+      className,
+      ...others
+    } = this.props;
 
     return (
-      <div className={classNames('dqpl-checkbox-wrap dqpl-flexr', className)} {...others}>
+      <div
+        className={classNames('dqpl-checkbox-wrap dqpl-flexr', className)}
+        {...others}
+      >
         <input
-          type='checkbox'
+          type="checkbox"
           checked={checked}
           onChange={this.onCheckboxClick}
           disabled={disabled}
@@ -57,10 +68,10 @@ export default class Checkbox extends Component {
           value={value}
           onFocus={this.toggleFocus}
           onBlur={this.toggleFocus}
-          ref={checkbox => this.checkbox = checkbox}
+          ref={checkbox => (this.checkbox = checkbox)}
         />
         <div
-          aria-hidden='true'
+          aria-hidden="true"
           className={classNames('dqpl-checkbox dqpl-overlay-checkbox fa', {
             'fa-square-o': !checked,
             'fa-check-square': checked,
@@ -70,7 +81,9 @@ export default class Checkbox extends Component {
           onClick={this.onOverlayClick}
         />
         <label
-          className={classNames('dqpl-label', { 'dqpl-label-disabled': disabled })}
+          className={classNames('dqpl-label', {
+            'dqpl-label-disabled': disabled
+          })}
           htmlFor={id}
         >
           {label}

@@ -9,13 +9,13 @@ export default class MenuItem extends Component {
     menuItemRef: PropTypes.func,
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     menuItemRef: () => {},
     onClick: () => {},
     onKeyDown: () => {}
-  }
+  };
 
   constructor() {
     super();
@@ -44,7 +44,7 @@ export default class MenuItem extends Component {
     return (
       <li
         {...other}
-        role='menuitem'
+        role="menuitem"
         ref={item => {
           this.item = item;
           menuItemRef(item);

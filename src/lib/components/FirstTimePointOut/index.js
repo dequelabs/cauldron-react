@@ -11,14 +11,14 @@ export default class FirstTimePointOut extends Component {
     noArrow: PropTypes.bool,
     onClose: PropTypes.func,
     dismissText: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     ftpRef: () => {},
     noArrow: false,
     onClose: () => {},
     dismissText: 'dismiss'
-  }
+  };
 
   constructor() {
     super();
@@ -31,32 +31,34 @@ export default class FirstTimePointOut extends Component {
     const { show } = this.state;
     const { headerId, ftpRef, children, noArrow, dismissText } = this.props;
 
-    if (!show) { return null; }
+    if (!show) {
+      return null;
+    }
 
     return (
       <div
         className={classNames('dqpl-pointer-wrap', {
           'dqpl-no-arrow': noArrow
         })}
-        role='region'
+        role="region"
         aria-labelledby={headerId}
       >
-        {
-          noArrow ? null : (
-            <div className='dqpl-arrow'>
-              <div className='dqpl-arrow-pointer'></div>
-              <div className='dqpl-arrow-neck'></div>
-            </div>
-          )
-        }
-        <div className='dqpl-box'>
+        {noArrow ? null : (
+          <div className="dqpl-arrow">
+            <div className="dqpl-arrow-pointer" />
+            <div className="dqpl-arrow-neck" />
+          </div>
+        )}
+        <div className="dqpl-box">
           <button
-            className='dqpl-ftp-dismiss fa fa-close'
-            type='button'
+            className="dqpl-ftp-dismiss fa fa-close"
+            type="button"
             aria-label={dismissText}
             onClick={this.onCloseClick}
           />
-          <div className='dqpl-content' tabIndex='-1' ref={ftpRef}>{children}</div>
+          <div className="dqpl-content" tabIndex="-1" ref={ftpRef}>
+            {children}
+          </div>
         </div>
       </div>
     );

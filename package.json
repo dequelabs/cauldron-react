@@ -7,6 +7,7 @@
     "build": "webpack --colors --config webpack.config.babel.js",
     "dev": "npm run build -- --watch",
     "lint": "eslint .",
+    "fmt": "prettier --write 'demo/**/*.{css,js}' 'src/**/*.js' *.{js,json,md}",
     "prepack": "NODE_ENV=production webpack --config webpack.config.babel.js",
     "start": "webpack-dev-server --history-api-fallback --config webpack.config.demo.babel.js",
     "release": "standard-version",

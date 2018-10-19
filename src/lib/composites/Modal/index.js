@@ -39,9 +39,12 @@ export default class Modal extends Component {
   }
 
   attachIsolator(done) {
-    this.setState({
-      isolator: new AriaIsolate(this.element)
-    }, done);
+    this.setState(
+      {
+        isolator: new AriaIsolate(this.element)
+      },
+      done
+    );
   }
 
   render() {
@@ -56,15 +59,20 @@ export default class Modal extends Component {
       ...other
     } = this.props;
 
-    if (!show) { return null; }
+    if (!show) {
+      return null;
+    }
 
-    const close = !forceAction
-      ? (
-        <button className='dqpl-close dqpl-icon' type='button' onClick={this.close}>
-          <div className='fa fa-close' aria-hidden='true' />
-          <Offscreen>{closeButtonText}</Offscreen>
-        </button>
-      ) : null;
+    const close = !forceAction ? (
+      <button
+        className="dqpl-close dqpl-icon"
+        type="button"
+        onClick={this.close}
+      >
+        <div className="fa fa-close" aria-hidden="true" />
+        <Offscreen>{closeButtonText}</Offscreen>
+      </button>
+    ) : null;
     const Heading = `h${heading.level || 2}`;
 
     return (
@@ -76,19 +84,21 @@ export default class Modal extends Component {
         }}
       >
         <div
-          role='dialog'
-          className={classNames('dqpl-modal', className, { 'dqpl-dialog-show': show })}
+          role="dialog"
+          className={classNames('dqpl-modal', className, {
+            'dqpl-dialog-show': show
+          })}
           ref={el => {
             this.element = el;
             modalRef(el);
           }}
           {...other}
         >
-          <div className='dqpl-dialog-inner'>
-            <div className='dqpl-modal-header'>
+          <div className="dqpl-dialog-inner">
+            <div className="dqpl-modal-header">
               <Heading
-                className='dqpl-modal-heading'
-                ref={el => this.heading = el}
+                className="dqpl-modal-heading"
+                ref={el => (this.heading = el)}
                 tabIndex={-1}
               >
                 {heading.text}
@@ -109,7 +119,9 @@ export default class Modal extends Component {
   }
 
   focusHeading() {
-    if (this.heading) { this.heading.focus(); }
+    if (this.heading) {
+      this.heading.focus();
+    }
     this.state.isolator.activate();
   }
 }
@@ -132,10 +144,14 @@ Modal.defaultProps = {
   modalRef: noop
 };
 
-const Content = ({children}) => (<div className='dqpl-content'>{children}</div>);
+const Content = ({ children }) => (
+  <div className="dqpl-content">{children}</div>
+);
 Content.propTypes = commonProps;
 
-const Footer = ({children}) => (<div className='dqpl-modal-footer'>{children}</div>);
+const Footer = ({ children }) => (
+  <div className="dqpl-modal-footer">{children}</div>
+);
 Footer.propTypes = commonProps;
 
 export { Content, Footer };

@@ -8,11 +8,11 @@ export default class Demo extends Component {
       <div>
         <h1>RadioGroup</h1>
         <h2>Demo</h2>
-        <h3 id='pizza-label'>Do you like pizza?</h3>
+        <h3 id="pizza-label">Do you like pizza?</h3>
         <RadioGroup
-          name='pizza'
-          aria-labelledby='pizza-label'
-          defaultValue='tuesday'
+          name="pizza"
+          aria-labelledby="pizza-label"
+          defaultValue="tuesday"
           radios={[
             { id: 'yes', value: 'yes', label: 'Yes' },
             { id: 'no', value: 'no', label: 'No', disabled: true },
@@ -20,7 +20,7 @@ export default class Demo extends Component {
           ]}
         />
         <h2>Code Sample</h2>
-        <Highlight language='javascript'>
+        <Highlight language="javascript">
           {`
   import React from 'react';
   import { RadioGroup } from 'cauldron-react';

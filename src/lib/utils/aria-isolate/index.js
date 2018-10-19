@@ -1,11 +1,12 @@
-
 /**
  * Handles aria-hidden for dialogs.
  */
 export default class AriaIsolate {
   constructor(el) {
     if (!(el instanceof HTMLElement)) {
-      throw new Error('AriaIsolate must be instantiated with a valid HTML element');
+      throw new Error(
+        'AriaIsolate must be instantiated with a valid HTML element'
+      );
     }
 
     this.element = el;
@@ -39,7 +40,9 @@ export default class AriaIsolate {
    * from everything affected by 'activate'
    */
   deactivate() {
-    this.affectedElements.forEach(affected => affected.removeAttribute('aria-hidden'));
+    this.affectedElements.forEach(affected =>
+      affected.removeAttribute('aria-hidden')
+    );
     this.affectedElements = [];
   }
 }

@@ -9,11 +9,13 @@ const plugins = [];
 
 if (isProd) {
   plugins.push(new UglifyJSPlugin());
-  plugins.push(new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('production')
-    }
-  }));
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
+  );
 }
 
 export default {
@@ -37,11 +39,14 @@ export default {
       },
       {
         test: /\.less$/,
-        use: [{
-          loader: 'css-loader'
-        }, {
-          loader: 'less-loader'
-        }]
+        use: [
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'less-loader'
+          }
+        ]
       }
     ]
   },

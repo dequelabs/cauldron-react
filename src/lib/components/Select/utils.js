@@ -21,7 +21,7 @@ export const shouldSearch = key => {
  */
 export const search = (key, options) => {
   clearTimeout(timer);
-  timer = setTimeout(() => keys = [], TYPE_TIMEOUT);
+  timer = setTimeout(() => (keys = []), TYPE_TIMEOUT);
 
   keys.push(key);
   const toFind = keys.join('');

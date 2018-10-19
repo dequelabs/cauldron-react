@@ -5,8 +5,8 @@ import Scrim from '../../commons/Scrim';
 import AriaIsolate from '../../utils/aria-isolate';
 
 const noop = () => {};
-export const Actions = ({children}) => (
-  <div className='dqpl-buttons'>{children}</div>
+export const Actions = ({ children }) => (
+  <div className="dqpl-buttons">{children}</div>
 );
 
 Actions.propTypes = {
@@ -55,9 +55,12 @@ export default class Alert extends Component {
   }
 
   attachIsolator(done) {
-    this.setState({
-      isolator: new AriaIsolate(this.element)
-    }, done);
+    this.setState(
+      {
+        isolator: new AriaIsolate(this.element)
+      },
+      done
+    );
   }
 
   render() {
@@ -66,7 +69,9 @@ export default class Alert extends Component {
     const cl = className || '';
     const alertClass = show ? 'dqpl-dialog-show' : '';
 
-    if (!show) { return null; }
+    if (!show) {
+      return null;
+    }
 
     return (
       <FocusTrap
@@ -78,23 +83,21 @@ export default class Alert extends Component {
       >
         <div
           className={['dqpl-alert', alertClass, cl].join(' ')}
-          role='alertdialog'
+          role="alertdialog"
           ref={el => {
             this.element = el;
             alertRef(el);
           }}
         >
           <div
-            className='dqpl-dialog-inner'
+            className="dqpl-dialog-inner"
             ref={el => {
               this.content = el;
               contentRef(el);
             }}
             tabIndex={-1}
           >
-            <div className='dqpl-content'>
-              {this.props.children}
-            </div>
+            <div className="dqpl-content">{this.props.children}</div>
           </div>
           <Scrim show={show} />
         </div>
@@ -109,7 +112,9 @@ export default class Alert extends Component {
   }
 
   focusContent() {
-    if (this.content) { this.content.focus(); }
+    if (this.content) {
+      this.content.focus();
+    }
     this.state.isolator.activate();
   }
 }

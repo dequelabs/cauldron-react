@@ -6,7 +6,7 @@
   TODO peel this back when this gets resolved
   https://github.com/dequelabs/pattern-library/issues/59
  */
-.select-demo [role="textbox"],
-.select-demo [role="textbox"]:hover {
+.select-demo [role='textbox'],
+.select-demo [role='textbox']:hover {
   border: 0;
 }

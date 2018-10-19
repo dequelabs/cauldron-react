@@ -11,14 +11,14 @@ export default class SideBar extends Component {
     onDismiss: PropTypes.func.isRequired,
     className: PropTypes.string,
     show: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     className: '',
     show: false
-  }
+  };
 
-  menuItems = []
+  menuItems = [];
 
   constructor() {
     super();
@@ -55,9 +55,8 @@ export default class SideBar extends Component {
 
     switch (key) {
       case 'up': {
-        const newFocusIndex = focusIndex === 0
-          ? Children.count(children) - 1
-          : focusIndex - 1;
+        const newFocusIndex =
+          focusIndex === 0 ? Children.count(children) - 1 : focusIndex - 1;
         e.preventDefault();
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
@@ -66,9 +65,8 @@ export default class SideBar extends Component {
       }
 
       case 'down': {
-        const newFocusIndex = (focusIndex === Children.count(children) - 1)
-          ? 0
-          : focusIndex + 1;
+        const newFocusIndex =
+          focusIndex === Children.count(children) - 1 ? 0 : focusIndex + 1;
         e.preventDefault();
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
@@ -86,7 +84,7 @@ export default class SideBar extends Component {
   componentDidUpdate(prevProps) {
     const { show } = this.props;
 
-    if (prevProps.show === show ) {
+    if (prevProps.show === show) {
       return;
     }
 
@@ -95,7 +93,7 @@ export default class SideBar extends Component {
 
   animate() {
     const { show } = this.props;
-    const [ first, second ] = show
+    const [first, second] = show
       ? ['dqpl-show', 'dqpl-show dqpl-active']
       : ['dqpl-show', ''];
 
@@ -128,16 +126,14 @@ export default class SideBar extends Component {
           className={classNames('dqpl-side-bar', className, animateClass)}
           {...listProps}
         >
-          {
-            Children.map(children, (child, index) => (
-              cloneElement(child, {
-                key: index,
-                onKeyDown: this.onKeyDown,
-                tabIndex: focusIndex === index ? 0 : -1,
-                menuItemRef: menuItem => this.menuItems[index] = menuItem
-              })
-            ))
-          }
+          {Children.map(children, (child, index) =>
+            cloneElement(child, {
+              key: index,
+              onKeyDown: this.onKeyDown,
+              tabIndex: focusIndex === index ? 0 : -1,
+              menuItemRef: menuItem => (this.menuItems[index] = menuItem)
+            })
+          )}
         </ul>
         <Scrim show={!wide && show} />
       </Fragment>

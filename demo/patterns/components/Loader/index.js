@@ -8,7 +8,7 @@ const Demo = () => (
     <h2>Demo</h2>
     <Loader label={'Loading'} />
     <h2>Code Sample</h2>
-    <Highlight language='javascript'>
+    <Highlight language="javascript">
       {`
 import React from 'react';
 import { Loader } from 'cauldron-react';
