@@ -15,13 +15,13 @@ export default class OptionsMenuTrigger extends Component {
     onClick: PropTypes.func,
     triggerRef: PropTypes.func,
     className: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     onKeyDown: () => {},
     onClick: () => {},
     triggerRef: () => {}
-  }
+  };
 
   constructor() {
     super();
@@ -36,7 +36,7 @@ export default class OptionsMenuTrigger extends Component {
 
     return (
       <button
-        type='button'
+        type="button"
         {...other}
         aria-expanded={expanded}
         className={classNames('dqpl-options-menu-trigger', className)}

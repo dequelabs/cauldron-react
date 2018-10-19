@@ -24,13 +24,13 @@ export default class SkipLink extends Component {
       <nav className={classNames('dqpl-skip-container', currentClass)}>
         <a
           href={target}
-          className='dqpl-skip-link'
+          className="dqpl-skip-link"
           onClick={this.onClick}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
         >
-          <span className='dqpl-skip-one'>{skipText}</span>
-          <span className='dqpl-skip-two'>{targetText}</span>
+          <span className="dqpl-skip-one">{skipText}</span>
+          <span className="dqpl-skip-two">{targetText}</span>
         </a>
       </nav>
     );
@@ -49,7 +49,9 @@ export default class SkipLink extends Component {
     this.setState({ currentClass: 'dqpl-skip-container-active' });
 
     setTimeout(() => {
-      this.setState({ currentClass: 'dqpl-skip-container-active dqpl-skip-fade' });
+      this.setState({
+        currentClass: 'dqpl-skip-container-active dqpl-skip-fade'
+      });
     });
   }
 

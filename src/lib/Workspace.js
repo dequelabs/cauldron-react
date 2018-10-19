@@ -9,20 +9,20 @@ export default class Workspace extends Component {
       PropTypes.string
     ]).isRequired,
     workspaceRef: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     workspaceRef: () => {}
-  }
+  };
 
   render() {
     const { children, workspaceRef, ...other } = this.props;
 
     return (
-      <div className='dqpl-layout'>
+      <div className="dqpl-layout">
         <div
-          className='dqpl-main-content'
-          role='main'
+          className="dqpl-main-content"
+          role="main"
           ref={workspaceRef}
           {...other}
         >

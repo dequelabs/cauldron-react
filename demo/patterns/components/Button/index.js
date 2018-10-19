@@ -8,9 +8,11 @@ const Demo = () => (
     <h2>Demo</h2>
     <Button>{'Primary'}</Button>
     <Button secondary={true}>{'Secondary'}</Button>
-    <Button secondary={true} disabled={true}>{'Disabled'}</Button>
+    <Button secondary={true} disabled={true}>
+      {'Disabled'}
+    </Button>
     <h2>Code Sample</h2>
-    <Highlight language='javascript'>
+    <Highlight language="javascript">
       {`
 import React from 'react';
 import { Button } from 'cauldron-react';

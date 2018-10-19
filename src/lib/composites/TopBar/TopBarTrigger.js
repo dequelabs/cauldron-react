@@ -10,12 +10,12 @@ export default class TopBarTrigger extends Component {
   static propTypes = {
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     onClick: noop,
     onKeyDown: noop
-  }
+  };
 
   constructor() {
     super();
@@ -37,13 +37,13 @@ export default class TopBarTrigger extends Component {
   render() {
     return (
       <MenuItem
-        className='dqpl-menu-trigger'
-        aria-label='Menu'
-        aria-haspopup='true'
+        className="dqpl-menu-trigger"
+        aria-label="Menu"
+        aria-haspopup="true"
         onKeyDown={this.onKeyDown}
         {...this.props}
       >
-        <Icon type='fa-bars' />
+        <Icon type="fa-bars" />
       </MenuItem>
     );
   }

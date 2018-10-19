@@ -8,5 +8,5 @@ import React from 'react';
  * actually set within the <OptionsMenu /> component
  * (See src/lib/components/OptionsMenu/index.js for details)
  */
-const OptionsMenuItem = props => (<div {...props} />);
+const OptionsMenuItem = props => <div {...props} />;
 export default OptionsMenuItem;

@@ -5,9 +5,9 @@ const Home = () => (
   <div>
     <h1>{'Cauldron React'}</h1>
     <h2>{'Installation'}</h2>
-    <Highlight language='shell'>{'$ npm install cauldron-react'}</Highlight>
+    <Highlight language="shell">{'$ npm install cauldron-react'}</Highlight>
     <h2>{'Usage'}</h2>
-    <Highlight language='javascript'>
+    <Highlight language="javascript">
       {`
 import { Workspace, Button } from 'cauldron-react';
 

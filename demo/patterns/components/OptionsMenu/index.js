@@ -24,16 +24,16 @@ export default class Demo extends Component {
       <div>
         <h1>Options Menu</h1>
         <h2>Demo</h2>
-        <OptionsMenuWrapper className='dqpl-align-left'>
+        <OptionsMenuWrapper className="dqpl-align-left">
           <OptionsMenuTrigger
             onClick={this.toggleMenu}
-            triggerRef={el => this.trigger = el}
-            aria-controls='options-menu-demo'
+            triggerRef={el => (this.trigger = el)}
+            aria-controls="options-menu-demo"
           >
-            <Icon type='fa-ellipsis-v' label='Options' />
+            <Icon type="fa-ellipsis-v" label="Options" />
           </OptionsMenuTrigger>
           <OptionsMenu
-            id='options-menu-demo'
+            id="options-menu-demo"
             onClose={this.onClose}
             show={show}
           >
@@ -43,7 +43,7 @@ export default class Demo extends Component {
           </OptionsMenu>
         </OptionsMenuWrapper>
         <h2>Code Sample</h2>
-        <Highlight language='javascript'>
+        <Highlight language="javascript">
           {`
 import React, { Component } from 'react';
 import {

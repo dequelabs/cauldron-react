@@ -1,4 +1,3 @@
-
 /**
  * Selector for NATURALLY focusable elements
  * @type {String}
@@ -18,6 +17,5 @@ const focusableSelector = [
   'audio[controls]',
   'video[controls]'
 ].join(', ');
-
 
 export default focusableSelector;

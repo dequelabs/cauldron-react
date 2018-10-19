@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Highlight from 'demo/Highlight';
 import { Button, Toast, Link } from 'src/';
 
-
 export default class Demo extends Component {
   constructor() {
     super();
@@ -46,15 +45,9 @@ export default class Demo extends Component {
         >
           {'Your software is out of date, please update it.'}
         </Toast>
-        <Toast
-          type={'action-needed'}
-          show={type === 'action-needed'}
-        >
+        <Toast type={'action-needed'} show={type === 'action-needed'}>
           <span>{'You have entered an alternate universe.'}</span>
-          <Link
-            href='#'
-            onClick={this.onToastDismiss}
-          >
+          <Link href="#" onClick={this.onToastDismiss}>
             {'Go back to non-alternate universe!'}
           </Link>
         </Toast>
@@ -63,26 +56,26 @@ export default class Demo extends Component {
         <Button
           secondary={true}
           onClick={() => this.onTriggerClick('confirmation')}
-          buttonRef={el => this.confirmation = el}
+          buttonRef={el => (this.confirmation = el)}
         >
           {'Confirmation'}
         </Button>
         <Button
           secondary={true}
           onClick={() => this.onTriggerClick('caution')}
-          buttonRef={el => this.caution = el}
+          buttonRef={el => (this.caution = el)}
         >
           {'Caution'}
         </Button>
         <Button
           secondary={true}
           onClick={() => this.onTriggerClick('action-needed')}
-          buttonRef={el => this['action-needed'] = el}
+          buttonRef={el => (this['action-needed'] = el)}
         >
           {'Action Needed'}
         </Button>
         <h2>Code Sample</h2>
-        <Highlight language='javascript'>
+        <Highlight language="javascript">
           {`
     import React from 'react';
     import { Toast } from 'cauldron-react';

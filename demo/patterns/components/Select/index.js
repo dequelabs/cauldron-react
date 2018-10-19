@@ -36,25 +36,27 @@ export default class Demo extends Component {
 
   render() {
     return (
-      <div className='select-demo'>
+      <div className="select-demo">
         <h1>Select</h1>
         <h2>Demo</h2>
         <div>
           <Select
-            label='Day'
-            selectedId='day-selected'
-            listId='day-list'
+            label="Day"
+            selectedId="day-selected"
+            listId="day-list"
             value={this.state.value}
             onSelect={this.onSelect}
             options={this.state.options}
           />
           <p>
-            <span>To programmatically select an option, simply update the </span>
+            <span>
+              To programmatically select an option, simply update the{' '}
+            </span>
             <code>value</code>
             <span> prop.</span>
           </p>
           <Button
-            className='select-demo-button'
+            className="select-demo-button"
             secondary={true}
             onClick={this.onClick}
           >
@@ -65,13 +67,13 @@ export default class Demo extends Component {
             <code>onSelect</code>
             <span> prop, we can easily handle changes in the select list</span>
           </p>
-          <div className='current-value'>
+          <div className="current-value">
             <strong>Current value: </strong>
             <span>{this.state.current}</span>
           </div>
         </div>
         <h2>Code Sample</h2>
-        <Highlight language='javascript'>
+        <Highlight language="javascript">
           {`
     import React from 'react';
     import { Select, SelectOption } from 'cauldron-react';

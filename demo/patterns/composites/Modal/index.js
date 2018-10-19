@@ -17,9 +17,7 @@ export default class Demo extends Component {
       <div>
         <h1>{'Modal'}</h1>
         <h2>{'Demo'}</h2>
-        <Button onClick={this.toggleSimpleModal}>
-          {'Simple Modal'}
-        </Button>
+        <Button onClick={this.toggleSimpleModal}>{'Simple Modal'}</Button>
         <Modal
           show={showSimpleModal}
           heading={{ text: 'Simple Modal' }}
@@ -30,11 +28,13 @@ export default class Demo extends Component {
           </ModalContent>
           <ModalFooter>
             <Button onClick={this.toggleSimpleModal}>{'Save'}</Button>
-            <Button secondary={true} onClick={this.toggleSimpleModal}>{'Cancel'}</Button>
+            <Button secondary={true} onClick={this.toggleSimpleModal}>
+              {'Cancel'}
+            </Button>
           </ModalFooter>
         </Modal>
         <h2>{'Code Sample'}</h2>
-        <Highlight langauge='javascript'>
+        <Highlight langauge="javascript">
           {`
 import React, { Component } from 'react';
 import { Button, Modal, ModalContent, ModalFooter } from 'cauldron-react';
@@ -82,7 +82,7 @@ class Demo extends Component {
   }
 
   toggleSimpleModal() {
-    this.setState(({showSimpleModal}) => {
+    this.setState(({ showSimpleModal }) => {
       return { showSimpleModal: !showSimpleModal };
     });
   }
