@@ -9,21 +9,21 @@ export default class TopBar extends Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     hasTrigger: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     className: '',
     hasTrigger: false
-  }
+  };
 
-  menuItems = []
+  menuItems = [];
 
   constructor(props) {
     super(props);
     const wide = isWide();
     this.state = {
       wide,
-      focusIndex: this.props.hasTrigger && wide ? 1 : 0,
+      focusIndex: this.props.hasTrigger && wide ? 1 : 0
     };
 
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -49,7 +49,7 @@ export default class TopBar extends Component {
 
     this.setState({
       wide,
-      focusIndex: (wide && focusIndex === 0 && hasTrigger) ? 1 : focusIndex
+      focusIndex: wide && focusIndex === 0 && hasTrigger ? 1 : focusIndex
     });
   }
 
@@ -61,9 +61,10 @@ export default class TopBar extends Component {
 
     switch (key) {
       case 'left': {
-        const newFocusIndex = focusIndex === beginning
-          ? Children.count(children) - 1
-          : focusIndex - 1;
+        const newFocusIndex =
+          focusIndex === beginning
+            ? Children.count(children) - 1
+            : focusIndex - 1;
         e.preventDefault();
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
@@ -72,9 +73,10 @@ export default class TopBar extends Component {
       }
 
       case 'right': {
-        const newFocusIndex = (focusIndex === Children.count(children) - 1)
-          ? beginning
-          : focusIndex + 1;
+        const newFocusIndex =
+          focusIndex === Children.count(children) - 1
+            ? beginning
+            : focusIndex + 1;
         e.preventDefault();
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
@@ -93,29 +95,27 @@ export default class TopBar extends Component {
 
     return (
       <div className={classNames('dqpl-top-bar', className)} {...other}>
-        <ul>
-          {
-            Children.map(children, (child, index) => (
-              cloneElement(child, {
-                key: index,
-                onKeyDown: (...args) => {
-                  this.onKeyDown(...args);
+        <ul role="menubar">
+          {Children.map(children, (child, index) =>
+            cloneElement(child, {
+              key: index,
+              onKeyDown: (...args) => {
+                this.onKeyDown(...args);
 
-                  if (child.props.onKeyDown) {
-                    child.props.onKeyDown(...args);
-                  }
-                },
-                tabIndex: focusIndex === index ? 0 : -1,
-                menuItemRef: menuItem => {
-                  this.menuItems[index] = menuItem;
-
-                  if (child.props.menuItemRef) {
-                    child.props.menuItemRef(menuItem);
-                  }
+                if (child.props.onKeyDown) {
+                  child.props.onKeyDown(...args);
                 }
-              })
-            ))
-          }
+              },
+              tabIndex: focusIndex === index ? 0 : -1,
+              menuItemRef: menuItem => {
+                this.menuItems[index] = menuItem;
+
+                if (child.props.menuItemRef) {
+                  child.props.menuItemRef(menuItem);
+                }
+              }
+            })
+          )}
         </ul>
       </div>
     );
