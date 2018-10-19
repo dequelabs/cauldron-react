@@ -51,8 +51,6 @@ export default class RadioGroup extends Component {
 
   render() {
     this.inputs = [];
-    // disable "no-unused-vars" to prevent `defaultValue` from being passed through to the wrapper
-    // eslint-disable-next-line no-unused-vars
     const {
       name,
       className,
@@ -61,6 +59,12 @@ export default class RadioGroup extends Component {
       radios,
       ...other
     } = this.props;
+
+    // Hack to prevent ESLint from erroring about this variable not
+    // being used. We want to pull it from `props` to ensure it's
+    // not passed through to the `<input/>`.
+    void defaultValue;
+
     const radioButtons = radios.map((radio, index) => {
       const { label, disabled, value, id, className, ...other } = radio;
       const isChecked = this.state.value === value;
