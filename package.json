@@ -22,7 +22,7 @@
     "test:run": "tape -r babel-register \"test/src/**/*.js\" | tap-spec",
     "test:dev": "tape-watch -r babel-register \"test/src/**/*.js\" | tap-spec",
     "predeploy": "NODE_ENV=production npm run build:demo",
-    "deploy": "gh-pages -d demo/dist"
+    "deploy": "gh-pages --dist=demo/dist --message='chore: Update from master [ci skip]'"
   },
   "author": "Harris Schneiderman",
   "license": "MPL-2.0",
