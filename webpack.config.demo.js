@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const config = require('./webpack.config');
 
+const { NODE_ENV = 'development' } = process.env;
+
 module.exports = {
   ...config,
   entry: {
@@ -10,7 +12,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'demo', 'dist'),
     filename: '[name].js',
-    publicPath: '/'
+    // When deployed, the URL is http://dequelabs.github.io/cauldron-react/, so we need to use the prefix as our `publicPath`.
+    publicPath: NODE_ENV === 'development' ? '/' : '/cauldron-react/'
   },
   plugins: [
     ...config.plugins,
