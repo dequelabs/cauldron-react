@@ -28,13 +28,15 @@
     "keyname": "^0.1.0",
     "prop-types": "^15.6.0",
     "rc-tooltip": "^3.7.2",
-    "react": "^16.0.0",
     "react-syntax-highlighter": "^6.1.1",
     "unique-string": "^1.0.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dequelabs/cauldron-react.git"
+  },
+  "peerDependencies": {
+    "react": "^16"
   },
   "devDependencies": {
     "autoprefixer": "^9.3.1",
@@ -72,6 +74,7 @@
     "postcss-loader": "^3.0.0",
     "prettier": "1.14.2",
     "proxyquire": "^1.8.0",
+    "react": "^16.6.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "standard-version": "^4.3.0",
