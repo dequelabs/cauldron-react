@@ -1,0 +1,5 @@
+@import './lib/components/Checkbox/index.css';
+@import './lib/components/FirstTimePointOut/index.css';
+@import './lib/components/RadioGroup/index.css';
+@import 'rc-tooltip/assets/bootstrap_white.css';
+@import './lib/components/Tooltip/index.css';

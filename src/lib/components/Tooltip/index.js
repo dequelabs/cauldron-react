@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RcTooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap_white.css';
-import './index.css';
 
 export default function Tooltip({ placement, children, overlay, id }) {
   return (
