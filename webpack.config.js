@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -25,13 +24,12 @@ module.exports = {
     ]
   },
   plugins: [
-    isProd && new UglifyJSPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: `"${isProd ? 'production' : 'development'}"`
       }
     })
-  ].filter(x => x),
+  ],
   devServer: {
     port: 8000,
     historyApiFallback: true
