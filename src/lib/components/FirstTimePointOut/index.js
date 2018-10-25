@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './index.less';
 
 export default class FirstTimePointOut extends Component {
   static propTypes = {

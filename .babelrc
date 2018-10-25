@@ -1,19 +1,10 @@
 {
-  "presets": [
-    [
-      "env"
-    ],
-    "react",
-    "stage-0"
-  ],
+  "presets": ["env", "react", "stage-0"],
   "plugins": [
-    "transform-runtime",
     [
       "module-resolver",
       {
-        "root": [
-          "."
-        ]
+        "root": ["."]
       }
     ],
     "transform-export-extensions"

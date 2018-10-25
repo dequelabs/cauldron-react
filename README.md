@@ -15,7 +15,7 @@ $ npm install cauldron-react --save
 To document through example and make development / manual testing easy, there is a demo app which can be started by executing:
 
 ```sh
-$ yarn start
+$ yarn dev
 ```
 
 _see the `demo/` directory_

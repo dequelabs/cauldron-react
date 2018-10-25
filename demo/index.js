@@ -28,6 +28,7 @@ import {
 
 // styles
 import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
+import '../src/index.css';
 import './index.css';
 
 class App extends Component {
