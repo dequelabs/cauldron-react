@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import keyname from 'keyname';
-import uniqueString from 'unique-string';
+import rndid from 'src/lib/utils/rndid';
 import { search, shouldSearch } from './utils';
 
 export default class Select extends Component {
@@ -36,9 +36,10 @@ export default class Select extends Component {
     value: null
   };
 
+  state = { expanded: false };
+
   constructor() {
     super();
-    this.state = {};
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onClick = this.onClick.bind(this);
     this.focusSelect = this.focusSelect.bind(this);
@@ -95,8 +96,8 @@ export default class Select extends Component {
     const active = options[activeIndex];
     const pseudoVal =
       hasActiveOption && active && (active.label || active.value);
-    const labelId = uniqueString();
-    const valueId = uniqueString();
+    const labelId = rndid();
+    const valueId = rndid();
 
     const opts = options.map((option, i) => {
       const { value, label, disabled } = option;
