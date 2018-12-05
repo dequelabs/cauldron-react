@@ -15,7 +15,7 @@
     "dev": "webpack-dev-server --config=webpack.config.demo.js",
     "lint": "eslint .",
     "fmt": "prettier --write 'demo/**/*.{css,js}' 'src/**/*.js' *.{js,json,md}",
-    "prepack": "NODE_ENV=production npm run build",
+    "prepublishOnly": "NODE_ENV=production npm run build",
     "release": "standard-version",
     "postrelease": "npm run deploy",
     "test": "nyc npm run test:run && npm run lint && nsp check",
