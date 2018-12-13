@@ -10,13 +10,14 @@ export default class Checkbox extends Component {
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   static defaultProps = {
     checked: false,
     disabled: false,
-    onClick: () => {}
+    onChange: () => {}
   };
 
   constructor(props) {
@@ -31,8 +32,10 @@ export default class Checkbox extends Component {
     this.setState({ focused: !this.state.focused });
   }
 
-  onCheckboxClick() {
-    this.setState({ checked: !this.state.checked });
+  onCheckboxClick(e) {
+    const checked = !this.state.checked;
+    this.setState({ checked });
+    this.props.onChange(e, checked);
   }
 
   onOverlayClick() {
@@ -49,6 +52,10 @@ export default class Checkbox extends Component {
       label,
       disabled,
       className,
+      // disabling no-unused-vars to prevent onChange
+      // from being passed through to the wrapper
+      // eslint-disable-next-line no-unused-vars
+      onChange,
       ...others
     } = this.props;
 

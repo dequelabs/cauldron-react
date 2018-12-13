@@ -37,9 +37,12 @@ test('Checkbox Component', t => {
   t.test('clicks the checkbox when the overlay is clicked', t => {
     let clicked = false;
     const wrapper = mount(<Checkbox {...defaultProps} />);
-    wrapper.find('[type="checkbox"]').getDOMNode().addEventListener('click', () => {
-      clicked = true;
-    });
+    wrapper
+      .find('[type="checkbox"]')
+      .getDOMNode()
+      .addEventListener('click', () => {
+        clicked = true;
+      });
     wrapper.find('.dqpl-overlay-checkbox').simulate('click');
     t.true(clicked);
     t.end();
@@ -66,5 +69,18 @@ test('Checkbox Component', t => {
     t.false(wrapper.state('focused'));
     t.false(wrapper.find('.dqpl-checkbox-focused').exists());
     t.end();
+  });
+
+  t.test('call onChange when checked state changes', t => {
+    const onChange = (e, checked) => {
+      t.true(checked);
+      t.end();
+    };
+
+    const wrapper = mount(<Checkbox {...defaultProps} onChange={onChange} />);
+    wrapper
+      .find('[type="checkbox"]')
+      .at(0)
+      .simulate('change');
   });
 });
