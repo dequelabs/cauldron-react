@@ -12,7 +12,11 @@ const defaultProps = {
 test('__Toast Component__', t => {
   t.test('handles initial show prop on mount', t => {
     t.plan(2);
-    const wrapper = mount(<Toast {...defaultProps} show={true}>{'hi'}</Toast>);
+    const wrapper = mount(
+      <Toast {...defaultProps} show={true}>
+        {'hi'}
+      </Toast>
+    );
 
     setTimeout(() => {
       t.equal(document.activeElement, wrapper.find('.dqpl-toast').getDOMNode());
@@ -48,29 +52,48 @@ test('__Toast Component__', t => {
 
   t.test('handles transition from truthy show to falsey show prop', t => {
     t.plan(1);
-    const wrapper = mount(<Toast {...defaultProps} show={true}>{'hi'}</Toast>);
+    const wrapper = mount(
+      <Toast {...defaultProps} show={true}>
+        {'hi'}
+      </Toast>
+    );
     wrapper.setProps({ show: false });
 
     setTimeout(() => {
       // there is a bug relating to enzyme's hasClass so I am forced to use `getDOMNode()` here
       // see https://github.com/airbnb/enzyme/issues/1170
-      t.ok(wrapper.find('.dqpl-toast').getDOMNode().classList.contains('dqpl-hidden'));
+      t.ok(
+        wrapper
+          .find('.dqpl-toast')
+          .getDOMNode()
+          .classList.contains('dqpl-hidden')
+      );
     }); // wait for animation timeouts / async setState calls
   });
 
   t.test('renders the expected UI (icons classNames etc)', t => {
     t.plan(6);
 
-    const confirmation = mount(<Toast {...defaultProps} show={true}>{'hi'}</Toast>);
+    const confirmation = mount(
+      <Toast {...defaultProps} show={true}>
+        {'hi'}
+      </Toast>
+    );
     t.ok(confirmation.find('.dqpl-toast.dqpl-toast-success').exists());
     t.ok(confirmation.find('.fa-info-circle').exists());
 
-    const caution = mount(<Toast {...defaultProps} type={'caution'} show={true}>{'hi'}</Toast>);
+    const caution = mount(
+      <Toast {...defaultProps} type={'caution'} show={true}>
+        {'hi'}
+      </Toast>
+    );
     t.ok(caution.find('.dqpl-toast.dqpl-toast-warning').exists());
     t.ok(caution.find('.fa-warning').exists());
 
     const actionNeeded = mount(
-      <Toast {...defaultProps} type={'action-needed'} show={true}>{'hi'}</Toast>
+      <Toast {...defaultProps} type={'action-needed'} show={true}>
+        {'hi'}
+      </Toast>
     );
     t.ok(actionNeeded.find('.dqpl-toast.dqpl-toast-error').exists());
     t.ok(actionNeeded.find('.fa-minus-circle').exists());
@@ -80,11 +103,7 @@ test('__Toast Component__', t => {
     t.plan(2);
 
     const wrapper = mount(
-      <Toast
-        {...defaultProps}
-        show={true}
-        type={'action-needed'}
-      >
+      <Toast {...defaultProps} show={true} type={'action-needed'}>
         {'hi'}
       </Toast>
     );

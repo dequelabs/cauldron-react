@@ -10,7 +10,9 @@ test('__FirstTimePointOut Component__', t => {
   t.test('handles "noArrow" prop properly', t => {
     t.plan(1);
     const ftpo = shallow(
-      <FirstTimePointOut noArrow={true} {...defaults}>{'hello'}</FirstTimePointOut>
+      <FirstTimePointOut noArrow={true} {...defaults}>
+        {'hello'}
+      </FirstTimePointOut>
     );
 
     t.ok(ftpo.hasClass('dqpl-no-arrow'));
@@ -22,18 +24,23 @@ test('__FirstTimePointOut Component__', t => {
       <FirstTimePointOut {...defaults}>{'hello'}</FirstTimePointOut>
     );
 
-    ftpo.setState({
-      show: false
-    }, () => {
-      t.equal(ftpo.html(), null);
-    });
+    ftpo.setState(
+      {
+        show: false
+      },
+      () => {
+        t.equal(ftpo.html(), null);
+      }
+    );
   });
 
   t.test('calls onClose prop when close is clicked', t => {
     t.plan(1);
     const onClose = () => t.pass();
     const ftpo = mount(
-      <FirstTimePointOut {...defaults} onClose={onClose}>{'hello'}</FirstTimePointOut>
+      <FirstTimePointOut {...defaults} onClose={onClose}>
+        {'hello'}
+      </FirstTimePointOut>
     );
 
     ftpo.find('.dqpl-ftp-dismiss').simulate('click');
@@ -42,7 +49,9 @@ test('__FirstTimePointOut Component__', t => {
   t.test('accepts the dismissText prop', t => {
     t.plan(1);
     const ftpo = mount(
-      <FirstTimePointOut {...defaults} dismissText={'Fred'}>{'hello'}</FirstTimePointOut>
+      <FirstTimePointOut {...defaults} dismissText={'Fred'}>
+        {'hello'}
+      </FirstTimePointOut>
     );
 
     t.true(ftpo.find('.dqpl-ftp-dismiss[aria-label="Fred"]').exists());

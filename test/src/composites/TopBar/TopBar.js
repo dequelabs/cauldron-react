@@ -7,7 +7,7 @@ import 'test/helpers/setup';
 
 proxyquire.noCallThru();
 
-const MenuItem = ({ menuItemRef }) => (<div ref={menuItemRef} />);
+const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
 MenuItem.propTypes = { menuItemRef: PropTypes.func };
 const TopBar = proxyquire('../../../../src/lib/composites/TopBar', {
   '../../utils/viewport': {
@@ -18,13 +18,23 @@ const TopBar = proxyquire('../../../../src/lib/composites/TopBar', {
 test('__composites/TopBar__', t => {
   t.test('renders', t => {
     t.plan(1);
-    t.ok(shallow(<TopBar><div /></TopBar>));
+    t.ok(
+      shallow(
+        <TopBar>
+          <div />
+        </TopBar>
+      )
+    );
   });
 
   t.test('given a focusIndex of 0, a trigger, and a newly wide viewport', t => {
     t.test('focusIndex is set to 1', t => {
       t.plan(1);
-      const wrapper = mount(<TopBar hasTrigger={true}><MenuItem /></TopBar>);
+      const wrapper = mount(
+        <TopBar hasTrigger={true}>
+          <MenuItem />
+        </TopBar>
+      );
       wrapper.setState({ wide: false, focusIndex: 0 });
       wrapper.instance().onResize();
       t.is(wrapper.state('focusIndex'), 1);

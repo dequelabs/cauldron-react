@@ -14,9 +14,10 @@ const two = document.getElementById('link-two');
 
 test('__commons/MenuItem/click-link__', t => {
   t.test('clicks the first link within the target', t => {
-    let firstCalled = false, secondCalled = false;
-    const onFirstClick = () => firstCalled = true;
-    const onSecondClick = () => secondCalled = true;
+    let firstCalled = false,
+      secondCalled = false;
+    const onFirstClick = () => (firstCalled = true);
+    const onSecondClick = () => (secondCalled = true);
 
     one.addEventListener('click', onFirstClick);
     two.addEventListener('click', onSecondClick);
@@ -32,9 +33,10 @@ test('__commons/MenuItem/click-link__', t => {
   });
 
   t.test('does nothing if the target is an anchor', t => {
-    let firstCalled = false, secondCalled = false;
-    const onFirstClick = () => firstCalled = true;
-    const onSecondClick = () => secondCalled = true;
+    let firstCalled = false,
+      secondCalled = false;
+    const onFirstClick = () => (firstCalled = true);
+    const onSecondClick = () => (secondCalled = true);
 
     one.addEventListener('click', onFirstClick);
     two.addEventListener('click', onSecondClick);
@@ -54,5 +56,4 @@ test('__commons/MenuItem/click-link__', t => {
     t.pass();
     t.end();
   });
-
 });

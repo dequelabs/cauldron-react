@@ -1,7 +1,6 @@
-
-const mockStore = (initialState, dispatch=(() => {})) => ({
+const mockStore = (initialState, dispatch = () => {}) => ({
   dispatch,
-  getState: () => initialState,
+  getState: () => initialState
 });
 
 export default mockStore;

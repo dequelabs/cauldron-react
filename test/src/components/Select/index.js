@@ -14,7 +14,7 @@ const withDefaultSelected = (otherProps = {}) => {
     <Select
       {...defaultProps}
       {...otherProps}
-      value='Bill'
+      value="Bill"
       options={[
         { value: 'Fred' },
         { value: 'Bill' },
@@ -29,11 +29,7 @@ const basicSelect = (otherProps = {}) => {
     <Select
       {...defaultProps}
       {...otherProps}
-      options={[
-        { value: 'a' },
-        { value: 'b' },
-        { value: 'c' }
-      ]}
+      options={[{ value: 'a' }, { value: 'b' }, { value: 'c' }]}
     />
   );
 };
@@ -66,28 +62,31 @@ test('Select Component', t => {
     t.end();
   });
 
-  t.test('handles programmatically selecting an option (via the `value` prop)', t => {
-    let called = false;
-    const select = basicSelect({
-      onSelect: () => called = true
-    });
-    select.setProps({
-      value: 'c'
-    });
+  t.test(
+    'handles programmatically selecting an option (via the `value` prop)',
+    t => {
+      let called = false;
+      const select = basicSelect({
+        onSelect: () => (called = true)
+      });
+      select.setProps({
+        value: 'c'
+      });
 
-    t.equal(select.state('selectedIndex'), 2);
-    t.equal(select.state('activeIndex'), 2);
-    t.true(called);
-    t.end();
-  });
+      t.equal(select.state('selectedIndex'), 2);
+      t.equal(select.state('activeIndex'), 2);
+      t.true(called);
+      t.end();
+    }
+  );
 
   t.test('sets option attributes properly', t => {
     const select = mount(
       <Select
         {...defaultProps}
-        value='a'
+        value="a"
         options={[
-          { value: 'a', },
+          { value: 'a' },
           { disabled: true, value: 'b' },
           { value: 'c' }
         ]}
@@ -136,9 +135,12 @@ test('Select Component', t => {
     t.test('handles clicks on options', t => {
       let called = false;
       const select = withDefaultSelected({
-        onSelect: () => called = true
+        onSelect: () => (called = true)
       });
-      select.find('.dqpl-option').at(3).simulate('click');
+      select
+        .find('.dqpl-option')
+        .at(3)
+        .simulate('click');
 
       t.equal(select.state('activeIndex'), 3);
       t.equal(select.state('selectedIndex'), 3);
@@ -188,13 +190,13 @@ test('Select Component', t => {
       const wrapper = mount(
         <Select
           {...defaultProps}
-          value='Bar'
+          value="Bar"
           options={[
             { value: 'Bar' },
             { value: 'Foo' },
             { value: 'Far' },
             { value: 'Fan' },
-            { value: 'Fun' },
+            { value: 'Fun' }
           ]}
         />
       );

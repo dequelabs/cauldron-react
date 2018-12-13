@@ -5,7 +5,9 @@ import 'test/helpers/setup';
 let div, toast, targets;
 const { document } = window;
 const teardown = () => {
-  if (!div) { return; }
+  if (!div) {
+    return;
+  }
   document.body.removeChild(div);
 };
 const setup = () => {
