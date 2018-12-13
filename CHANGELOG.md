@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+
+# [0.2.0](https://github.com/dequelabs/cauldron-react/compare/v0.1.4...v0.2.0) (2018-12-13)
+
+### Features
+
+- adds onChange prop to <Checkbox /> ([#49](https://github.com/dequelabs/cauldron-react/issues/49)) ([733247c](https://github.com/dequelabs/cauldron-react/commit/733247c))
+
 <a name="0.1.4"></a>
 
 ## [0.1.4](https://github.com/dequelabs/cauldron-react/compare/v0.1.2...v0.1.4) (2018-12-13)
