@@ -33,7 +33,13 @@ const Demo = () => (
       <div role='group' aria-labelledby='foods-label'>
         <Checkbox checked id='artichokes' name='foods' value='artichokes' label='Artichokes' />
         <Checkbox disabled id='liver' name='foods' value='liver' label='Liver' />
-        <Checkbox id='mangos' name='foods' value='mangos' label='Mangos' />
+        <Checkbox
+          id='mangos'
+          name='foods'
+          value='mangos'
+          label='Mangos'
+          onChange={(e, checked) => console.log('mangos changed!')}
+        />
         <Checkbox id='falafel' name='foods' value='falafel' label='Falafel' />
       </div>
       <Button className='food-submit'>Submit</Button>
