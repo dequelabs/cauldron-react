@@ -7,7 +7,7 @@ import 'test/helpers/setup';
 
 proxyquire.noCallThru();
 
-const MenuItem = ({ menuItemRef }) => (<div ref={menuItemRef} />);
+const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
 MenuItem.propTypes = { menuItemRef: PropTypes.func };
 
 const SideBar = proxyquire('../../../../src/lib/composites/SideBar', {
@@ -15,15 +15,14 @@ const SideBar = proxyquire('../../../../src/lib/composites/SideBar', {
     isWide: () => false
   }
 }).default;
-const mountWrapper = (onDismiss = (() => {})) => (
+const mountWrapper = (onDismiss = () => {}) =>
   mount(
     <SideBar onDismiss={onDismiss}>
       <MenuItem />
       <MenuItem />
       <MenuItem />
     </SideBar>
-  )
-);
+  );
 const noop = () => {};
 
 test('__composites/SideBar__', t => {
@@ -70,7 +69,7 @@ test('__composites/SideBar__', t => {
   t.test('handles escape (calls onDismiss)', t => {
     t.plan(1);
     let called = false;
-    const wrapper = mountWrapper(() => called = true);
+    const wrapper = mountWrapper(() => (called = true));
 
     const e = { which: 27 };
     wrapper.instance().onKeyDown(e);

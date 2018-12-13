@@ -11,8 +11,8 @@ test('__composites/TopBar/TopBarTrigger__', t => {
     const e = { which: 13, preventDefault: () => {} };
     const wrapper = mount(
       <TopBarTrigger
-        onClick={() => clicked = true}
-        onKeyDown={() => keyed = true}
+        onClick={() => (clicked = true)}
+        onKeyDown={() => (keyed = true)}
       />
     );
     // ENTER

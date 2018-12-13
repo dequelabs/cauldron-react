@@ -8,7 +8,7 @@ test('__OptionsMenuTrigger Component__', t => {
   t.test('handles clicks', t => {
     t.plan(3);
     let called = false;
-    const trigger = mount(<Trigger onClick={() => called = true} />);
+    const trigger = mount(<Trigger onClick={() => (called = true)} />);
     t.equal(trigger.state('expanded'), false);
     trigger.simulate('click');
     t.ok(called);
@@ -17,10 +17,11 @@ test('__OptionsMenuTrigger Component__', t => {
 
   t.test('handles keydowns', t => {
     t.plan(2);
-    let called = false, clicked = false;
-    const trigger = mount(<Trigger onKeyDown={() => called = true} />);
+    let called = false,
+      clicked = false;
+    const trigger = mount(<Trigger onKeyDown={() => (called = true)} />);
     const domElement = trigger.getDOMNode();
-    domElement.addEventListener('click', () => clicked = true);
+    domElement.addEventListener('click', () => (clicked = true));
     trigger.simulate('keydown', { which: 40 });
 
     t.ok(called);

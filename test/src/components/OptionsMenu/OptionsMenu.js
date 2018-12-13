@@ -24,7 +24,13 @@ test('__OptionsMenu Component__', t => {
       show: true
     });
 
-    t.equal(document.activeElement, wrapper.find('li').at(0).getDOMNode());
+    t.equal(
+      document.activeElement,
+      wrapper
+        .find('li')
+        .at(0)
+        .getDOMNode()
+    );
   });
 
   t.test('handles updates to `itemIndex` state', t => {
@@ -36,9 +42,19 @@ test('__OptionsMenu Component__', t => {
       </OptionsMenu>
     );
     // focus the first item
-    wrapper.find('li').at(0).getDOMNode().focus();
+    wrapper
+      .find('li')
+      .at(0)
+      .getDOMNode()
+      .focus();
     wrapper.setState({ itemIndex: 1 });
-    t.equal(document.activeElement, wrapper.find('li').at(1).getDOMNode());
+    t.equal(
+      document.activeElement,
+      wrapper
+        .find('li')
+        .at(1)
+        .getDOMNode()
+    );
   });
 
   t.test('handles up/down keydowns', t => {
@@ -51,10 +67,16 @@ test('__OptionsMenu Component__', t => {
     );
     t.equal(wrapper.state('itemIndex'), 0);
 
-    wrapper.find('li').at(0).simulate('keydown', { which: 40 });
+    wrapper
+      .find('li')
+      .at(0)
+      .simulate('keydown', { which: 40 });
     t.equal(wrapper.state('itemIndex'), 1);
 
-    wrapper.find('li').at(0).simulate('keydown', { which: 40 });
+    wrapper
+      .find('li')
+      .at(0)
+      .simulate('keydown', { which: 40 });
     t.equal(wrapper.state('itemIndex'), 0); // circular
   });
 
@@ -67,7 +89,10 @@ test('__OptionsMenu Component__', t => {
         <li>option 2</li>
       </OptionsMenu>
     );
-    wrapper.find('li').at(0).simulate('keydown', { which: 27 });
+    wrapper
+      .find('li')
+      .at(0)
+      .simulate('keydown', { which: 27 });
   });
 
   t.test('calls onClose given a tab keydown', t => {
@@ -79,7 +104,10 @@ test('__OptionsMenu Component__', t => {
         <li>option 2</li>
       </OptionsMenu>
     );
-    wrapper.find('li').at(0).simulate('keydown', { which: 9 });
+    wrapper
+      .find('li')
+      .at(0)
+      .simulate('keydown', { which: 9 });
   });
 
   t.test('handles enter / space keydowns', t => {
@@ -91,9 +119,15 @@ test('__OptionsMenu Component__', t => {
         <li>option 2</li>
       </OptionsMenu>
     );
-    const element = wrapper.find('li').at(0).getDOMNode();
-    element.addEventListener('click', () => clicked = true);
-    wrapper.find('li').at(0).simulate('keydown', { which: 13 });
+    const element = wrapper
+      .find('li')
+      .at(0)
+      .getDOMNode();
+    element.addEventListener('click', () => (clicked = true));
+    wrapper
+      .find('li')
+      .at(0)
+      .simulate('keydown', { which: 13 });
 
     t.ok(clicked);
   });

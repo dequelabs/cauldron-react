@@ -37,9 +37,12 @@ test('Checkbox Component', t => {
   t.test('clicks the checkbox when the overlay is clicked', t => {
     let clicked = false;
     const wrapper = mount(<Checkbox {...defaultProps} />);
-    wrapper.find('[type="checkbox"]').getDOMNode().addEventListener('click', () => {
-      clicked = true;
-    });
+    wrapper
+      .find('[type="checkbox"]')
+      .getDOMNode()
+      .addEventListener('click', () => {
+        clicked = true;
+      });
     wrapper.find('.dqpl-overlay-checkbox').simulate('click');
     t.true(clicked);
     t.end();
