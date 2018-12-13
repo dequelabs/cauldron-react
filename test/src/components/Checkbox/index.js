@@ -70,4 +70,17 @@ test('Checkbox Component', t => {
     t.false(wrapper.find('.dqpl-checkbox-focused').exists());
     t.end();
   });
+
+  t.test('call onChange when checked state changes', t => {
+    const onChange = (e, checked) => {
+      t.true(checked);
+      t.end();
+    };
+
+    const wrapper = mount(<Checkbox {...defaultProps} onChange={onChange} />);
+    wrapper
+      .find('[type="checkbox"]')
+      .at(0)
+      .simulate('change');
+  });
 });
