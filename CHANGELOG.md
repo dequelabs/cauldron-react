@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.4"></a>
+
+## [0.1.4](https://github.com/dequelabs/cauldron-react/compare/v0.1.2...v0.1.4) (2018-12-13)
+
+### Bug Fixes
+
+- **demo:** correct basename for GitHub pages ([#46](https://github.com/dequelabs/cauldron-react/issues/46)) ([d8688b1](https://github.com/dequelabs/cauldron-react/commit/d8688b1))
+- allow .js files in the npm package ([#47](https://github.com/dequelabs/cauldron-react/issues/47)) ([4f382ac](https://github.com/dequelabs/cauldron-react/commit/4f382ac))
+
 <a name="0.1.3"></a>
 
 ## [0.1.3](https://github.com/dequelabs/cauldron-react/compare/v0.1.2...v0.1.3) (2018-12-05)
