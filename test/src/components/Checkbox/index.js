@@ -21,6 +21,15 @@ test('Checkbox Component', t => {
     t.end();
   });
 
+  t.test('handles checked prop changes', t => {
+    const wrapper = mount(<Checkbox {...defaultProps} checked />);
+    wrapper.setProps({
+      checked: false
+    });
+    t.false(wrapper.find('[type="checkbox"]').getDOMNode().checked);
+    t.end();
+  });
+
   t.test('toggles checked state properly', t => {
     const wrapper = mount(<Checkbox {...defaultProps} />);
     const checkbox = wrapper.find('[type="checkbox"]');
@@ -82,5 +91,14 @@ test('Checkbox Component', t => {
       .find('[type="checkbox"]')
       .at(0)
       .simulate('change');
+  });
+
+  t.test('supports checkboxRef prop', t => {
+    const ref = checkbox => {
+      t.true(checkbox instanceof HTMLElement);
+      t.end();
+    };
+
+    mount(<Checkbox {...defaultProps} checkboxRef={ref} />);
   });
 });
