@@ -11,13 +11,15 @@ export default class Checkbox extends Component {
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    checkboxRef: PropTypes.func
   };
 
   static defaultProps = {
     checked: false,
     disabled: false,
-    onChange: () => {}
+    onChange: () => {},
+    checkboxRef: () => {}
   };
 
   constructor(props) {
@@ -26,6 +28,14 @@ export default class Checkbox extends Component {
     this.toggleFocus = this.toggleFocus.bind(this);
     this.onCheckboxClick = this.onCheckboxClick.bind(this);
     this.onOverlayClick = this.onOverlayClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { checked } = this.props;
+
+    if (checked !== prevProps.checked) {
+      this.setState({ checked });
+    }
   }
 
   toggleFocus() {
@@ -45,6 +55,8 @@ export default class Checkbox extends Component {
 
   render() {
     const { checked, focused } = this.state;
+    // disabling no-unused-vars below to prevent specific
+    // props from being passed through to the wrapper
     const {
       id,
       value,
@@ -52,10 +64,10 @@ export default class Checkbox extends Component {
       label,
       disabled,
       className,
-      // disabling no-unused-vars to prevent onChange
-      // from being passed through to the wrapper
       // eslint-disable-next-line no-unused-vars
       onChange,
+      // eslint-disable-next-line no-unused-vars
+      checkboxRef,
       ...others
     } = this.props;
 
@@ -74,7 +86,10 @@ export default class Checkbox extends Component {
           value={value}
           onFocus={this.toggleFocus}
           onBlur={this.toggleFocus}
-          ref={checkbox => (this.checkbox = checkbox)}
+          ref={checkbox => {
+            this.checkbox = checkbox;
+            this.props.checkboxRef(checkbox);
+          }}
         />
         <div
           aria-hidden="true"
