@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "style": "lib/cauldron.css",
   "unpkg": "dist/cauldron.js",
+  "typings": "types.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:css && npm run build:umd",
     "build:umd": "webpack --colors --bail",
@@ -42,6 +43,7 @@
     "react": "^16"
   },
   "devDependencies": {
+    "@types/react": "^16.7.20",
     "autoprefixer": "^9.3.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -85,6 +87,7 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.8.0",
     "tape-watch": "^2.3.0",
+    "typescript": "^3.2.4",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
