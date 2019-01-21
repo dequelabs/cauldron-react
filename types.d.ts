@@ -62,10 +62,6 @@ interface SidebarProps {
 
 export const Sidebar: React.ComponentType<SidebarProps>;
 
-// interface SideBarItemProps {}
-//
-// export const SideBarItem: React.ComponentType<SideBarItemProps>;
-
 interface AlertProps {
   className?: string;
   children: React.ReactNode;
