@@ -17,7 +17,7 @@ interface IconProps {
 
 export const Icon: React.ComponentType<IconProps>;
 
-interface OffscreenProps {
+interface OffscreenProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
@@ -189,14 +189,20 @@ interface OptionsMenuWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const OptionsMenuWrapper: React.ComponentType<OptionsMenuWrapperProps>;
 
+interface SelectOption {
+  value: string;
+  disabled?: boolean;
+  label?: React.ReactNode;
+}
+
 interface SelectProps {
-  options: any[];
+  options: SelectOption[];
   label: string;
   listId: string;
   selectedId: string;
   className?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  onselect?: (value: any) => void;
+  onSelect?: (value: any) => void;
   required?: boolean;
   value?: string;
 }
@@ -216,7 +222,7 @@ interface RadioGroupProps {
   'aria-labelledby'?: string;
   className?: string;
   defaultValue?: string;
-  onChange: (radio: RadioItem, input: HTMLElement) => void;
+  onChange?: (radio: RadioItem, input: HTMLElement) => void;
 }
 
 export const RadioGroup: React.ComponentType<RadioGroupProps>;

@@ -21,3 +21,4 @@ jobs:
           paths:
             - node_modules/
       - run: yarn test
+      - run: yarn test:ts
