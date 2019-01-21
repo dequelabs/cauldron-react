@@ -15,7 +15,7 @@
     "postbuild": "cp lib/cauldron.css dist/cauldron-react.css",
     "dev": "webpack-dev-server --config=webpack.config.demo.js",
     "lint": "eslint .",
-    "fmt": "prettier --write 'demo/**/*.{css,js}' '{src,test}/**/*.js' *.{js,json,md}",
+    "fmt": "prettier --write 'demo/**/*.{css,js}' '{src,test}/**/*.{js,ts,tsx}' *.{js,json,md,ts}",
     "prepublishOnly": "NODE_ENV=production npm run build",
     "release": "standard-version",
     "postrelease": "npm run deploy",
@@ -123,7 +123,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.{json,css,md}": [
+    "*.{json,css,md,ts,tsx}": [
       "prettier --write",
       "git add"
     ]
