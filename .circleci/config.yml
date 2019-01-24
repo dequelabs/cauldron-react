@@ -69,3 +69,5 @@ workflows:
             # Make a "stable" release when SEMVER-ish tags are pushed.
             tags:
               only: /^v?[0-9]+(\.[0-9]+)*(-.+)?/
+            branches:
+              ignore: /.*/
