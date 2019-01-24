@@ -112,6 +112,19 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.3.tgz#c055536ac8a5e871701aa01914be5731539d01ee"
   integrity sha512-3AvcEJAh9EMatxs+OxAlvAEs7OTy6AG94mcH1iqyVDwVVndekLxzwkWQ/Z4SDbY6GO2oyUXyWW8tQ4rENSSQVQ==
 
+"@types/prop-types@*":
+  version "15.5.8"
+  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
+  integrity sha1-iuTg6iBf6Vw5AaWh339mSV46Vs4=
+
+"@types/react@^16.7.20":
+  version "16.7.20"
+  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/@types/react/-/react-16.7.20.tgz#13ae752c012710d0fa800985ca809814b51d3b58"
+  integrity sha1-E651LAEnEND6gAmFyoCYFLUdO1g=
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
 "@webassemblyjs/ast@1.7.10":
   version "1.7.10"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.10.tgz#0cfc61d61286240b72fc522cb755613699eea40a"
@@ -2815,6 +2828,11 @@ cssstyle@^1.0.0:
   integrity sha512-364AI1l/M5TYcFH83JnOH/pSqgaNnKmYgKrm0didZMGKWjQB60dymwWy1rKUgL3J1ffdq9xVi2yGLHdSjjSNog==
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.6.1"
+  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/csstype/-/csstype-2.6.1.tgz#4cfbf637a577497036ebcd7e32647ef19a0b8076"
+  integrity sha1-TPv2N6V3SXA2681+MmR+8ZoLgHY=
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -9520,6 +9538,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^3.2.4:
+  version "3.2.4"
+  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/typescript/-/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
+  integrity sha1-xYXLlSkSJj2RW0YnJs4kS6UQ7z0=
 
 uglify-es@^3.3.4:
   version "3.3.9"

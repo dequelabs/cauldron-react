@@ -1,24 +1,71 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:10
+  working_directory: ~/cauldron-react
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:8.8.1
+  dependencies:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-packages-{{ .Branch }}
-            - yarn-packages-master
-            - yarn-packages-
-      - run:
-          name: Install Dependencies
-          command: yarn install
+          key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+      - run: yarn
       - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: v1-yarn-cache-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules/
+            - node_modules
+  tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-cache-{{ checksum "yarn.lock" }}
       - run: yarn test
       - run: yarn test:ts
+  canary_release:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+      - run: npm config set "//registry.npmjs.org/:_authToken" $NPM_AUTH
+      - run: npm whoami
+      - run: .circleci/canary-version.js
+      - run: npm publish --tag=next
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+      - run: npm config set "//registry.npmjs.org/:_authToken" $NPM_AUTH
+      - run: npm whoami
+      - run: npm publish
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - dependencies
+      - tests:
+          requires:
+            - dependencies
+      - canary_release:
+          requires:
+            - dependencies
+            - tests
+          filters:
+            # Make an "unstable" release when a commit lands in master.
+            branches:
+              only: master
+      - release:
+          requires:
+            - dependencies
+            - tests
+          filters:
+            # Make a "stable" release when SEMVER-ish tags are pushed.
+            tags:
+              only: /^v?[0-9]+(\.[0-9]+)*(-.+)?/
