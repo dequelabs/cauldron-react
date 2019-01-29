@@ -39,3 +39,26 @@ or to have tests automagically re-run when files change
 ```sh
 $ yarn test:dev
 ```
+
+## Publishing
+
+Publishing `cauldron-react` to the npm registry is automated by CircleCI. All (green) commits that land in the `master` branch will be released as a "canary" version (eg `1.2.3-canary.GIT_SHA`) and will be available with the `@next` dist tag. Additionally, all (green) tags that resemble a SEMVER version will be published as stable versions (eg `1.2.3`) and available with the `@latest` dist tag.
+
+To install the latest canary version, do: `npm install cauldron-react@next`. To install the latest stable version, do `npm install cauldron-react`.
+
+To publish a stable version, you'll do something like this:
+
+```
+# Ensure you have the latest code
+$ git checkout master
+$ git pull
+# Edit the version number
+$ vim package.json
+# Update the CHANGELOG
+$ npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+# Create the release commit and tag
+$ git commit -am "chore: Release vX.Y.Z"
+$ git tag vX.Y.Z -a -m "Release vX.Y.Z"
+# Push to origin
+$ git push
+```
