@@ -42,7 +42,7 @@ $ yarn test:dev
 
 ## Publishing
 
-Publishing `cauldron-react` to the npm registry is automated by CircleCI. All (green) commits that land in the `master` branch will be released as a "canary" version (eg `1.2.3-canary.GIT_SHA`) and will be available with the `@next` dist tag. Additionally, all (green) tags that resemble a SEMVER version will be published as stable versions (eg `1.2.3`) and available with the `@latest` dist tag.
+Publishing `cauldron-react` to the npm registry is handled by CircleCI. All (green) commits that land in the `master` branch will be released as a "canary" version (eg `1.2.3-canary.GIT_SHA`) and will be available with the `@next` dist tag. Additionally, all (green) tags that resemble a SEMVER version will be published as stable versions (eg `1.2.3`) and available with the `@latest` dist tag.
 
 To install the latest canary version, do: `npm install cauldron-react@next`. To install the latest stable version, do `npm install cauldron-react`.
 
