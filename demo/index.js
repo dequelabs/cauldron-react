@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 // import demo views
 import Home from './Home';
+import Layout from './Layout';
 import Button from './patterns/components/Button';
 import FirstTimePointOut from './patterns/components/FirstTimePointOut';
 import Toast from './patterns/components/Toast';
@@ -92,6 +93,7 @@ class App extends Component {
             </MenuItem>
           </TopBar>
           <SideBar show={this.state.show} onDismiss={this.onTriggerClick}>
+            <MenuItem>{this.renderSideBarLink('/layout', 'Layout')}</MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/button', 'Button')}
             </MenuItem>
@@ -139,6 +141,7 @@ class App extends Component {
           >
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/layout" component={Layout} />
               <Route exact path="/components/button" component={Button} />
               <Route
                 exact
