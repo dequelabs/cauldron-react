@@ -1,4 +1,4 @@
-export Workspace from './lib/Workspace';
+export Workspace from './lib/components/Workspace';
 
 /**
  * Commons
