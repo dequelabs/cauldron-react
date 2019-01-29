@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 // import demo views
 import Home from './Home';
+import LayoutDemo from './patterns/components/Layout';
 import Button from './patterns/components/Button';
 import FirstTimePointOut from './patterns/components/FirstTimePointOut';
 import Toast from './patterns/components/Toast';
@@ -18,6 +19,7 @@ import Tooltip from './patterns/components/Tooltip';
 
 // import cauldron react components
 import {
+  Layout,
   TopBar,
   Workspace,
   TopBarTrigger,
@@ -93,6 +95,9 @@ class App extends Component {
           </TopBar>
           <SideBar show={this.state.show} onDismiss={this.onTriggerClick}>
             <MenuItem>
+              {this.renderSideBarLink('/components/layout', 'Layout')}
+            </MenuItem>
+            <MenuItem>
               {this.renderSideBarLink('/components/button', 'Button')}
             </MenuItem>
             <MenuItem>
@@ -132,38 +137,41 @@ class App extends Component {
               {this.renderSideBarLink('/components/tooltip', 'Tooltip')}
             </MenuItem>
           </SideBar>
-          <Workspace
-            id="main-content"
-            workspaceRef={el => (this.workspace = el)}
-            tabIndex={-1}
-          >
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/components/button" component={Button} />
-              <Route
-                exact
-                path="/components/first-time-point-out"
-                component={FirstTimePointOut}
-              />
-              <Route exact path="/components/toast" component={Toast} />
-              <Route exact path="/components/loader" component={Loader} />
-              <Route
-                exact
-                path="/components/options-menu"
-                component={OptionsMenu}
-              />
-              <Route exact path="/composites/alert" component={Alert} />
-              <Route exact path="/composites/modal" component={Modal} />
-              <Route exact path="/components/select" component={Select} />
-              <Route
-                exact
-                path="/components/radio-group"
-                component={RadioGroup}
-              />
-              <Route exact path="/components/checkbox" component={Checkbox} />
-              <Route exact path="/components/tooltip" component={Tooltip} />
-            </Switch>
-          </Workspace>
+          <Layout>
+            <Workspace
+              id="main-content"
+              workspaceRef={el => (this.workspace = el)}
+              tabIndex={-1}
+            >
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/components/layout" component={LayoutDemo} />
+                <Route exact path="/components/button" component={Button} />
+                <Route
+                  exact
+                  path="/components/first-time-point-out"
+                  component={FirstTimePointOut}
+                />
+                <Route exact path="/components/toast" component={Toast} />
+                <Route exact path="/components/loader" component={Loader} />
+                <Route
+                  exact
+                  path="/components/options-menu"
+                  component={OptionsMenu}
+                />
+                <Route exact path="/composites/alert" component={Alert} />
+                <Route exact path="/composites/modal" component={Modal} />
+                <Route exact path="/components/select" component={Select} />
+                <Route
+                  exact
+                  path="/components/radio-group"
+                  component={RadioGroup}
+                />
+                <Route exact path="/components/checkbox" component={Checkbox} />
+                <Route exact path="/components/tooltip" component={Tooltip} />
+              </Switch>
+            </Workspace>
+          </Layout>
         </div>
       </Router>
     );

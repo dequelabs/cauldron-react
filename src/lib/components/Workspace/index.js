@@ -19,15 +19,13 @@ export default class Workspace extends Component {
     const { children, workspaceRef, ...other } = this.props;
 
     return (
-      <div className="dqpl-layout">
-        <div
-          className="dqpl-main-content"
-          role="main"
-          ref={workspaceRef}
-          {...other}
-        >
-          {children}
-        </div>
+      <div
+        className="dqpl-main-content"
+        role="main"
+        ref={workspaceRef}
+        {...other}
+      >
+        {children}
       </div>
     );
   }
