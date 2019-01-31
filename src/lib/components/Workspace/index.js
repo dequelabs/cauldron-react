@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Main from '../Main';
+import Layout from '../Layout';
 
 export default class Workspace extends Component {
   static propTypes = {
@@ -8,27 +10,24 @@ export default class Workspace extends Component {
       PropTypes.object,
       PropTypes.string
     ]).isRequired,
-    workspaceRef: PropTypes.func
+    workspaceRef: PropTypes.func,
+    layoutRef: PropTypes.func
   };
 
   static defaultProps = {
-    workspaceRef: () => {}
+    workspaceRef: () => {},
+    layoutRef: () => {}
   };
 
   render() {
-    const { children, workspaceRef, ...other } = this.props;
+    const { children, workspaceRef, layoutRef, ...other } = this.props;
 
     return (
-      <div className="dqpl-layout">
-        <div
-          className="dqpl-main-content"
-          role="main"
-          ref={workspaceRef}
-          {...other}
-        >
+      <Layout layoutRef={layoutRef}>
+        <Main mainRef={workspaceRef} {...other}>
           {children}
-        </div>
-      </div>
+        </Main>
+      </Layout>
     );
   }
 }
