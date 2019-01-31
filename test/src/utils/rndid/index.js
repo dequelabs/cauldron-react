@@ -1,6 +1,6 @@
 import test from 'tape';
 import 'test/helpers/setup';
-import rndid from 'src/lib/utils/rndid';
+import rndid from 'src/utils/rndid';
 
 test('utils/rndid', t => {
   t.test('returns a unique string', t => {

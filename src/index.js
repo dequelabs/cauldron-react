@@ -1,52 +1,41 @@
-export Workspace from './lib/components/Workspace';
-export Main from './lib/components/Main';
-export Layout from './lib/components/Layout';
-
-/**
- * Commons
- */
-
-export Icon from './lib/commons/Icon';
-export Offscreen from './lib/commons/Offscreen';
-export Scrim from './lib/commons/Scrim';
-export MenuItem from './lib/commons/MenuItem';
-
-/**
- * Composites
- */
-
-export { default as TopBar, TopBarTrigger } from './lib/composites/TopBar';
-export SideBar, { Item as SideBarItem } from './lib/composites/SideBar';
-export Alert, { Actions as AlertActions } from './lib/composites/Alert';
-export Modal, {
-  Content as ModalContent,
-  Footer as ModalFooter
-} from './lib/composites/Modal';
-export SkipLink from './lib/composites/SkipLink';
-
 /**
  * Components
  */
 
-export Button from './lib/components/Button';
-export FirstTimePointOut from './lib/components/FirstTimePointOut';
-export Toast from './lib/components/Toast';
-export Link from './lib/components/Link';
-export Loader from './lib/components/Loader';
+export Workspace from './components/Workspace';
+export Main from './components/Main';
+export Layout from './components/Layout';
+export Icon from './components/Icon';
+export Offscreen from './components/Offscreen';
+export Scrim from './components/Scrim';
+export MenuItem from './components/MenuItem';
+export { default as TopBar, TopBarTrigger } from './components/TopBar';
+export SideBar, { Item as SideBarItem } from './components/SideBar';
+export Alert, { Actions as AlertActions } from './components/Alert';
+export Modal, {
+  Content as ModalContent,
+  Footer as ModalFooter
+} from './components/Modal';
+export SkipLink from './components/SkipLink';
+export Button from './components/Button';
+export FirstTimePointOut from './components/FirstTimePointOut';
+export Toast from './components/Toast';
+export Link from './components/Link';
+export Loader from './components/Loader';
 export {
   default as OptionsMenu,
   OptionsMenuItem,
   OptionsMenuTrigger,
   OptionsMenuWrapper
-} from './lib/components/OptionsMenu';
-export Select from './lib/components/Select';
-export RadioGroup from './lib/components/RadioGroup';
-export Checkbox from './lib/components/Checkbox';
-export Tooltip from './lib/components/Tooltip';
+} from './components/OptionsMenu';
+export Select from './components/Select';
+export RadioGroup from './components/RadioGroup';
+export Checkbox from './components/Checkbox';
+export Tooltip from './components/Tooltip';
 
 /**
  * Helpers / Utils
  */
 
-export AriaIsolate from './lib/utils/aria-isolate';
-export focusableSelector from './lib/utils/focusable-selector';
+export AriaIsolate from './utils/aria-isolate';
+export focusableSelector from './utils/focusable-selector';

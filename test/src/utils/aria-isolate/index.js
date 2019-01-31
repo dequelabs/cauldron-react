@@ -1,6 +1,6 @@
 import test from 'tape';
 import '../../../helpers/setup';
-import AriaIsolate from '../../../../src/lib/utils/aria-isolate/';
+import AriaIsolate from '../../../../src/utils/aria-isolate/';
 
 const { document } = window;
 const div = document.createElement('div');

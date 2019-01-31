@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import OptionsMenu from 'src/lib/components/OptionsMenu';
+import OptionsMenu from 'src/components/OptionsMenu';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -10,7 +10,7 @@ const defaultProps = {
   onClose: () => {}
 };
 
-test('__OptionsMenu Component__', t => {
+test('__OptionsMenu__', t => {
   t.test('handles a newly truthy `show` prop', t => {
     t.plan(1);
     const wrapper = mount(

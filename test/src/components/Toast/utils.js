@@ -1,5 +1,5 @@
 import test from 'tape';
-import { tabIndexHandler } from 'src/lib/components/Toast/utils';
+import { tabIndexHandler } from 'src/components/Toast/utils';
 import 'test/helpers/setup';
 
 let div, toast, targets;

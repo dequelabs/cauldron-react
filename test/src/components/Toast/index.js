@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Toast from 'src/lib/components/Toast';
+import Toast from 'src/components/Toast';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -9,7 +9,7 @@ const defaultProps = {
   show: false
 };
 
-test('__Toast Component__', t => {
+test('__Toast__', t => {
   t.test('handles initial show prop on mount', t => {
     t.plan(2);
     const wrapper = mount(
