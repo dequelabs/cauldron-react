@@ -52,10 +52,8 @@ To publish a stable version, you'll do something like this:
 # Ensure you have the latest code
 $ git checkout master
 $ git pull
-# Edit the version number
-$ vim package.json
-# Update the CHANGELOG
-$ npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+# Run the release script
+$ npm run release
 # Create the release commit and tag
 $ git commit -am "chore: Release vX.Y.Z"
 $ git tag vX.Y.Z -a -m "Release vX.Y.Z"
