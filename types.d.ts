@@ -43,7 +43,7 @@ interface ScrimProps {
 
 export const Scrim: React.ComponentType<ScrimProps>;
 
-interface MenuItemProps {
+interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
   menuItemRef?: RefCallback;
   onClick?: () => void;
@@ -63,6 +63,7 @@ export const TopBar: React.ComponentType<TopBarProps>;
 interface TopBarTriggerProps {
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLLIElement>) => void;
+  menuItemRef?: RefCallback;
 }
 
 export const TopBarTrigger: React.ComponentType<TopBarTriggerProps>;
