@@ -9,6 +9,20 @@ interface WorkspaceProps {
 
 export const Workspace: React.ComponentType<WorkspaceProps>;
 
+interface LayoutProps {
+  children: React.ReactNode;
+  layoutRef?: RefCallback;
+}
+
+export const Layout: React.ComponentType<LayoutProps>;
+
+interface MainProps {
+  children: React.ReactNode;
+  mainRef?: RefCallback;
+}
+
+export const Main: React.ComponentType<MainProps>;
+
 interface IconProps {
   label?: string;
   // TODO: allowed "types" should be defined here (intellisense, etc)

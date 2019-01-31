@@ -1,4 +1,6 @@
 export Workspace from './lib/components/Workspace';
+export Main from './lib/components/Main';
+export Layout from './lib/components/Layout';
 
 /**
  * Commons
