@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Select from 'src/lib/components/Select';
+import Select from 'src/components/Select';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -34,7 +34,7 @@ const basicSelect = (otherProps = {}) => {
   );
 };
 
-test('Select Component', t => {
+test('Select', t => {
   t.test('renders the expected UI', t => {
     const wrapper = withDefaultSelected();
 

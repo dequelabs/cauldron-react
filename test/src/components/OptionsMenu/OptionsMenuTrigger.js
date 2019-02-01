@@ -1,10 +1,10 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Trigger from 'src/lib/components/OptionsMenu/OptionsMenuTrigger';
+import Trigger from 'src/components/OptionsMenu/OptionsMenuTrigger';
 import 'test/helpers/setup';
 
-test('__OptionsMenuTrigger Component__', t => {
+test('__OptionsMenuTrigger__', t => {
   t.test('handles clicks', t => {
     t.plan(3);
     let called = false;

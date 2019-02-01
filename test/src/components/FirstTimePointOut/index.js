@@ -2,11 +2,11 @@ import React from 'react';
 import test from 'tape';
 import { shallow, mount } from 'enzyme';
 import '../../../helpers/setup';
-import FirstTimePointOut from '../../../../src/lib/components/FirstTimePointOut';
+import FirstTimePointOut from '../../../../src/components/FirstTimePointOut';
 
 const defaults = { headerId: 'foo' };
 
-test('__FirstTimePointOut Component__', t => {
+test('__FirstTimePointOut__', t => {
   t.test('handles "noArrow" prop properly', t => {
     t.plan(1);
     const ftpo = shallow(

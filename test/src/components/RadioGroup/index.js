@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import RadioGroup from 'src/lib/components/RadioGroup';
+import RadioGroup from 'src/components/RadioGroup';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -15,7 +15,7 @@ const defaultProps = {
   onChange: () => {}
 };
 
-test('RadioGroup Component', t => {
+test('RadioGroup', t => {
   t.test('handles `defaultValue`', t => {
     const wrapper = mount(
       <RadioGroup

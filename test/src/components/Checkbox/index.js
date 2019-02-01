@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { mount } from 'enzyme';
-import Checkbox from 'src/lib/components/Checkbox';
+import Checkbox from 'src/components/Checkbox';
 import 'test/helpers/setup';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
   label: 'Boognish'
 };
 
-test('Checkbox Component', t => {
+test('Checkbox', t => {
   t.test('handles checked prop', t => {
     const wrapper = mount(<Checkbox {...defaultProps} checked />);
 

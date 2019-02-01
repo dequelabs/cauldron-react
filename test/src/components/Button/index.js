@@ -2,9 +2,9 @@ import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
 import '../../../helpers/setup';
-import Button from '../../../../src/lib/components/Button';
+import Button from '../../../../src/components/Button';
 
-test('__Button Component__', t => {
+test('__Button__', t => {
   t.test('handles primary/secondary properly', t => {
     const primary = shallow(<Button>{'Primary'}</Button>);
     const secondary = shallow(<Button secondary={true}>{'Secondary'}</Button>);
