@@ -1,14 +1,21 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es5",
     "module": "commonjs",
-    "lib": ["es6", "dom"],
-    "noImplicitAny": true,
+    "lib": ["es2015", "dom"],
+    "strict": true,
+    "pretty": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "typeRoots": ["node_modules/@types"],
+    "declaration": true,
+    "allowJs": true,
     "jsx": "react",
-    "noEmit": true
+    "rootDir": "src",
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types"]
   },
-  "files": ["types.d.ts", "test/typechecks.tsx"]
+  "exclude": ["webpack.config.ts"]
 }
