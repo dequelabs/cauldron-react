@@ -91,33 +91,38 @@ export default class TopBar extends Component {
     // disabling no-unused-vars to prevent hasTrigger from being passed through to div
     // eslint-disable-next-line no-unused-vars
     const { children, className, hasTrigger, ...other } = this.props;
-    const { focusIndex } = this.state;
 
     return (
       <div className={classNames('dqpl-top-bar', className)} {...other}>
-        <ul role="menubar">
-          {Children.map(children, (child, index) =>
-            cloneElement(child, {
-              key: index,
-              onKeyDown: (...args) => {
-                this.onKeyDown(...args);
-
-                if (child.props.onKeyDown) {
-                  child.props.onKeyDown(...args);
-                }
-              },
-              tabIndex: focusIndex === index ? 0 : -1,
-              menuItemRef: menuItem => {
-                this.menuItems[index] = menuItem;
-
-                if (child.props.menuItemRef) {
-                  child.props.menuItemRef(menuItem);
-                }
-              }
-            })
-          )}
-        </ul>
+        <ul role="menubar">{Children.map(children, this.renderChild)}</ul>
       </div>
     );
   }
+
+  renderChild = (child, index) => {
+    const { focusIndex } = this.state;
+
+    if (!child) {
+      return null;
+    }
+
+    return cloneElement(child, {
+      key: index,
+      onKeyDown: (...args) => {
+        this.onKeyDown(...args);
+
+        if (child.props.onKeyDown) {
+          child.props.onKeyDown(...args);
+        }
+      },
+      tabIndex: focusIndex === index ? 0 : -1,
+      menuItemRef: menuItem => {
+        this.menuItems[index] = menuItem;
+
+        if (child.props.menuItemRef) {
+          child.props.menuItemRef(menuItem);
+        }
+      }
+    });
+  };
 }
