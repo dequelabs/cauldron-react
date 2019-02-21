@@ -8,13 +8,15 @@ export default class MenuItem extends Component {
     children: PropTypes.node.isRequired,
     menuItemRef: PropTypes.func,
     onClick: PropTypes.func,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    autoClickLink: PropTypes.bool
   };
 
   static defaultProps = {
     menuItemRef: () => {},
     onClick: () => {},
-    onKeyDown: () => {}
+    onKeyDown: () => {},
+    autoClickLink: true
   };
 
   constructor() {
@@ -24,8 +26,11 @@ export default class MenuItem extends Component {
   }
 
   onClick(e) {
-    clickLink(e.target, this.item);
-    this.props.onClick();
+    const { autoClickLink, onClick } = this.props;
+    if (autoClickLink) {
+      clickLink(e.target, this.item);
+    }
+    onClick();
   }
 
   onKeyDown(e) {
@@ -40,7 +45,8 @@ export default class MenuItem extends Component {
   }
 
   render() {
-    const { children, menuItemRef, ...other } = this.props;
+    // eslint-disable-next-line no-unused-vars
+    const { children, menuItemRef, autoClickLink, ...other } = this.props;
     return (
       <li
         {...other}
