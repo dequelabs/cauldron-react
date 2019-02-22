@@ -48,6 +48,7 @@ interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   menuItemRef?: RefCallback;
   onClick?: () => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLLIElement>) => void;
+  autoClickLink?: boolean;
 }
 
 export const MenuItem: React.ComponentType<MenuItemProps>;
