@@ -83,6 +83,10 @@ class App extends Component {
                 Cauldron
               </Link>
             </MenuItem>
+
+            {/* The below line demonstrates the ability to conditionally include menu item children. */}
+            {false && <MenuItem>Potato</MenuItem>}
+
             <MenuItem className="dqpl-right-aligned">
               <a
                 tabIndex={-1}

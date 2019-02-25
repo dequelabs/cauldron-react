@@ -92,4 +92,16 @@ test('__TopBar__', t => {
       t.equal(wrapper.state('focusIndex'), 0);
     });
   });
+
+  t.test('supports falsy children', t => {
+    t.plan(1);
+    t.ok(
+      shallow(
+        <TopBar>
+          <div />
+          {false && <div />}
+        </TopBar>
+      )
+    );
+  });
 });
