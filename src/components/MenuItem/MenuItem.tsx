@@ -9,6 +9,7 @@ interface Props extends React.HTMLAttributes<HTMLLIElement> {
   menuItemRef?: RefCallback;
   onClick?: () => void;
   onKeydown?: (e: React.KeyboardEvent<HTMLLIElement>) => void;
+  autoClickLink?: boolean;
 }
 
 class MenuItem extends React.Component<Props> {
@@ -18,20 +19,28 @@ class MenuItem extends React.Component<Props> {
     children: PropTypes.node.isRequired,
     menuItemRef: PropTypes.func,
     onClick: PropTypes.func,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    autoClickLink: PropTypes.bool
   };
 
   private item: HTMLLIElement | null = null;
 
   public render() {
-    const { children, menuItemRef, onClick, onKeyDown, ...other } = this.props;
+    const {
+      children,
+      menuItemRef,
+      onClick,
+      onKeyDown,
+      autoClickLink = true,
+      ...other
+    } = this.props;
     return (
       <li
         {...other}
         role="menuitem"
         ref={this.setRef}
         onClick={this.handleClick}
-        onKeydown={this.handleKeydown}
+        onKeyDown={this.handleKeyDown}
       >
         {children}
       </li>
@@ -47,15 +56,17 @@ class MenuItem extends React.Component<Props> {
   }
 
   private handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    clickLink(e.target, this.item);
+    const { onClick, autoClickLink } = this.props;
+    if (autoClickLink) {
+      clickLink(e.target as HTMLLIElement, this.item);
+    }
 
-    const { onClick } = this.props;
     if (typeof onClick === 'function') {
       onClick();
     }
   };
 
-  private handleKeydown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+  private handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     const key = keyname(e.which);
 
     if (key === 'enter' || key === 'space') {
