@@ -263,26 +263,7 @@ export class AriaIsolate {
 
 export const focusableSelector: string;
 
-interface CardProps {
-  className?: string;
-}
-
-export const Card: React.ComponentType<CardProps>;
-
-interface CardHeaderProps {
-  className?: string;
-}
-
-export const CardHeader: React.ComponentType<CardHeaderProps>;
-
-interface CardContentProps {
-  className?: string;
-}
-
-export const CardContent: React.ComponentType<CardContentProps>;
-
-interface CardFooterProps {
-  className?: string;
-}
-
-export const CardFooter: React.ComponentType<CardFooterProps>;
+export const Card: React.HTMLAttributes<HTMLDivElement>;
+export const CardHeader: React.HTMLAttributes<HTMLDivElement>;
+export const CardContent: React.HTMLAttributes<HTMLDivElement>;
+export const CardFooter: React.HTMLAttributes<HTMLDivElement>;
