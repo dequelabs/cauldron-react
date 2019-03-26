@@ -96,7 +96,7 @@ interface AlertActionsProps {
 
 export const AlertActions: React.ComponentType<AlertActionsProps>;
 
-interface ModalProps {
+interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   show?: boolean;
@@ -132,7 +132,7 @@ interface SkipLinkProps {
 
 export const SkipLink: React.ComponentType<SkipLinkProps>;
 
-interface ButtonProps {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   secondary?: boolean;
   children: React.ReactNode;
   className?: string;
