@@ -106,7 +106,7 @@ const modal = () => (
     className="hi"
     forceAction
     closeButtonText="close"
-    heading="hello"
+    heading={{ text: 'hello' }}
     modalRef={noopRef}
     onClose={noop}
     show
