@@ -103,7 +103,10 @@ interface ModalProps {
   modalRef?: RefCallback;
   onClose?: () => void;
   forceAction?: boolean;
-  heading: any; // TODO: what is this?
+  heading: {
+    text: string;
+    level?: number;
+  };
   closeButtonText?: string;
 }
 
