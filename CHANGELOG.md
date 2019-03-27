@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+
+# [0.4.0](https://github.com/dequelabs/cauldron-react/compare/v0.3.0...v0.4.0) (2019-03-27)
+
+### Bug Fixes
+
+- add missing `autoClickLink` prop to MenuItem ts def ([#76](https://github.com/dequelabs/cauldron-react/issues/76)) ([0072c8b](https://github.com/dequelabs/cauldron-react/commit/0072c8b))
+- export `Main` and `Layout` ([#64](https://github.com/dequelabs/cauldron-react/issues/64)) ([a76d449](https://github.com/dequelabs/cauldron-react/commit/a76d449))
+- **TopBar:** support falsy children ([#74](https://github.com/dequelabs/cauldron-react/issues/74)) ([73ef1be](https://github.com/dequelabs/cauldron-react/commit/73ef1be)), closes [#72](https://github.com/dequelabs/cauldron-react/issues/72)
+- **types:** allow any div/button props on Button and Modal components ([#78](https://github.com/dequelabs/cauldron-react/issues/78)) ([78c1e93](https://github.com/dequelabs/cauldron-react/commit/78c1e93))
+- **types:** correct Modal heading proptypes ([#79](https://github.com/dequelabs/cauldron-react/issues/79)) ([d85b7f7](https://github.com/dequelabs/cauldron-react/commit/d85b7f7))
+- **typescript:** correct <MenuItem /> props ([#66](https://github.com/dequelabs/cauldron-react/issues/66)) ([320d322](https://github.com/dequelabs/cauldron-react/commit/320d322))
+
+### Features
+
+- add option to disable "auto clicking" links ([#75](https://github.com/dequelabs/cauldron-react/issues/75)) ([c7ceca8](https://github.com/dequelabs/cauldron-react/commit/c7ceca8)), closes [#73](https://github.com/dequelabs/cauldron-react/issues/73)
+- add TypeScript definitions ([#55](https://github.com/dequelabs/cauldron-react/issues/55)) ([60d8b18](https://github.com/dequelabs/cauldron-react/commit/60d8b18))
+- adds <Card /> components ([#77](https://github.com/dequelabs/cauldron-react/issues/77)) ([c31619f](https://github.com/dequelabs/cauldron-react/commit/c31619f))
+- adds <Layout /> and <Main /> for more flexibility ([#63](https://github.com/dequelabs/cauldron-react/issues/63)) ([c699a38](https://github.com/dequelabs/cauldron-react/commit/c699a38)), closes [#61](https://github.com/dequelabs/cauldron-react/issues/61)
+
 <a name="0.3.0"></a>
 
 # [0.3.0](https://github.com/dequelabs/cauldron-react/compare/v0.2.0...v0.3.0) (2018-12-18)
