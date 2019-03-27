@@ -5,6 +5,8 @@ type RefCallback = (ref: any) => void;
 interface WorkspaceProps {
   children: React.ReactNode;
   workspaceRef?: RefCallback;
+  layoutRef?: RefCallback;
+  noSideBar?: boolean;
 }
 
 export const Workspace: React.ComponentType<WorkspaceProps>;
