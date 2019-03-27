@@ -265,3 +265,14 @@ export class AriaIsolate {
 }
 
 export const focusableSelector: string;
+
+export const Card: React.ComponentType<React.HTMLAttributes<HTMLDivElement>>;
+export const CardHeader: React.ComponentType<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+export const CardContent: React.ComponentType<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+export const CardFooter: React.ComponentType<
+  React.HTMLAttributes<HTMLDivElement>
+>;

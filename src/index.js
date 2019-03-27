@@ -32,7 +32,12 @@ export Select from './components/Select';
 export RadioGroup from './components/RadioGroup';
 export Checkbox from './components/Checkbox';
 export Tooltip from './components/Tooltip';
-
+export {
+  default as Card,
+  CardHeader,
+  CardContent,
+  CardFooter
+} from './components/Card';
 /**
  * Helpers / Utils
  */
