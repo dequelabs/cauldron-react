@@ -11,7 +11,8 @@ export default class Workspace extends Component {
       PropTypes.string
     ]).isRequired,
     workspaceRef: PropTypes.func,
-    layoutRef: PropTypes.func
+    layoutRef: PropTypes.func,
+    noSideBar: PropTypes.bool
   };
 
   static defaultProps = {
@@ -19,8 +20,32 @@ export default class Workspace extends Component {
     layoutRef: () => {}
   };
 
+  componentDidMount() {
+    document.body.classList.toggle('dqpl-no-sidebar', this.props.noSideBar);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.noSideBar === this.props.noSideBar) {
+      return;
+    }
+
+    document.body.classList.toggle('dqpl-no-sidebar', this.props.noSideBar);
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('dqpl-no-sidebar');
+  }
+
   render() {
-    const { children, workspaceRef, layoutRef, ...other } = this.props;
+    const {
+      // defining `noSideBar` to prevent it from being passed through to Main
+      // eslint-disable-next-line no-unused-vars
+      noSideBar,
+      children,
+      workspaceRef,
+      layoutRef,
+      ...other
+    } = this.props;
 
     return (
       <Layout layoutRef={layoutRef}>
