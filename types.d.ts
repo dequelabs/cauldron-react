@@ -25,7 +25,7 @@ interface MainProps {
 
 export const Main: React.ComponentType<MainProps>;
 
-interface IconProps {
+interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
   // TODO: allowed "types" should be defined here (intellisense, etc)
   type: string;
