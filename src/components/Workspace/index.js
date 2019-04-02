@@ -17,7 +17,8 @@ export default class Workspace extends Component {
 
   static defaultProps = {
     workspaceRef: () => {},
-    layoutRef: () => {}
+    layoutRef: () => {},
+    noSideBar: false
   };
 
   componentDidMount() {
