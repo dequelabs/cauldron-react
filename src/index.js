@@ -38,7 +38,7 @@ export {
   CardContent,
   CardFooter
 } from './components/Card';
-export TextInput from './components/TextInput';
+export TextField from './components/TextField';
 /**
  * Helpers / Utils
  */
