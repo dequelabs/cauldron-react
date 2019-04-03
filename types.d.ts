@@ -278,3 +278,18 @@ export const CardContent: React.ComponentType<
 export const CardFooter: React.ComponentType<
   React.HTMLAttributes<HTMLDivElement>
 >;
+
+interface TextFieldProps {
+  label: string;
+  id?: string;
+  error?: React.ReactNode;
+  defaultValue?: string;
+  value?: string;
+  onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRef?: RefCallback;
+  required?: boolean;
+  requiredText?: string;
+  'aria-describedby'?: string;
+}
+
+export const TextField: React.ComponentType<TextFieldProps>;
