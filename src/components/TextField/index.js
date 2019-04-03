@@ -6,7 +6,7 @@ import tokenList from '../../utils/token-list';
 
 export default class TextField extends Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
     id: PropTypes.string,
     error: PropTypes.node,
     defaultValue: PropTypes.string,

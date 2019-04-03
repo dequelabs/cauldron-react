@@ -280,7 +280,7 @@ export const CardFooter: React.ComponentType<
 >;
 
 interface TextFieldProps {
-  label: string;
+  label: React.ReactNode;
   id?: string;
   error?: React.ReactNode;
   defaultValue?: string;
