@@ -28,7 +28,8 @@ import {
   TopBarTrigger,
   Workspace,
   AriaIsolate,
-  focusableSelector
+  focusableSelector,
+  TextField
 } from '../types';
 
 const noop = () => {};
@@ -214,3 +215,17 @@ const ariaIsolate = () => {
 };
 
 document.querySelectorAll(focusableSelector);
+
+const textField = () => (
+  <TextField
+    label={<span>Email</span>}
+    id="email"
+    error={<span>invalid email</span>}
+    defaultValue="foo@bar.io"
+    onChange={noop}
+    inputRef={noop}
+    required
+    requiredText="Required"
+    aria-describedby="help-text"
+  />
+);

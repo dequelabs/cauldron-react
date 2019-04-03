@@ -17,6 +17,7 @@ import RadioGroup from './patterns/components/RadioGroup';
 import Checkbox from './patterns/components/Checkbox';
 import Tooltip from './patterns/components/Tooltip';
 import Card from './patterns/components/Card';
+import TextField from './patterns/components/TextField';
 
 // import cauldron react components
 import {
@@ -141,6 +142,9 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink('/components/card', 'Card')}
             </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink('/components/text-field', 'TextField')}
+            </MenuItem>
           </SideBar>
           <Workspace
             id="main-content"
@@ -174,6 +178,11 @@ class App extends Component {
               <Route exact path="/components/checkbox" component={Checkbox} />
               <Route exact path="/components/tooltip" component={Tooltip} />
               <Route exact path="/components/card" component={Card} />
+              <Route
+                exact
+                path="/components/text-field"
+                component={TextField}
+              />
             </Switch>
           </Workspace>
         </div>
