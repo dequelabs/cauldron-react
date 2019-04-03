@@ -123,6 +123,7 @@ export default class SideBar extends Component {
     return (
       <Fragment>
         <ul
+          role="menu"
           className={classNames('dqpl-side-bar', className, animateClass)}
           {...listProps}
         >
