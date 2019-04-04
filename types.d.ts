@@ -286,9 +286,10 @@ interface TextFieldProps {
   defaultValue?: string;
   value?: string;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputRef?: RefCallback;
+  fieldRef?: RefCallback;
   required?: boolean;
   requiredText?: string;
+  mulitline?: boolean;
   'aria-describedby'?: string;
 }
 
