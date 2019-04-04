@@ -12,9 +12,10 @@ export default class TextField extends Component {
     defaultValue: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    inputRef: PropTypes.func,
+    fieldRef: PropTypes.func,
     required: PropTypes.bool,
     requiredText: PropTypes.string, // support localized required text
+    multiline: PropTypes.bool,
     'aria-describedby': PropTypes.string
   };
 
@@ -23,8 +24,9 @@ export default class TextField extends Component {
     required: false,
     defaultValue: null,
     onChange: () => {},
-    inputRef: () => {},
-    requiredText: 'Required'
+    fieldRef: () => {},
+    requiredText: 'Required',
+    multiline: false
   };
 
   constructor(props) {
@@ -56,7 +58,7 @@ export default class TextField extends Component {
     // props from being passed through to the input
     const {
       label,
-      inputRef,
+      fieldRef,
       // eslint-disable-next-line no-unused-vars
       value,
       // eslint-disable-next-line no-unused-vars
@@ -65,10 +67,11 @@ export default class TextField extends Component {
       defaultValue,
       error = null,
       requiredText,
+      multiline,
       'aria-describedby': ariaDescribedby,
       ...other
     } = this.props;
-
+    const Field = multiline ? 'textarea' : 'input';
     const inputProps = {
       'aria-describedby': error
         ? tokenList(this.errorId, ariaDescribedby)
@@ -89,8 +92,10 @@ export default class TextField extends Component {
             <span className="dqpl-required-text">{requiredText}</span>
           )}
         </label>
-        <input
-          className={classNames('dqpl-text-input', {
+        <Field
+          className={classNames({
+            'dqpl-text-input': !multiline,
+            'dqpl-textarea': multiline,
             'dqpl-error': error
           })}
           id={this.inputId}
@@ -99,7 +104,7 @@ export default class TextField extends Component {
           aria-invalid={!!error}
           ref={input => {
             this.input = input;
-            inputRef(input);
+            fieldRef(input);
           }}
           {...other}
           {...inputProps}

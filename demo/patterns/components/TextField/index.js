@@ -32,7 +32,7 @@ export default class Demo extends Component {
         <h2>Demo</h2>
         <form onSubmit={this.validate} noValidate>
           <p id="text-field-help">
-            <em>Hint:</em> submit with the field blank to trigger error!
+            <em>Hint:</em> submit with the name field blank to trigger error!
           </p>
           <TextField
             required
@@ -40,8 +40,9 @@ export default class Demo extends Component {
             label="Name"
             aria-describedby="text-field-help"
             error={this.state.error}
-            inputRef={el => (this.input = el)}
+            fieldRef={el => (this.input = el)}
           />
+          <TextField multiline label="Comment" />
           <Button type="submit">Submit</Button>
         </form>
         <h2>Code Sample</h2>
@@ -52,20 +53,41 @@ import {
   TextField, Button
 } from 'cauldron-react';
 
-const Demo = () => (
-  <form onSubmit={this.validate} noValidate>
-    <p id="text-field-help"><em>Hint:</em> submit with the field blank to trigger error!</p>
-    <TextField
-      required
-      id="name"
-      label="Name"
-      aria-describedby="text-field-help"
-      error={this.state.error}
-      inputRef={el => this.input = el}
-    />
-    <Button type="submit">Submit</Button>
-  </form>
-);
+export default class Demo extends Component {
+  state = {
+    error: null
+  };
+
+  validate = e => {
+    e.preventDefault();
+    const isEmpty = !this.input.value.trim();
+    this.setState({
+      error: isEmpty ? 'Name must not be blank.' : null
+    });
+
+    if (isEmpty) {
+      this.input.focus();
+    }
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.validate} noValidate>
+        <p id="text-field-help"><em>Hint:</em> submit with the field blank to trigger error!</p>
+        <TextField
+          required
+          id="name"
+          label="Name"
+          aria-describedby="text-field-help"
+          error={this.state.error}
+          fieldRef={el => this.input = el}
+        />
+        <TextField multiline label="Comment" />
+        <Button type="submit">Submit</Button>
+      </form>
+    );
+  }
+}
       `}
         </Highlight>
       </div>

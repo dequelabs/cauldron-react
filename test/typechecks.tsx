@@ -223,7 +223,7 @@ const textField = () => (
     error={<span>invalid email</span>}
     defaultValue="foo@bar.io"
     onChange={noop}
-    inputRef={noop}
+    fieldRef={noop}
     required
     requiredText="Required"
     aria-describedby="help-text"
