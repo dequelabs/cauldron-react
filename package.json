@@ -19,9 +19,7 @@
     "prepublishOnly": "NODE_ENV=production npm run build",
     "release": "standard-version",
     "postrelease": "npm run deploy",
-    "test": "nyc npm run test:run && npm run lint",
-    "test:run": "tape -r babel-register \"test/src/**/*.js\" | tap-spec",
-    "test:dev": "tape-watch -r babel-register \"test/src/**/*.js\" | tap-spec",
+    "test": "jest --coverage",
     "test:ts": "tsc",
     "predeploy": "NODE_ENV=production npm run build:demo",
     "deploy": "gh-pages --dist=demo/dist --message='chore: Update from master [ci skip]'"
@@ -44,24 +42,25 @@
     "react": "^16"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-stage-0": "^7.0.0",
+    "@babel/register": "^7.4.0",
     "@types/react": "^16.7.20",
     "autoprefixer": "^9.3.1",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
     "classnames": "^2.2.5",
     "closest": "0.0.1",
     "css-loader": "^0.28.7",
     "deque-pattern-library": "^2.5.1",
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^4.12.1",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-jsx-a11y": "^6.1.1",
@@ -85,9 +84,6 @@
     "react-router-dom": "^4.2.2",
     "standard-version": "^4.3.0",
     "style-loader": "^0.19.0",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.8.0",
-    "tape-watch": "^2.3.0",
     "typescript": "^3.2.4",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
@@ -126,6 +122,17 @@
     "*.{json,css,md,ts,tsx}": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>__tests__/setupTests.js"
+    ],
+    "testMatch": [
+      "**/__tests__/src/**/*.js"
+    ],
+    "collectCoverageFrom": [
+      "**/src/**/*.js"
     ]
   }
 }

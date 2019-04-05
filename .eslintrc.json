@@ -5,6 +5,13 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "jest": true,
+    "test": true,
+    "expect": true,
+    "afterEach": true,
+    "beforeEach": true
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
