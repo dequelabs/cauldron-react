@@ -10,5 +10,5 @@
     "jsx": "react",
     "noEmit": true
   },
-  "files": ["types.d.ts", "test/typechecks.tsx"]
+  "files": ["types.d.ts", "__tests__/typechecks.tsx"]
 }
