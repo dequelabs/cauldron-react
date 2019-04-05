@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+
+# [0.5.0](https://github.com/dequelabs/cauldron-react/compare/v0.4.0...v0.5.0) (2019-04-05)
+
+### Bug Fixes
+
+- **types:** allow <div> props to be passed to icon ([#83](https://github.com/dequelabs/cauldron-react/issues/83)) ([5dbd63f](https://github.com/dequelabs/cauldron-react/commit/5dbd63f))
+- add false default value for workspace 'noSideBar' prop ([#85](https://github.com/dequelabs/cauldron-react/issues/85)) ([247d8ab](https://github.com/dequelabs/cauldron-react/commit/247d8ab))
+- adds missing menu role to sidebar ([#87](https://github.com/dequelabs/cauldron-react/issues/87)) ([055c185](https://github.com/dequelabs/cauldron-react/commit/055c185))
+
+### Features
+
+- **TextField:** adds support for textareas via multiline prop ([#89](https://github.com/dequelabs/cauldron-react/issues/89)) ([6dba228](https://github.com/dequelabs/cauldron-react/commit/6dba228)), closes [#70](https://github.com/dequelabs/cauldron-react/issues/70)
+- **Workspace:** supports noSideBar prop for apps without sidebars ([#80](https://github.com/dequelabs/cauldron-react/issues/80)) ([771dd57](https://github.com/dequelabs/cauldron-react/commit/771dd57))
+
 <a name="0.4.0"></a>
 
 # [0.4.0](https://github.com/dequelabs/cauldron-react/compare/v0.3.0...v0.4.0) (2019-03-27)
