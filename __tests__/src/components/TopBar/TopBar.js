@@ -6,10 +6,6 @@ import TopBar from '../../../../src/components/TopBar';
 const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
 MenuItem.propTypes = { menuItemRef: PropTypes.func };
 
-jest.mock('../../utils/viewport', () => ({
-  isWide: () => true
-}));
-
 test('renders', () => {
   expect.assertions(1);
   expect(

@@ -25,7 +25,7 @@ test('handles initial show prop on mount', done => {
   }); // wait for animation timeouts / async setState calls
 });
 
-test('handles autoHide properly', () => {
+test('handles autoHide properly', done => {
   let called = false;
   mount(
     <Toast
@@ -37,7 +37,10 @@ test('handles autoHide properly', () => {
       {'hi'}
     </Toast>
   );
-  expect(called).toBe(true);
+  setTimeout(() => {
+    expect(called).toBe(true);
+    done();
+  }, 100);
 });
 
 test('handles transition from falsey show to truthy show prop', done => {
@@ -120,7 +123,7 @@ test('handles "action-needed" type', done => {
   }); // wait for animation timeouts / async setState calls
 });
 
-test('clicking the dismiss button properly dismisses toast', () => {
+test('clicking the dismiss button properly dismisses toast', done => {
   let called = false;
   const wrapper = mount(
     <Toast {...defaultProps} show={true} onDismiss={() => (called = true)}>
@@ -128,5 +131,8 @@ test('clicking the dismiss button properly dismisses toast', () => {
     </Toast>
   );
   wrapper.find('.dqpl-toast-dismiss').simulate('click');
-  expect(called).toBe(true);
+  setTimeout(() => {
+    expect(called).toBe(true);
+    done();
+  }, 10);
 });

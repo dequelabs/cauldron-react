@@ -2,6 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Alert from '../../../../src/components/Alert';
 
+let fallback;
+
+beforeAll(() => {
+  fallback = document.createElement('div');
+  fallback.className = 'dqpl-dialog-inner';
+  document.body.appendChild(fallback);
+});
+
+afterAll(() => document.body.removeChild(fallback));
+
 test('returns null if passed a falsey "show" prop', () => {
   expect.assertions(1);
   const alert = mount(<Alert show={false}>{'hello'}</Alert>);
@@ -15,7 +25,7 @@ test('focuses content when passed a truthy "show" prop upon mounting', done => {
 
   setTimeout(() => {
     // setting timeout to wait for fade-in (like the src does)
-    expect(document.activeElement).toBe(alert.instance().content);
+    expect(document.activeElement).toEqual(alert.instance().content);
     alert.unmount();
     done();
   }, 10);
@@ -26,7 +36,7 @@ test('focuses content when "show" prop is updated from falsey to truthy', done =
 
   alert.setProps({ show: true }, () => {
     setTimeout(() => {
-      expect(document.activeElement).toBe(alert.instance().content);
+      expect(document.activeElement).toEqual(alert.instance().content);
       alert.unmount();
       done();
     }, 10);

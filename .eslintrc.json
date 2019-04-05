@@ -10,7 +10,9 @@
     "test": true,
     "expect": true,
     "afterEach": true,
-    "beforeEach": true
+    "afterAll": true,
+    "beforeEach": true,
+    "beforeAll": true
   },
   "extends": [
     "eslint:recommended",

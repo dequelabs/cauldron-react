@@ -43,7 +43,6 @@ test('multiline=true renders textarea', done => {
 test('multiline=false renders input', done => {
   mount(
     <TextField
-      multline={false}
       label="Yo"
       fieldRef={element => {
         expect(element.tagName).toBe('INPUT');

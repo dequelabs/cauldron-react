@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
+import SideBar from '../../../../src/components/SideBar';
 
 const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
 MenuItem.propTypes = { menuItemRef: PropTypes.func };
 
-jest.mock('../../utils/viewport', () => ({
-  isWide: () => false
-}));
-
-const SideBar = require('../../../../src/components/SideBar').default;
 const mountWrapper = (onDismiss = () => {}) =>
   mount(
     <SideBar onDismiss={onDismiss}>
@@ -23,9 +19,10 @@ const noop = () => {};
 test('properly handles viewport resize', () => {
   expect.assertions(1);
   const wrapper = mountWrapper();
-  wrapper.setState({ wide: true });
+  wrapper.setState({ wide: false });
+  // TODO: make this less fragile by mocking the isWide function
   wrapper.instance().onResize();
-  expect(wrapper.state('wide')).toBe(false);
+  expect(wrapper.state('wide')).toBe(true);
 });
 
 test('handles UP arrow', () => {
@@ -68,8 +65,7 @@ test('handles escape (calls onDismiss)', () => {
   expect(called).toBeTruthy();
 });
 
-test('animates / toggles display given a show prop change', () => {
-  expect.assertions(2);
+test('animates / toggles display given a show prop change', done => {
   const wrapper = mountWrapper();
   wrapper.setProps({ show: true });
 
@@ -79,6 +75,7 @@ test('animates / toggles display given a show prop change', () => {
 
     setTimeout(() => {
       expect(wrapper.state('animateClass')).toBe('');
+      done();
     }, 101);
   }, 101); // wait for animation classes to get added
 });
