@@ -39,7 +39,7 @@ $ yarn test
 or to have tests automagically re-run when files change
 
 ```sh
-$ yarn test:dev
+$ yarn --watch
 ```
 
 ## Publishing
@@ -56,9 +56,6 @@ $ git checkout master
 $ git pull
 # Run the release script
 $ npm run release
-# Create the release commit and tag
-$ git commit -am "chore: Release vX.Y.Z"
-$ git tag vX.Y.Z -a -m "Release vX.Y.Z"
-# Push to origin
-$ git push
+# push it
+$ git push --follow-tags origin master && npm publish
 ```
