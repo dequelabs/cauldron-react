@@ -149,6 +149,7 @@ const ModalContent = ({ children, ...other }) => (
     {children}
   </div>
 );
+ModalContent.displayName = 'ModalContent';
 ModalContent.propTypes = commonProps;
 
 const ModalFooter = ({ children, ...other }) => (
@@ -156,6 +157,7 @@ const ModalFooter = ({ children, ...other }) => (
     {children}
   </div>
 );
+ModalFooter.displayName = 'ModalFooter';
 ModalFooter.propTypes = commonProps;
 
 export { ModalContent, ModalFooter };
