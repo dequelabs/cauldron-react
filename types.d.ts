@@ -114,13 +114,13 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Modal: React.ComponentType<ModalProps>;
 
-interface ModalContentProps {
+interface ModalContentProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
 export const ModalContent: React.ComponentType<ModalContentProps>;
 
-interface ModalFooterProps {
+interface ModalFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
