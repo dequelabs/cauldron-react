@@ -144,14 +144,20 @@ Modal.defaultProps = {
   modalRef: noop
 };
 
-const Content = ({ children }) => (
-  <div className="dqpl-content">{children}</div>
+const ModalContent = ({ children, ...other }) => (
+  <div className="dqpl-content" {...other}>
+    {children}
+  </div>
 );
-Content.propTypes = commonProps;
+ModalContent.displayName = 'ModalContent';
+ModalContent.propTypes = commonProps;
 
-const Footer = ({ children }) => (
-  <div className="dqpl-modal-footer">{children}</div>
+const ModalFooter = ({ children, ...other }) => (
+  <div className="dqpl-modal-footer" {...other}>
+    {children}
+  </div>
 );
-Footer.propTypes = commonProps;
+ModalFooter.displayName = 'ModalFooter';
+ModalFooter.propTypes = commonProps;
 
-export { Content, Footer };
+export { ModalContent, ModalFooter };

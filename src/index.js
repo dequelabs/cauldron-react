@@ -12,10 +12,7 @@ export MenuItem from './components/MenuItem';
 export { default as TopBar, TopBarTrigger } from './components/TopBar';
 export SideBar from './components/SideBar';
 export Alert, { Actions as AlertActions } from './components/Alert';
-export Modal, {
-  Content as ModalContent,
-  Footer as ModalFooter
-} from './components/Modal';
+export Modal, { ModalContent, ModalFooter } from './components/Modal';
 export SkipLink from './components/SkipLink';
 export Button from './components/Button';
 export FirstTimePointOut from './components/FirstTimePointOut';
