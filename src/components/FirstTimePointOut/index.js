@@ -8,6 +8,7 @@ export default class FirstTimePointOut extends Component {
     children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
     noArrow: PropTypes.bool,
+    arrowPosition: PropTypes.string,
     onClose: PropTypes.func,
     dismissText: PropTypes.string
   };
@@ -16,7 +17,8 @@ export default class FirstTimePointOut extends Component {
     ftpRef: () => {},
     noArrow: false,
     onClose: () => {},
-    dismissText: 'dismiss'
+    dismissText: 'dismiss',
+    arrowPosition: 'top-left'
   };
 
   constructor() {
@@ -28,7 +30,14 @@ export default class FirstTimePointOut extends Component {
 
   render() {
     const { show } = this.state;
-    const { headerId, ftpRef, children, noArrow, dismissText } = this.props;
+    const {
+      headerId,
+      ftpRef,
+      children,
+      noArrow,
+      dismissText,
+      arrowPosition
+    } = this.props;
 
     if (!show) {
       return null;
@@ -43,14 +52,18 @@ export default class FirstTimePointOut extends Component {
         aria-labelledby={headerId}
       >
         {noArrow ? null : (
-          <div className="dqpl-arrow">
+          <div
+            className={classNames('dqpl-arrow', {
+              [arrowPosition]: !!arrowPosition && !noArrow
+            })}
+          >
             <div className="dqpl-arrow-pointer" />
             <div className="dqpl-arrow-neck" />
           </div>
         )}
         <div className="dqpl-box">
           <button
-            className="dqpl-ftp-dismiss fa fa-close"
+            className="dqpl-ftpo-dismiss fa fa-close"
             type="button"
             aria-label={dismissText}
             onClick={this.onCloseClick}

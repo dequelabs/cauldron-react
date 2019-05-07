@@ -15,6 +15,16 @@ test('handles "noArrow" prop properly', () => {
   expect(ftpo.hasClass('dqpl-no-arrow')).toBeTruthy();
 });
 
+test('handles "arrowPosition" prop', () => {
+  const ftpo = shallow(
+    <FirstTimePointOut arrowPosition="top-right" {...defaults}>
+      {'hello'}
+    </FirstTimePointOut>
+  );
+
+  expect(ftpo.find('.dqpl-arrow.top-right')).toBeTruthy();
+});
+
 test('returns null given a falsey "show" state', () => {
   expect.assertions(1);
   const ftpo = mount(
@@ -40,7 +50,7 @@ test('calls onClose prop when close is clicked', () => {
     </FirstTimePointOut>
   );
 
-  ftpo.find('.dqpl-ftp-dismiss').simulate('click');
+  ftpo.find('.dqpl-ftpo-dismiss').simulate('click');
   expect(called).toBe(true);
 });
 
@@ -53,6 +63,6 @@ test('accepts the dismissText prop', () => {
   );
 
   expect(
-    ftpo.find('.dqpl-ftp-dismiss[aria-label="Fred"]').exists()
+    ftpo.find('.dqpl-ftpo-dismiss[aria-label="Fred"]').exists()
   ).toBeTruthy();
 });
