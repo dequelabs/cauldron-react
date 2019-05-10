@@ -8,6 +8,8 @@ const defaultProps = {
   onClose: () => {}
 };
 
+const [space, enter, down, esc, tab] = [32, 13, 40, 27, 9];
+
 test('handles a newly truthy `show` prop', () => {
   expect.assertions(1);
   const wrapper = mount(
@@ -65,19 +67,18 @@ test('handles up/down keydowns', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: 40 });
+    .simulate('keydown', { which: down });
   expect(wrapper.state('itemIndex')).toBe(1);
 
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: 40 });
+    .simulate('keydown', { which: down });
   expect(wrapper.state('itemIndex')).toBe(0); // circular
 });
 
 test('calls onClose given escape keydown', () => {
-  let called = false;
-  const onClose = () => (called = true);
+  let onClose = jest.fn();
   const wrapper = mount(
     <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
       <li>option 1</li>
@@ -87,13 +88,13 @@ test('calls onClose given escape keydown', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: 27 });
-  expect(called).toBe(true);
+    .simulate('keydown', { which: esc });
+
+  expect(onClose).toBeCalled();
 });
 
 test('calls onClose given a tab keydown', () => {
-  let called = false;
-  const onClose = () => (called = true);
+  let onClose = jest.fn();
   const wrapper = mount(
     <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
       <li>option 1</li>
@@ -103,14 +104,14 @@ test('calls onClose given a tab keydown', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: 9 });
+    .simulate('keydown', { which: tab });
 
-  expect(called).toBe(true);
+  expect(onClose).toBeCalled();
 });
 
 test('handles enter / space keydowns', () => {
   expect.assertions(1);
-  let clicked = false;
+  let clickHandler = jest.fn();
   const wrapper = mount(
     <OptionsMenu {...defaultProps} show={true}>
       <li>option 1</li>
@@ -121,11 +122,79 @@ test('handles enter / space keydowns', () => {
     .find('li')
     .at(0)
     .getDOMNode();
-  element.addEventListener('click', () => (clicked = true));
+  element.addEventListener('click', clickHandler);
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: 13 });
+    .simulate('keydown', { which: enter });
 
-  expect(clicked).toBeTruthy();
+  expect(clickHandler).toBeCalled();
+});
+
+test('fires onSelect when menu item is clicked', () => {
+  const onSelect = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onSelect={onSelect}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+  let item = wrapper.find('li').at(0);
+  let itemNode = item.getDOMNode();
+  item.simulate('click', { target: itemNode });
+
+  expect(onSelect).toBeCalled();
+  expect(onSelect).toHaveBeenCalledWith(
+    expect.objectContaining({ target: itemNode })
+  );
+});
+
+test('fires onSelect when menu item is selected with space', () => {
+  const onSelect = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onSelect={onSelect}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  let item = wrapper.find('li').at(0);
+  let itemNode = item.getDOMNode();
+
+  // Synthetic events that call delegated events apparently don't bubble correctly in enzyme
+  itemNode.addEventListener('click', event => {
+    item.simulate('click', event);
+  });
+
+  item.simulate('keydown', { which: space, target: item.getDOMNode() });
+
+  expect(onSelect).toBeCalled();
+  expect(onSelect).toHaveBeenCalledWith(
+    expect.objectContaining({ target: itemNode })
+  );
+});
+
+test('fires onSelect when menu item is selected with enter', () => {
+  const onSelect = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onSelect={onSelect}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  let item = wrapper.find('li').at(0);
+  let itemNode = item.getDOMNode();
+
+  // Synthetic events that call delegated events apparently don't bubble correctly in enzyme
+  itemNode.addEventListener('click', event => {
+    item.simulate('click', event);
+  });
+
+  item.simulate('keydown', { which: enter, target: item.getDOMNode() });
+
+  expect(onSelect).toBeCalled();
+  expect(onSelect).toHaveBeenCalledWith(
+    expect.objectContaining({ target: itemNode })
+  );
 });

@@ -6,18 +6,22 @@ export default class OptionsMenu extends Component {
     children: PropTypes.node.isRequired,
     id: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
+    onSelect: PropTypes.func,
     show: PropTypes.bool
   };
 
   static defaultProps = {
-    show: false
+    show: false,
+    onSelect: () => {}
   };
 
   constructor() {
     super();
     this.itemRefs = [];
     this.state = { itemIndex: 0 };
-    this.onKeyDown = this.onKeyDown.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.menuRef = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,16 +57,24 @@ export default class OptionsMenu extends Component {
         aria-expanded={show}
         id={id}
         role="menu"
-        onKeyDown={this.onKeyDown}
+        onClick={this.handleClick}
+        onKeyDown={this.handleKeyDown}
+        ref={this.menuRef}
       >
         {items}
       </ul>
     );
   }
 
-  onKeyDown(e) {
-    const { which, target } = e;
+  handleClick(e) {
+    const { menuRef, props } = this;
+    if (menuRef.current && menuRef.current.contains(e.target)) {
+      props.onSelect(e);
+    }
+  }
 
+  handleKeyDown(e) {
+    const { which, target } = e;
     switch (which) {
       // up / down
       case 38:
