@@ -182,7 +182,7 @@ interface OptionsMenuProps {
   children: React.ReactNode;
   id: string;
   onClose: () => void;
-  onSelect: (e: React.MouseEvent<HTMLElement>) => void;
+  onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
   show?: boolean;
 }
 
