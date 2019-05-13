@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
 import Offscreen from '../Offscreen';
 import Scrim from '../Scrim';
+import ClickOutsideListener from '../ClickOutsideListener';
 import AriaIsolate from '../../utils/aria-isolate';
 
 const noop = () => {};
@@ -22,6 +23,7 @@ export default class Modal extends Component {
 
     this.close = this.close.bind(this);
     this.focusHeading = this.focusHeading.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
@@ -83,32 +85,34 @@ export default class Modal extends Component {
           fallbackFocus: '.dqpl-modal-heading'
         }}
       >
-        <div
-          role="dialog"
-          className={classNames('dqpl-modal', className, {
-            'dqpl-dialog-show': show
-          })}
-          ref={el => {
-            this.element = el;
-            modalRef(el);
-          }}
-          {...other}
-        >
-          <div className="dqpl-dialog-inner">
-            <div className="dqpl-modal-header">
-              <Heading
-                className="dqpl-modal-heading"
-                ref={el => (this.heading = el)}
-                tabIndex={-1}
-              >
-                {heading.text}
-              </Heading>
-              {close}
+        <ClickOutsideListener onClickOutside={this.handleClickOutside}>
+          <div
+            role="dialog"
+            className={classNames('dqpl-modal', className, {
+              'dqpl-dialog-show': show
+            })}
+            ref={el => {
+              this.element = el;
+              modalRef(el);
+            }}
+            {...other}
+          >
+            <div className="dqpl-dialog-inner">
+              <div className="dqpl-modal-header">
+                <Heading
+                  className="dqpl-modal-heading"
+                  ref={el => (this.heading = el)}
+                  tabIndex={-1}
+                >
+                  {heading.text}
+                </Heading>
+                {close}
+              </div>
+              {children}
             </div>
-            {children}
           </div>
-          <Scrim show={show} />
-        </div>
+        </ClickOutsideListener>
+        <Scrim show={show} />
       </FocusTrap>
     );
   }
@@ -116,6 +120,13 @@ export default class Modal extends Component {
   close() {
     this.state.isolator.deactivate();
     this.props.onClose();
+  }
+
+  handleClickOutside() {
+    const { show, forceAction } = this.props;
+    if (show && !forceAction) {
+      this.close();
+    }
   }
 
   focusHeading() {

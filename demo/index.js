@@ -18,6 +18,7 @@ import Checkbox from './patterns/components/Checkbox';
 import Tooltip from './patterns/components/Tooltip';
 import Card from './patterns/components/Card';
 import TextField from './patterns/components/TextField';
+import ClickOutsideListener from './patterns/components/ClickOutsideListener';
 
 // import cauldron react components
 import {
@@ -137,6 +138,12 @@ class App extends Component {
               {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
             </MenuItem>
             <MenuItem>
+              {this.renderSideBarLink(
+                '/components/clickoutside',
+                'Click Outside Listener'
+              )}
+            </MenuItem>
+            <MenuItem>
               {this.renderSideBarLink('/components/tooltip', 'Tooltip')}
             </MenuItem>
             <MenuItem>
@@ -176,6 +183,11 @@ class App extends Component {
                 component={RadioGroup}
               />
               <Route exact path="/components/checkbox" component={Checkbox} />
+              <Route
+                exact
+                path="/components/clickoutside"
+                component={ClickOutsideListener}
+              />
               <Route exact path="/components/tooltip" component={Tooltip} />
               <Route exact path="/components/card" component={Card} />
               <Route

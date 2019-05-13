@@ -109,6 +109,19 @@ test('calls onClose given a tab keydown', () => {
   expect(onClose).toBeCalled();
 });
 
+test('calls onClose when clicked outside', () => {
+  let onClose = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+  wrapper.instance().handleClickOutside();
+
+  expect(onClose).toBeCalled();
+});
+
 test('handles enter / space keydowns', () => {
   expect.assertions(1);
   let clickHandler = jest.fn();

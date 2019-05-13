@@ -39,46 +39,54 @@ test('focuses heading when "show" prop is updated from falsey to truthy', done =
 });
 
 test('calls onClose when a "show" prop is updated from truthy to falsey', () => {
-  let called = false;
+  let onClose = jest.fn();
   const modal = mount(
-    <Modal {...defaults} show={true} onClose={() => (called = true)}>
+    <Modal {...defaults} show={true} onClose={onClose}>
       {'hello'}
     </Modal>
   );
 
   modal.setProps({ show: false });
-  expect(called).toBe(true);
+  expect(onClose).toBeCalled();
+});
+
+test('calls onClose when clicked outside', () => {
+  let onClose = jest.fn();
+  const modal = mount(
+    <Modal {...defaults} show={true} onClose={onClose}>
+      {'hello'}
+    </Modal>
+  );
+
+  modal.instance().handleClickOutside();
+
+  expect(onClose).toBeCalled();
 });
 
 test('supports the "modalRef" prop', () => {
-  let called = false;
+  let called = jest.fn();
   expect.assertions(1);
-  const modalRef = () => (called = true);
+  const modalRef = called;
   const modal = mount(
     <Modal {...defaults} show={true} modalRef={modalRef}>
       {'Hi'}
     </Modal>
   );
-  expect(called).toBeTruthy();
+  expect(called).toBeCalled();
   modal.unmount();
 });
 
 test('passes additional props through to dialog element', () => {
-  let called = false;
+  let onKeyDown = jest.fn();
   const modal = mount(
-    <Modal
-      {...defaults}
-      show={true}
-      data-foo="true"
-      onKeyDown={() => (called = true)}
-    >
+    <Modal {...defaults} show={true} data-foo="true" onKeyDown={onKeyDown}>
       {'hi'}
     </Modal>
   );
 
   modal.find('[role="dialog"]').simulate('keydown', { which: 9 });
 
-  expect(called).toBeTruthy();
+  expect(onKeyDown).toBeCalled();
   expect(modal.find('[data-foo="true"]').exists()).toBeTruthy();
 });
 

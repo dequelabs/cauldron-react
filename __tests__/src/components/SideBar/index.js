@@ -57,12 +57,23 @@ test('handles DOWN arrow', () => {
 
 test('handles escape (calls onDismiss)', () => {
   expect.assertions(1);
-  let called = false;
-  const wrapper = mountWrapper(() => (called = true));
+  let onDismiss = jest.fn();
+  const wrapper = mountWrapper(onDismiss);
 
   const e = { which: 27 };
   wrapper.instance().onKeyDown(e);
-  expect(called).toBeTruthy();
+  expect(onDismiss).toBeCalled();
+});
+
+test('calls onDismiss when clicked outside', () => {
+  let onDismiss = jest.fn();
+  const wrapper = mountWrapper(onDismiss);
+  wrapper.setState({ wide: false });
+  wrapper.setProps({ show: true });
+
+  wrapper.instance().handleClickOutside();
+
+  expect(onDismiss).toBeCalled();
 });
 
 test('animates / toggles display given a show prop change', done => {

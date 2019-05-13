@@ -29,7 +29,8 @@ import {
   Workspace,
   AriaIsolate,
   focusableSelector,
-  TextField
+  TextField,
+  ClickOutsideListener
 } from '../types';
 
 const noop = () => {};
@@ -229,3 +230,13 @@ const textField = () => (
     aria-describedby="help-text"
   />
 );
+
+const clickOutside = () => {
+  <ClickOutsideListener
+    onClickOutside={noopEventHandler}
+    mouseEvent="click"
+    touchEvent="touchend"
+  >
+    <div>foo</div>
+  </ClickOutsideListener>;
+};
