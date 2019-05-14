@@ -211,3 +211,54 @@ test('fires onSelect when menu item is selected with enter', () => {
     expect.objectContaining({ target: itemNode })
   );
 });
+
+test('fires onClose when menu item is selected', () => {
+  const onClose = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onClose={onClose}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  wrapper
+    .find('li')
+    .at(0)
+    .simulate('click');
+
+  expect(onClose).toBeCalled();
+});
+
+test('does not fire onClose when menu item is selected and default prevented', () => {
+  const onClose = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onClose={onClose}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  wrapper
+    .find('li')
+    .at(0)
+    .simulate('click', { defaultPrevented: true });
+
+  expect(onClose).not.toBeCalled();
+});
+
+test('does not fire onClose when menu item is selected and closeOnSelect is false', () => {
+  const onClose = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} onClose={onClose} closeOnSelect={false}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  wrapper
+    .find('li')
+    .at(0)
+    .simulate('click');
+
+  expect(onClose).not.toBeCalled();
+});

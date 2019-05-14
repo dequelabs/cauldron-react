@@ -183,6 +183,7 @@ interface OptionsMenuProps {
   id: string;
   onClose: () => void;
   onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
+  closeOnSelect?: boolean;
   show?: boolean;
 }
 
