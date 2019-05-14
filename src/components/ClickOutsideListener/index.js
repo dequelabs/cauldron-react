@@ -32,7 +32,7 @@ export default class ClickOutsideListener extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { mouseEvent, touchEvent } = this;
+    const { mouseEvent, touchEvent } = this.props;
     if (
       prevProps.mouseEvent !== mouseEvent ||
       prevProps.touchEvent !== touchEvent

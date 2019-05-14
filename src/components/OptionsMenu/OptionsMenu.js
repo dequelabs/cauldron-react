@@ -86,9 +86,9 @@ export default class OptionsMenu extends Component {
   }
 
   handleClickOutside() {
-    const { show, props } = this;
-    if (!show) {
-      props.onClose();
+    const { show, onClose } = this.props;
+    if (show) {
+      onClose();
     }
   }
 
