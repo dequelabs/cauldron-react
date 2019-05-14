@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import keyname from 'keyname';
 import Scrim from '../Scrim';
+import ClickOutsideListener from '../ClickOutsideListener';
 import { isWide } from '../../utils/viewport';
 
 export default class SideBar extends Component {
@@ -24,6 +25,7 @@ export default class SideBar extends Component {
     super();
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onResize = this.onResize.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.state = {
       focusIndex: 0,
       wide: isWide()
@@ -81,6 +83,13 @@ export default class SideBar extends Component {
     }
   }
 
+  handleClickOutside() {
+    let { show, onDismiss } = this.props;
+    if (show && !this.state.wide) {
+      onDismiss();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { show } = this.props;
 
@@ -122,20 +131,22 @@ export default class SideBar extends Component {
 
     return (
       <Fragment>
-        <ul
-          role="menu"
-          className={classNames('dqpl-side-bar', className, animateClass)}
-          {...listProps}
-        >
-          {Children.map(children, (child, index) =>
-            cloneElement(child, {
-              key: index,
-              onKeyDown: this.onKeyDown,
-              tabIndex: focusIndex === index ? 0 : -1,
-              menuItemRef: menuItem => (this.menuItems[index] = menuItem)
-            })
-          )}
-        </ul>
+        <ClickOutsideListener onClickOutside={this.handleClickOutside}>
+          <ul
+            role="menu"
+            className={classNames('dqpl-side-bar', className, animateClass)}
+            {...listProps}
+          >
+            {Children.map(children, (child, index) =>
+              cloneElement(child, {
+                key: index,
+                onKeyDown: this.onKeyDown,
+                tabIndex: focusIndex === index ? 0 : -1,
+                menuItemRef: menuItem => (this.menuItems[index] = menuItem)
+              })
+            )}
+          </ul>
+        </ClickOutsideListener>
         <Scrim show={!wide && show} />
       </Fragment>
     );

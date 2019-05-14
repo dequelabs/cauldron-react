@@ -110,7 +110,8 @@ class Demo extends Component {
     );
   }
 
-  toggleMenu() {
+  toggleMenu(e) {
+    e && e.preventDefault();
     this.setState(({ show }) => ({
       show: !show
     }));

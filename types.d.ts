@@ -296,3 +296,16 @@ interface TextFieldProps {
 }
 
 export const TextField: React.ComponentType<TextFieldProps>;
+
+interface ClickOutsideListenerProps {
+  children: React.ReactNode;
+  onClickOutside: (
+    e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
+  ) => void;
+  mouseEvent?: 'mousedown' | 'click' | 'mouseup' | false;
+  touchEvent?: 'touchstart' | 'touchend' | false;
+}
+
+export const ClickOutsideListener: React.ComponentType<
+  ClickOutsideListenerProps
+>;

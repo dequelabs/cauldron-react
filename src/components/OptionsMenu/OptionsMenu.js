@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ClickOutsideListener from '../ClickOutsideListener';
 
 export default class OptionsMenu extends Component {
   static propTypes = {
@@ -23,6 +24,7 @@ export default class OptionsMenu extends Component {
     this.state = { itemIndex: 0 };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.menuRef = React.createRef();
   }
 
@@ -54,18 +56,20 @@ export default class OptionsMenu extends Component {
     ));
 
     return (
-      <ul
-        {...other}
-        className="dqpl-options-menu"
-        aria-expanded={show}
-        id={id}
-        role="menu"
-        onClick={this.handleClick}
-        onKeyDown={this.handleKeyDown}
-        ref={this.menuRef}
-      >
-        {items}
-      </ul>
+      <ClickOutsideListener onClickOutside={this.handleClickOutside}>
+        <ul
+          {...other}
+          className="dqpl-options-menu"
+          aria-expanded={show}
+          id={id}
+          role="menu"
+          onClick={this.handleClick}
+          onKeyDown={this.handleKeyDown}
+          ref={this.menuRef}
+        >
+          {items}
+        </ul>
+      </ClickOutsideListener>
     );
   }
 
@@ -78,6 +82,13 @@ export default class OptionsMenu extends Component {
       }
 
       onSelect(e);
+    }
+  }
+
+  handleClickOutside() {
+    const { show, onClose } = this.props;
+    if (show) {
+      onClose();
     }
   }
 

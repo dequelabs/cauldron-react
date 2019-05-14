@@ -36,6 +36,7 @@ export {
   CardFooter
 } from './components/Card';
 export TextField from './components/TextField';
+export ClickOutsideListener from './components/ClickOutsideListener';
 /**
  * Helpers / Utils
  */
