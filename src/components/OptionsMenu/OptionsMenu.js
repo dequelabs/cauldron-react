@@ -7,11 +7,13 @@ export default class OptionsMenu extends Component {
     id: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     onSelect: PropTypes.func,
-    show: PropTypes.bool
+    show: PropTypes.bool,
+    closeOnSelect: PropTypes.bool
   };
 
   static defaultProps = {
     show: false,
+    closeOnSelect: true,
     onSelect: () => {}
   };
 
@@ -38,7 +40,8 @@ export default class OptionsMenu extends Component {
   }
 
   render() {
-    const { children, id, show, ...other } = this.props;
+    // eslint-disable-next-line no-unused-vars
+    const { children, id, show, closeOnSelect, ...other } = this.props;
     const items = children.map(({ props }, i) => (
       <li
         key={`${id}-${i}`}
@@ -68,8 +71,13 @@ export default class OptionsMenu extends Component {
 
   handleClick(e) {
     const { menuRef, props } = this;
+    const { onSelect, onClose } = props;
     if (menuRef.current && menuRef.current.contains(e.target)) {
-      props.onSelect(e);
+      if (!e.defaultPrevented && props.closeOnSelect) {
+        onClose();
+      }
+
+      onSelect(e);
     }
   }
 
