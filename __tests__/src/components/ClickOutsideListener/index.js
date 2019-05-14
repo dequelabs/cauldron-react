@@ -195,6 +195,20 @@ test('should remove event listeners when props change', () => {
   expect(onClickOutside).not.toBeCalled();
 });
 
+test('should not remove event listeners when event props do not change', () => {
+  const removeEventListeners = jest.fn();
+  const onClickOutside = () => {};
+  const wrapper = mount(
+    <ClickOutsideListener onClickOutside={noop} mouseEvent="click">
+      <div>bar</div>
+    </ClickOutsideListener>
+  );
+  wrapper.instance().removeEventListeners = removeEventListeners;
+  wrapper.setProps({ onClickOutside });
+
+  expect(removeEventListeners).not.toBeCalled();
+});
+
 test('should not call `onClickOutside` when event is prevented', () => {
   const onClickOutside = jest.fn();
   mount(
