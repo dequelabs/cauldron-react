@@ -45,8 +45,10 @@ class App extends Component {
     this.onTriggerClick = this.onTriggerClick.bind(this);
   }
 
-  onTriggerClick() {
+  onTriggerClick(e) {
     const { show } = this.state;
+
+    e && e.preventDefault();
 
     if (show && this.topBarTrigger) {
       this.topBarTrigger.focus();
