@@ -11,7 +11,7 @@ export default class Demo extends Component {
   }
 
   onTriggerClick(nextType) {
-    this.setState({ nextType });
+    this.setState({ type: null, nextType });
   }
 
   onToastDismiss() {
@@ -27,8 +27,8 @@ export default class Demo extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { nextType, type } = this.state;
-    if (nextType && nextType !== type && nextType !== prevState.nextType) {
+    const { nextType } = this.state;
+    if (nextType && nextType !== prevState.nextType) {
       this.setState({ type: nextType });
     }
   }
