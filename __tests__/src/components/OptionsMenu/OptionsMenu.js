@@ -262,3 +262,48 @@ test('does not fire onClose when menu item is selected and closeOnSelect is fals
 
   expect(onClose).not.toBeCalled();
 });
+
+test('should click child links when clicking on list item', () => {
+  const onClick = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps}>
+      <li>
+        <a href="#foo">Click me!</a>
+      </li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  const item = wrapper.find('li').at(0);
+  wrapper
+    .find('a')
+    .getDOMNode()
+    .addEventListener('click', onClick);
+  item.simulate('click');
+
+  expect(onClick).toBeCalledTimes(1);
+});
+
+test('should click child links with keypress events', () => {
+  const onClick = jest.fn();
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps}>
+      <li>
+        <a href="#foo">Click me!</a>
+      </li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  const item = wrapper.find('li').at(0);
+  wrapper
+    .find('a')
+    .getDOMNode()
+    .addEventListener('click', onClick);
+  item
+    .getDOMNode()
+    .addEventListener('click', event => item.simulate('click', event));
+  item.simulate('keydown', { which: enter });
+
+  expect(onClick).toBeCalledTimes(1);
+});

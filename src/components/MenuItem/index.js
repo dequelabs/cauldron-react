@@ -30,7 +30,7 @@ export default class MenuItem extends Component {
     if (autoClickLink) {
       clickLink(e.target, this.item);
     }
-    onClick();
+    onClick(e);
   }
 
   onKeyDown(e) {
