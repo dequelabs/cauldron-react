@@ -31,15 +31,11 @@ export default class Button extends Component {
 
 Button.propTypes = {
   secondary: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.array
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
   buttonRef: PropTypes.func
 };
-
+Button.displayName = 'Button';
 Button.defaultProps = {
   buttonRef: () => {}
 };
