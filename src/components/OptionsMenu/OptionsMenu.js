@@ -83,6 +83,11 @@ export default class OptionsMenu extends Component {
 
       onSelect(e);
     }
+
+    const link = e.target.querySelector('a');
+    if (link) {
+      link.click();
+    }
   }
 
   handleClickOutside() {
