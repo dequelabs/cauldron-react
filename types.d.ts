@@ -309,3 +309,20 @@ interface ClickOutsideListenerProps {
 export const ClickOutsideListener: React.ComponentType<
   ClickOutsideListenerProps
 >;
+
+interface ExpandCollapsePanelProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  animationTiming?: number;
+  onToggle?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export const ExpandCollapsePanel: React.ComponentType<ExpandCollapsePanelProps>;
+
+interface PanelTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
+  children?: ((props: { close: boolean }) => React.ReactNode) | React.ReactNode;
+  open?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export const PanelTrigger: React.ComponentType<PanelTriggerProps>;

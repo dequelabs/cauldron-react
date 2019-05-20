@@ -19,6 +19,7 @@ import Tooltip from './patterns/components/Tooltip';
 import Card from './patterns/components/Card';
 import TextField from './patterns/components/TextField';
 import ClickOutsideListener from './patterns/components/ClickOutsideListener';
+import ExpandCollapsePanel from './patterns/components/ExpandCollapsePanel';
 
 // import cauldron react components
 import {
@@ -154,6 +155,12 @@ class App extends Component {
               {this.renderSideBarLink('/components/card', 'Card')}
             </MenuItem>
             <MenuItem>
+              {this.renderSideBarLink(
+                '/components/expand-collapse-panel',
+                'Expand/Collapse Panel'
+              )}
+            </MenuItem>
+            <MenuItem>
               {this.renderSideBarLink('/components/text-field', 'TextField')}
             </MenuItem>
           </SideBar>
@@ -194,6 +201,11 @@ class App extends Component {
               />
               <Route exact path="/components/tooltip" component={Tooltip} />
               <Route exact path="/components/card" component={Card} />
+              <Route
+                exact
+                path="/components/expand-collapse-panel"
+                component={ExpandCollapsePanel}
+              />
               <Route
                 exact
                 path="/components/text-field"
