@@ -135,7 +135,7 @@ interface SkipLinkProps {
 export const SkipLink: React.ComponentType<SkipLinkProps>;
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  secondary?: boolean;
+  type?: 'primary' | 'secondary' | 'error' | 'link';
   children: React.ReactNode;
   className?: string;
   buttonRef?: RefCallback;

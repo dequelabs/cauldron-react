@@ -53,10 +53,10 @@ const alertActions = () => <AlertActions>Hi</AlertActions>;
 
 const buttons = () => (
   <React.Fragment>
-    <Button buttonRef={noopRef} className="7" secondary>
+    <Button buttonRef={noopRef} className="7">
       button
     </Button>
-    <Button secondary={false}>button</Button>
+    <Button>button</Button>
   </React.Fragment>
 );
 

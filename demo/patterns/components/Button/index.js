@@ -6,11 +6,17 @@ const Demo = () => (
   <div>
     <h1>Buttons</h1>
     <h2>Demo</h2>
-    <Button>{'Primary'}</Button>
-    <Button secondary={true}>{'Secondary'}</Button>
-    <Button secondary={true} disabled={true}>
-      {'Disabled'}
+    <Button>Primary</Button>
+    <Button disabled>Primary Disabled</Button>
+    <Button type="secondary">Secondary</Button>
+    <Button type="secondary" disabled>
+      Secondary Disabled
     </Button>
+    <Button type="error">Error</Button>
+    <Button type="error" disabled>
+      Error Disabled
+    </Button>
+    <Button type="link">Link</Button>
     <h2>Code Sample</h2>
     <Highlight language="javascript">
       {`
@@ -19,9 +25,13 @@ import { Button } from 'cauldron-react';
 
 const Demo = () => (
   <section>
-    <Button>{'Primary'}</Button>
-    <Button secondary={true}>{'Secondary'}</Button>
-    <Button secondary={true} disabled={true}>{'Disabled'}</Button>
+    <Button>Primary</Button>
+    <Button disabled>Primary Disabled</Button>
+    <Button type="secondary">Secondary</Button>
+    <Button type="secondary" disabled>Secondary Disabled</Button>
+    <Button type="error">Error</Button>
+    <Button type="error" disabled>Error Disabled</Button>
+    <Button type="link">Link</Button>
   </section>
 );
       `}
