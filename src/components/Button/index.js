@@ -44,6 +44,6 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  as: 'primary',
+  variant: 'primary',
   buttonRef: () => {}
 };
