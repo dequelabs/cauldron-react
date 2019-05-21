@@ -39,8 +39,7 @@ export default class Toast extends Component {
     super(props);
 
     this.state = {
-      animationClass: props.show ? 'dqpl-fadein-setup' : 'dqpl-hidden',
-      destroy: !props.show
+      animationClass: props.show ? 'dqpl-fadein-setup' : 'dqpl-hidden'
     };
 
     this.dismissToast = this.dismissToast.bind(this);
@@ -48,10 +47,9 @@ export default class Toast extends Component {
   }
 
   componentDidMount() {
-    const { destroy } = this.state;
-    const { autoHide } = this.props;
+    const { autoHide, show } = this.props;
 
-    if (!destroy) {
+    if (show) {
       // Timeout because CSS display: none/block and opacity:
       // 0/1 properties cannot be toggled in the same tick
       // see: https://codepen.io/isnerms/pen/eyQaLP
@@ -62,29 +60,24 @@ export default class Toast extends Component {
     }
   }
 
-  // TODO: getting rid of the destroy state all together would simplify this
-  // (if props.show changes => do the show/hide stuff)
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { destroy } = this.state;
-
-    if (destroy && nextProps.show) {
-      // update from hidden to show
-      this.setState({ animationClass: 'dqpl-fadein-setup' }, () => {
-        // Timeout because CSS display: none/block and opacity:
-        // 0/1 properties cannot be toggled in the same tick
-        // see: https://codepen.io/isnerms/pen/eyQaLP
-        setTimeout(this.showToast);
-      });
-    } else if (!destroy && !nextProps.show) {
-      this.dismissToast();
+  componentDidUpdate(prevProps) {
+    const { show } = this.props;
+    if (prevProps.show !== show) {
+      if (show) {
+        this.setState({ animationClass: 'dqpl-fadein-setup' }, () => {
+          setTimeout(this.showToast);
+        });
+      } else {
+        this.dismissToast();
+      }
     }
   }
 
   render() {
-    const { animationClass, destroy } = this.state;
-    const { type, children, dismissText, toastRef } = this.props;
+    const { animationClass } = this.state;
+    const { type, children, dismissText, toastRef, show } = this.props;
     const scrim =
-      type === 'action-needed' && !destroy ? (
+      type === 'action-needed' && show ? (
         <div className="dqpl-scrim-light dqpl-scrim-show dqpl-scrim-fade-in" />
       ) : null;
 
@@ -139,10 +132,7 @@ export default class Toast extends Component {
             isolator.deactivate();
           }
 
-          this.setState(
-            { destroy: true, animationClass: 'dqpl-hidden' },
-            onDismiss
-          );
+          this.setState({ animationClass: 'dqpl-hidden' }, onDismiss);
         });
       }
     );
@@ -153,7 +143,6 @@ export default class Toast extends Component {
 
     this.setState(
       {
-        destroy: false,
         animationClass: 'dqpl-fadein-setup dqpl-fadein'
       },
       () => {

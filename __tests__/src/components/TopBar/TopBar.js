@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import TopBar from '../../../../src/components/TopBar';
 
+const [right, left] = [39, 37];
+const noop = () => {};
 const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
 MenuItem.propTypes = { menuItemRef: PropTypes.func };
 
@@ -32,8 +34,8 @@ test('focusIndex is set to 1 given focusIndex 0 + trigger + newly wide viewport'
 test('given a left arrow keydown, properly sets focusIndex', () => {
   expect.assertions(2);
   const e = {
-    which: 37,
-    preventDefault: () => {}
+    which: left,
+    preventDefault: noop
   };
   const wrapper = mount(
     <TopBar>
@@ -56,8 +58,8 @@ test('given a left arrow keydown, properly sets focusIndex', () => {
 test('given a right arrow keydown properly sets focusIndex', () => {
   expect.assertions(2);
   const e = {
-    which: 39,
-    preventDefault: () => {}
+    which: right,
+    preventDefault: noop
   };
   const wrapper = mount(
     <TopBar>
@@ -75,6 +77,34 @@ test('given a right arrow keydown properly sets focusIndex', () => {
   wrapper.setState({ focusIndex: 2 });
   wrapper.instance().onKeyDown(e);
   expect(wrapper.state('focusIndex')).toBe(0);
+});
+
+test('should set correct next focus element with falsy children', () => {
+  const wrapper = mount(
+    <TopBar>
+      <MenuItem data-test="1" />
+      {false && <MenuItem data-test="2" />}
+      <MenuItem data-test="3" />
+    </TopBar>
+  );
+
+  const item1Focus = jest.spyOn(
+    wrapper.find('MenuItem[data-test="1"]').getDOMNode(),
+    'focus'
+  );
+  const item3Focus = jest.spyOn(
+    wrapper.find('MenuItem[data-test="3"]').getDOMNode(),
+    'focus'
+  );
+  wrapper.setState({ focusIndex: 0 });
+
+  // Focus from 1 to 3
+  wrapper.instance().onKeyDown({ which: right, preventDefault: noop });
+  expect(item3Focus).toBeCalled();
+
+  // Focus from 3 to 1 (circularity)
+  wrapper.instance().onKeyDown({ which: right, preventDefault: noop });
+  expect(item1Focus).toBeCalled();
 });
 
 test('supports falsy children', () => {

@@ -54,7 +54,7 @@ export default class TopBar extends Component {
   }
 
   onKeyDown(e) {
-    const { children, hasTrigger } = this.props;
+    const { hasTrigger } = this.props;
     const { focusIndex, wide } = this.state;
     const key = keyname(e.which);
     const beginning = wide && hasTrigger ? 1 : 0;
@@ -62,9 +62,7 @@ export default class TopBar extends Component {
     switch (key) {
       case 'left': {
         const newFocusIndex =
-          focusIndex === beginning
-            ? Children.count(children) - 1
-            : focusIndex - 1;
+          focusIndex === beginning ? this.menuItems.length - 1 : focusIndex - 1;
         e.preventDefault();
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
@@ -74,10 +72,9 @@ export default class TopBar extends Component {
 
       case 'right': {
         const newFocusIndex =
-          focusIndex === Children.count(children) - 1
-            ? beginning
-            : focusIndex + 1;
+          focusIndex === this.menuItems.length - 1 ? beginning : focusIndex + 1;
         e.preventDefault();
+
         this.setState({ focusIndex: newFocusIndex });
         this.menuItems[newFocusIndex].focus();
 
@@ -117,7 +114,9 @@ export default class TopBar extends Component {
       },
       tabIndex: focusIndex === index ? 0 : -1,
       menuItemRef: menuItem => {
-        this.menuItems[index] = menuItem;
+        if (menuItem) {
+          this.menuItems.push(menuItem);
+        }
 
         if (child.props.menuItemRef) {
           child.props.menuItemRef(menuItem);

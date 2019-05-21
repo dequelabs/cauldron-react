@@ -48,7 +48,9 @@ test('handles transition from falsey show to truthy show prop', done => {
   expect(wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup')).toBeFalsy();
 
   wrapper.setProps({ show: true });
+
   setTimeout(() => {
+    wrapper.update();
     expect(
       wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup')
     ).toBeTruthy();
@@ -62,6 +64,7 @@ test('handles transition from truthy show to falsey show prop', done => {
       {'hi'}
     </Toast>
   );
+  expect(wrapper.find('.dqpl-toast').hasClass('dqpl-hidden')).toBeFalsy();
   wrapper.setProps({ show: false });
 
   setTimeout(() => {

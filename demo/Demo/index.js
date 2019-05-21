@@ -34,7 +34,7 @@ class Demo extends Component {
 
   render() {
     const { states, component: Component, propDocs, children } = this.props;
-    const { displayName } = Component;
+    const { displayName, defaultProps = {} } = Component;
     // TODO: come up with clean way to render code snippet of children
     // For now it can be manual (as in if you pass children to this thing,
     // then you have to provide some <Highlighted /> snippet(s) as well)
@@ -60,17 +60,23 @@ class Demo extends Component {
                 <th>Type</th>
                 <th>Required</th>
                 <th>Description</th>
+                <th>Default</th>
               </tr>
             </thead>
             <tbody>
-              {Object.entries(propDocs).map(([name, data]) => (
-                <tr key={name}>
-                  <td>{name}</td>
-                  <td>{data.type}</td>
-                  <td>{`${!!data.required}`}</td>
-                  <td>{data.description}</td>
-                </tr>
-              ))}
+              {Object.entries(propDocs).map(([name, data]) => {
+                const defaultProp = defaultProps[name];
+
+                return (
+                  <tr key={name}>
+                    <td>{name}</td>
+                    <td>{data.type}</td>
+                    <td>{`${!!data.required}`}</td>
+                    <td>{data.description}</td>
+                    <td>{defaultProp && `${defaultProp}`}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

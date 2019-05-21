@@ -10,12 +10,12 @@ export default class Demo extends Component {
     this.onToastDismiss = this.onToastDismiss.bind(this);
   }
 
-  onTriggerClick(type) {
-    this.setState({ type });
+  onTriggerClick(nextType) {
+    this.setState({ type: null, nextType });
   }
 
   onToastDismiss() {
-    const { type } = this.state;
+    const { type, nextType } = this.state;
     const trigger = this[type];
 
     // return focus back to the dismissed toast's trigger
@@ -23,7 +23,14 @@ export default class Demo extends Component {
       trigger.focus();
     }
 
-    this.setState({ type: null });
+    this.setState({ type: nextType ? nextType : null, nextType: null });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { nextType } = this.state;
+    if (nextType && nextType !== prevState.nextType) {
+      this.setState({ type: nextType });
+    }
   }
 
   render() {
