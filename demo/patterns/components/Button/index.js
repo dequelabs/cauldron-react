@@ -1,6 +1,7 @@
 import React from 'react';
 import Demo from 'demo/Demo';
 import { Button } from 'src/';
+import { children, className } from 'demo/props';
 
 const ButtonDemo = () => (
   <Demo
@@ -19,8 +20,8 @@ const ButtonDemo = () => (
         type: 'function',
         description: 'Ref function for the button element'
       },
-      children: true,
-      className: true
+      children,
+      className
     }}
   />
 );

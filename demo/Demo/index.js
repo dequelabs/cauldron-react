@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import Highlight from '../Highlight';
 import './index.css';
 
-const commonProps = {
-  children: {
-    type: 'node',
-    description: 'The child content'
-  },
-  className: {
-    type: 'string',
-    description: 'Class name string'
-  }
-};
-
 const stateToPropString = state => {
   const props = [];
   for (const propName in state) {
@@ -46,8 +35,9 @@ class Demo extends Component {
   render() {
     const { states, component: Component, propDocs, children } = this.props;
     const { displayName } = Component;
-    // TODO: Figure out how to utilize Component.propTypes to auto-document it
-    // which would make it so all you have to do is provide a string description
+    // TODO: come up with clean way to render code snippet of children
+    // For now it can be manual (as in if you pass children to this thing,
+    // then you have to provide some <Highlighted /> snippet(s) as well)
     return (
       <div className="Demo">
         <h1>{displayName}</h1>
@@ -56,7 +46,6 @@ class Demo extends Component {
           {states.map(state => (
             <div key={JSON.stringify(state)}>
               <Component {...state} />
-
               <Highlight>{this.renderState(state)}</Highlight>
             </div>
           ))}
@@ -74,17 +63,14 @@ class Demo extends Component {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(propDocs).map(([name, data]) => {
-                data = typeof data === 'boolean' ? commonProps[name] : data;
-                return (
-                  <tr key={name}>
-                    <td>{name}</td>
-                    <td>{data.type}</td>
-                    <td>{`${!!data.required}`}</td>
-                    <td>{data.description}</td>
-                  </tr>
-                );
-              })}
+              {Object.entries(propDocs).map(([name, data]) => (
+                <tr key={name}>
+                  <td>{name}</td>
+                  <td>{data.type}</td>
+                  <td>{`${!!data.required}`}</td>
+                  <td>{data.description}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -99,6 +85,13 @@ class Demo extends Component {
       throw new Error('Component missing displayName');
     }
 
+    const { children } = state;
+
+    // Only prop is children.
+    if (children && Object.keys(state).length === 1) {
+      return `<${displayName}>\n  ${children}\n</${displayName}>`;
+    }
+
     const props = stateToPropString(state);
 
     // No props.
@@ -107,15 +100,8 @@ class Demo extends Component {
     }
 
     // Props without children.
-    if (!state.children) {
+    if (!children) {
       return `<${displayName} ${props} />`;
-    }
-
-    const { children } = state;
-
-    // Only prop is children.
-    if (children && Object.keys(state).length === 1) {
-      return `<${displayName}>\n  ${children}\n</${displayName}>`;
     }
 
     // Props and children.

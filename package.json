@@ -131,10 +131,15 @@
       "<rootDir>__tests__/setupTests.js"
     ],
     "testMatch": [
-      "**/__tests__/src/**/*.js"
+      "**/__tests__/src/**/*.js",
+      "**/__tests__/demo/**/*.js"
     ],
     "collectCoverageFrom": [
-      "**/src/**/*.js"
-    ]
+      "**/src/**/*.js",
+      "**/demo/Demo/**/*.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__tests__/styleMock.js"
+    }
   }
 }
