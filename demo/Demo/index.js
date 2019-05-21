@@ -73,7 +73,12 @@ class Demo extends Component {
                     <td>{data.type}</td>
                     <td>{`${!!data.required}`}</td>
                     <td>{data.description}</td>
-                    <td>{defaultProp && `${defaultProp}`}</td>
+                    <td>
+                      {defaultProp &&
+                        (typeof defaultProp === 'object'
+                          ? JSON.stringify(defaultProp)
+                          : `${defaultProp}`)}
+                    </td>
                   </tr>
                 );
               })}
