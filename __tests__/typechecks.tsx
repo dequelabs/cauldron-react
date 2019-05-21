@@ -57,6 +57,10 @@ const buttons = () => (
       button
     </Button>
     <Button>button</Button>
+    <Button variant="primary">button</Button>
+    <Button variant="secondary">button</Button>
+    <Button variant="error">button</Button>
+    <Button variant="link">button</Button>
   </React.Fragment>
 );
 
