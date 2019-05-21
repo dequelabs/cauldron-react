@@ -8,15 +8,15 @@ const Demo = () => (
     <h2>Demo</h2>
     <Button>Primary</Button>
     <Button disabled>Primary Disabled</Button>
-    <Button type="secondary">Secondary</Button>
-    <Button type="secondary" disabled>
+    <Button as="secondary">Secondary</Button>
+    <Button as="secondary" disabled>
       Secondary Disabled
     </Button>
-    <Button type="error">Error</Button>
-    <Button type="error" disabled>
+    <Button as="error">Error</Button>
+    <Button as="error" disabled>
       Error Disabled
     </Button>
-    <Button type="link">Link</Button>
+    <Button as="link">Link</Button>
     <h2>Code Sample</h2>
     <Highlight language="javascript">
       {`
@@ -27,11 +27,11 @@ const Demo = () => (
   <section>
     <Button>Primary</Button>
     <Button disabled>Primary Disabled</Button>
-    <Button type="secondary">Secondary</Button>
-    <Button type="secondary" disabled>Secondary Disabled</Button>
-    <Button type="error">Error</Button>
-    <Button type="error" disabled>Error Disabled</Button>
-    <Button type="link">Link</Button>
+    <Button as="secondary">Secondary</Button>
+    <Button as="secondary" disabled>Secondary Disabled</Button>
+    <Button as="error">Error</Button>
+    <Button as="error" disabled>Error Disabled</Button>
+    <Button as="link">Link</Button>
   </section>
 );
       `}

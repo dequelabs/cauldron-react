@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 /**
  * The dqpl button component
- * @prop {String}       secondary  visual appearance of the button
+ * @prop {String}       as  visual appearance of the button
  * @prop {String|Object} children   Any desired child content of the button (a string of text or node(s))
  *
  * NOTE: All other props (i.e. onClick) passed will be applied to the dqpl button element
@@ -12,15 +12,15 @@ import classNames from 'classnames';
  */
 export default class Button extends Component {
   render() {
-    const { type, children, className, buttonRef, ...other } = this.props;
+    const { as, children, className, buttonRef, ...other } = this.props;
     return (
       <button
         type={'button'}
         className={classNames(className, {
-          'dqpl-button-primary': type === 'primary',
-          'dqpl-button-secondary': type === 'secondary',
-          'dqpl-button-error': type === 'error',
-          'dqpl-link': type === 'link'
+          'dqpl-button-primary': as === 'primary',
+          'dqpl-button-secondary': as === 'secondary',
+          'dqpl-button-error': as === 'error',
+          'dqpl-link': as === 'link'
         })}
         ref={buttonRef}
         {...other}
@@ -32,7 +32,7 @@ export default class Button extends Component {
 }
 
 Button.propTypes = {
-  type: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
+  as: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
   link: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.string,
@@ -44,6 +44,6 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  type: 'primary',
+  as: 'primary',
   buttonRef: () => {}
 };
