@@ -33,7 +33,6 @@ export default class Button extends Component {
 
 Button.propTypes = {
   variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
-  link: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
