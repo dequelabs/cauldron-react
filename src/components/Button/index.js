@@ -33,15 +33,11 @@ export default class Button extends Component {
 
 Button.propTypes = {
   variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.array
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
   buttonRef: PropTypes.func
 };
-
+Button.displayName = 'Button';
 Button.defaultProps = {
   variant: 'primary',
   buttonRef: () => {}
