@@ -1,32 +1,41 @@
 import React from 'react';
-import Highlight from 'demo/Highlight';
+import Demo from 'demo/Demo';
 import { Button } from 'src/';
+import { children, className } from 'demo/props';
 
-const Demo = () => (
+const ButtonDemo = () => (
   <div>
-    <h1>Buttons</h1>
-    <h2>Demo</h2>
-    <Button>{'Primary'}</Button>
-    <Button secondary={true}>{'Secondary'}</Button>
-    <Button secondary={true} disabled={true}>
-      {'Disabled'}
-    </Button>
-    <h2>Code Sample</h2>
-    <Highlight language="javascript">
-      {`
-import React from 'react';
-import { Button } from 'cauldron-react';
-
-const Demo = () => (
-  <section>
-    <Button>{'Primary'}</Button>
-    <Button secondary={true}>{'Secondary'}</Button>
-    <Button secondary={true} disabled={true}>{'Disabled'}</Button>
-  </section>
-);
-      `}
-    </Highlight>
+    <Demo
+      component={Button}
+      states={[
+        { children: 'Primary' },
+        { children: 'Primary Disabled', disabled: true },
+        { children: 'Secondary', variant: 'secondary' },
+        {
+          children: 'Secondary Disabled',
+          variant: 'secondary',
+          disabled: true
+        },
+        { children: 'Error', variant: 'error' },
+        { children: 'Error Disabled', variant: 'error', disabled: true },
+        { children: 'Link', variant: 'link' }
+      ]}
+      propDocs={{
+        variant: {
+          type: 'string',
+          description:
+            'Any of the following: "primary", "secondary", "error", "link".',
+          default: '"primary"'
+        },
+        buttonRef: {
+          type: 'function',
+          description: 'Ref function for the button element'
+        },
+        children,
+        className
+      }}
+    />
   </div>
 );
 
-export default Demo;
+export default ButtonDemo;
