@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { ExpandCollapsePanel, PanelTrigger, Offscreen } from 'src/';
+import { ExpandCollapsePanel, PanelTrigger } from 'src/';
 
 export default class Demo extends Component {
   render() {
@@ -9,9 +9,7 @@ export default class Demo extends Component {
         <h1>Expand Collapse Panel</h1>
         <h2>Demo</h2>
         <ExpandCollapsePanel>
-          <PanelTrigger>
-            {({ open }) => <Offscreen>{open ? 'Open' : 'Closed'}</Offscreen>}
-          </PanelTrigger>
+          <PanelTrigger>More bacon info</PanelTrigger>
           Bacon ipsum dolor amet chicken frankfurter shoulder strip steak
           kielbasa ribeye ham hamburger. Fatback kielbasa shoulder, jowl buffalo
           bacon jerky ham pancetta. Strip steak pig chicken, spare ribs buffalo
@@ -26,7 +24,7 @@ import { ExpandCollapsePanel, PanelTrigger } from 'react-cauldron';
 const Demo = () => {
   <ExpandCollapsePanel>
     <PanelTrigger>
-      {({ open }) => <Offscreen>{open ? 'Open' : 'Closed'}</Offscreen>}
+      More bacon info
     </PanelTrigger>
     Bacon ipsum dolor amet chicken frankfurter shoulder strip steak
     kielbasa ribeye ham hamburger. Fatback kielbasa shoulder, jowl buffalo
