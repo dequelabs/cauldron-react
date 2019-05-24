@@ -1,14 +1,15 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const config = require('./webpack.config');
 
 const { NODE_ENV = 'development' } = process.env;
+const isProd = NODE_ENV === 'production';
 
 module.exports = {
-  ...config,
-  entry: {
-    demo: './demo/index.js'
-  },
+  context: __dirname,
+  mode: isProd ? 'production' : 'development',
+  devtool: isProd ? 'source-map' : 'eval-source-map',
+  entry: './demo/index.js',
   output: {
     path: path.resolve(__dirname, 'demo', 'dist'),
     filename: '[name].js',
@@ -16,17 +17,23 @@ module.exports = {
     publicPath: NODE_ENV === 'development' ? '/' : '/cauldron-react/'
   },
   plugins: [
-    ...config.plugins,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: `"${isProd ? 'production' : 'development'}"`
+      }
+    }),
     new HtmlWebpackPlugin({
       template: './demo/index.html',
-      favicon: './demo/assets/img/favicon.ico',
-      chunks: ['demo']
+      favicon: './demo/assets/img/favicon.ico'
     })
   ],
   module: {
-    ...config.module,
     rules: [
-      ...config.module.rules,
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
       {
         test: /\.css$/,
         use: [
@@ -43,5 +50,9 @@ module.exports = {
         loader: 'file-loader?name=public/fonts/[name].[ext]'
       }
     ]
+  },
+  devServer: {
+    port: 8000,
+    historyApiFallback: true
   }
 };
