@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PanelTrigger from './PanelTrigger';
-import { appendStyle, removeStyle } from '../../utils/stylesheets';
+import {
+  injectStyleTag,
+  setStyle,
+  removeStyleTag
+} from '../../utils/stylesheets';
 
 export default class ExpandCollapsePanel extends React.Component {
   static propTypes = {
@@ -35,7 +39,14 @@ export default class ExpandCollapsePanel extends React.Component {
     const { animationTiming } = this.props;
 
     const rect = panel.getBoundingClientRect();
-    const style = appendStyle(`
+
+    if (!this.styleTag) {
+      this.styleTag = injectStyleTag();
+    }
+
+    setStyle(
+      this.styleTag,
+      `
       @keyframes expandOpenAnimation {
         0% { opacity: 0; height: 0; }
         100% { opacity: 1; height: ${rect.height}px; }
@@ -46,12 +57,13 @@ export default class ExpandCollapsePanel extends React.Component {
         overflow: hidden;
         animation: expandOpenAnimation ease-in-out ${animationTiming}ms forwards;
       }
-    `);
+    `
+    );
 
     this.setState({ animationClass: 'cauldron-expand-open' }, () => {
       setTimeout(() => {
         this.setState({ animationClass: '', isAnimating: false });
-        removeStyle(style);
+        setStyle(this.styleTag, '');
       }, animationTiming);
     });
   };
@@ -59,9 +71,12 @@ export default class ExpandCollapsePanel extends React.Component {
   animateClose = () => {
     const { current: panel } = this.panel;
     const { animationTiming } = this.props;
+    const { styleTag } = this;
 
     const rect = panel.getBoundingClientRect();
-    const style = appendStyle(`
+    setStyle(
+      styleTag,
+      `
       @keyframes collapseCloseAnimation {
         0% { opacity: 1; height: ${rect.height}px; }
         100% { opacity: 0; height: 0; }
@@ -72,15 +87,23 @@ export default class ExpandCollapsePanel extends React.Component {
         overflow: hidden;
         animation: collapseCloseAnimation ease-in-out ${animationTiming}ms forwards;
       }
-    `);
+    `
+    );
 
     this.setState({ animationClass: 'cauldron-collapse-close' }, () => {
       setTimeout(() => {
         this.setState({ animationClass: '', isAnimating: false });
-        removeStyle(style);
+        setStyle(styleTag, '');
       }, animationTiming);
     });
   };
+
+  componentWillUnmount() {
+    const { styleTag } = this;
+    if (styleTag) {
+      removeStyleTag(styleTag);
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { isOpen } = this.state;

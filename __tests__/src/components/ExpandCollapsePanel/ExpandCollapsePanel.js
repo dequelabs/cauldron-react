@@ -4,6 +4,7 @@ import {
   default as ExpandCollapsePanel,
   PanelTrigger
 } from 'src/components/ExpandCollapsePanel';
+import * as stylesheets from 'src/utils/stylesheets';
 
 const isVisible = element => {
   const node = element.getDOMNode().parentNode;
@@ -79,11 +80,16 @@ test('should call onToggle when toggled', () => {
   const handleToggle = jest.fn();
   const wrapper = mount(
     <ExpandCollapsePanel onToggle={handleToggle}>
-      <PanelTrigger />
+      <PanelTrigger>Click Me</PanelTrigger>
+      <div />
     </ExpandCollapsePanel>
   );
 
-  wrapper.find('PanelTrigger').simulate('click', { which: 1 });
+  // Manually calling the `onClick` prop here because of Enzyme oddness
+  wrapper
+    .find('PanelTrigger')
+    .props()
+    .onClick({ which: 1 });
   expect(handleToggle).toBeCalledWith(expect.objectContaining({ which: 1 }));
 });
 
@@ -116,4 +122,17 @@ test('trigger should close expanded panel', () => {
   setTimeout(() => {
     expect(isVisible(wrapper.find('[data-test]'))).toBeFalsy();
   });
+});
+
+test('should clean up injected styletags', () => {
+  const cleanup = jest.spyOn(stylesheets, 'removeStyleTag');
+  const wrapper = mount(
+    <ExpandCollapsePanel animationTiming={0}>
+      <PanelTrigger />
+      <div />
+    </ExpandCollapsePanel>
+  );
+  wrapper.setState({ isOpen: true });
+  wrapper.unmount();
+  expect(cleanup).toBeCalled();
 });
