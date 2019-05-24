@@ -27,6 +27,7 @@
   "author": "Harris Schneiderman",
   "license": "MPL-2.0",
   "dependencies": {
+    "classnames": "^2.2.6",
     "focus-trap-react": "^3.0.5",
     "keyname": "^0.1.0",
     "prop-types": "^15.6.0",
@@ -56,7 +57,6 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
-    "classnames": "^2.2.5",
     "closest": "0.0.1",
     "css-loader": "^0.28.7",
     "deque-pattern-library": "^6.1.0",
