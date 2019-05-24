@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight from '../../../Highlight';
-import { Card, CardHeader, CardContent, CardFooter } from 'src/';
+import { Card, CardHeader, CardContent, CardFooter } from '../../../../src';
 import './index.css';
 
 const Demo = () => (

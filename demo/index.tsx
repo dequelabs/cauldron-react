@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ import {
   SideBar,
   SkipLink,
   MenuItem
-} from 'src/';
+} from '../';
 
 // styles
 import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
@@ -38,14 +38,19 @@ import './index.css';
 const { NODE_ENV = 'development' } = process.env;
 const basename = NODE_ENV === 'development' ? '/' : '/cauldron-react/';
 
-class App extends Component {
-  state = { show: false };
-  constructor() {
-    super();
-    this.onTriggerClick = this.onTriggerClick.bind(this);
-  }
+interface AppState {
+  show: boolean;
+}
 
-  onTriggerClick(e) {
+class App extends React.Component<{}, AppState> {
+  public readonly state: AppState = { show: false };
+
+  private topBarTrigger: HTMLElement | null = null;
+  private workspace: HTMLElement | null = null;
+
+  private onTriggerClick = (
+    e?: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
     const { show } = this.state;
 
     if (e) {
@@ -57,15 +62,17 @@ class App extends Component {
     }
 
     this.setState({ show: !show });
-  }
+  };
 
-  renderSideBarLink(to, text) {
+  private renderSideBarLink(to: string, text: React.ReactNode) {
     return (
       <Link
         to={to}
         onClick={() => {
           this.setState({ show: false });
-          this.workspace.focus();
+          if (this.workspace) {
+            this.workspace.focus();
+          }
         }}
         tabIndex={-1}
       >
@@ -79,7 +86,7 @@ class App extends Component {
     return (
       <Router basename={basename}>
         <div>
-          <SkipLink target={'#main-content'} />
+          <SkipLink target="#main-content" />
           <TopBar hasTrigger={true}>
             <TopBarTrigger
               onClick={this.onTriggerClick}

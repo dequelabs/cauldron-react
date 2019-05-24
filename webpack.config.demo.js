@@ -35,6 +35,11 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        use: 'awesome-typescript-loader'
+      },
+      {
         test: /\.css$/,
         use: [
           'style-loader',
@@ -54,5 +59,8 @@ module.exports = {
   devServer: {
     port: 8000,
     historyApiFallback: true
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   }
 };

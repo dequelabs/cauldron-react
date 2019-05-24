@@ -1,9 +1,31 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class FirstTimePointOut extends Component {
-  static propTypes = {
+const noop = () => {};
+
+interface FirstTimePointOutProps {
+  headerId: string;
+  children: React.ReactNode;
+  ftpRef?: (ref: HTMLDivElement) => void;
+  noArrow?: boolean;
+  arrowPosition?: string; // TODO: replace with a union
+  onClose: () => void;
+  dismissText?: string;
+  className?: string;
+}
+
+interface FirstTimePointOutState {
+  show: boolean;
+}
+
+export default class FirstTimePointOut extends React.Component<
+  FirstTimePointOutProps,
+  FirstTimePointOutState
+> {
+  public displayName = 'FirstTimePointOut';
+
+  public static propTypes = {
     headerId: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
@@ -14,30 +36,25 @@ export default class FirstTimePointOut extends Component {
     className: PropTypes.string
   };
 
-  static defaultProps = {
-    ftpRef: () => {},
+  public static defaultProps = {
+    ftpRef: noop,
     noArrow: false,
-    onClose: () => {},
+    onClose: noop,
     dismissText: 'dismiss',
     arrowPosition: 'top-left'
   };
 
-  constructor() {
-    super();
+  public readonly state: FirstTimePointOutState = { show: true };
 
-    this.state = { show: true };
-    this.onCloseClick = this.onCloseClick.bind(this);
-  }
-
-  render() {
+  public render() {
     const { show } = this.state;
     const {
       headerId,
-      ftpRef,
+      ftpRef = noop,
       children,
       noArrow,
-      dismissText,
-      arrowPosition,
+      dismissText = 'dismiss',
+      arrowPosition = 'top-left',
       className
     } = this.props;
 
@@ -70,7 +87,7 @@ export default class FirstTimePointOut extends Component {
             aria-label={dismissText}
             onClick={this.onCloseClick}
           />
-          <div className="dqpl-content" tabIndex="-1" ref={ftpRef}>
+          <div className="dqpl-content" tabIndex={-1} ref={ftpRef}>
             {children}
           </div>
         </div>
@@ -78,12 +95,8 @@ export default class FirstTimePointOut extends Component {
     );
   }
 
-  onCloseClick() {
+  private onCloseClick() {
     this.setState({ show: false });
     this.props.onClose();
   }
 }
-
-FirstTimePointOut.defaultProps = {
-  onClose: () => {}
-};

@@ -1,8 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export default class Scrim extends Component {
-  constructor(props) {
+interface ScrimProps {
+  show: boolean;
+}
+
+interface ScrimState {
+  animationClass: string;
+  destroy: boolean;
+}
+
+export default class Scrim extends React.Component<ScrimProps, ScrimState> {
+  public static propTypes = { show: PropTypes.bool.isRequired };
+
+  public readonly state: ScrimState;
+
+  private el: HTMLDivElement | null = null;
+
+  constructor(props: ScrimProps) {
     super(props);
 
     this.state = {
@@ -11,13 +26,13 @@ export default class Scrim extends Component {
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     if (this.props.show) {
       this.fadeIn();
     }
   }
 
-  fadeIn() {
+  private fadeIn() {
     this.setState({ destroy: false }, () => {
       this.setState({
         animationClass: 'dqpl-scrim-show'
@@ -36,7 +51,7 @@ export default class Scrim extends Component {
     });
   }
 
-  fadeOut() {
+  private fadeOut() {
     this.setState({ animationClass: 'dqpl-scrim-show' }, () => {
       // using setTimeout because css transitions require us to add the classes separately
       setTimeout(() => {
@@ -47,7 +62,7 @@ export default class Scrim extends Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: ScrimProps) {
     const { show } = this.props;
     const changed = typeof show !== 'undefined' && prevProps.show !== show;
 
@@ -60,7 +75,7 @@ export default class Scrim extends Component {
     }
   }
 
-  render() {
+  public render() {
     const { animationClass, destroy } = this.state;
 
     if (destroy) {
@@ -75,7 +90,3 @@ export default class Scrim extends Component {
     );
   }
 }
-
-Scrim.propTypes = {
-  show: PropTypes.bool.isRequired
-};

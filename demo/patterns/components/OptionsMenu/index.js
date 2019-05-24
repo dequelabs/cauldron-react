@@ -6,7 +6,7 @@ import {
   OptionsMenuWrapper,
   OptionsMenuTrigger,
   Icon
-} from 'src/';
+} from '../../../../src';
 
 export default class Demo extends Component {
   constructor() {

@@ -1,9 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import ClickOutsideListener from '../ClickOutsideListener';
 
-export default class OptionsMenu extends Component {
-  static propTypes = {
+interface OptionsMenuProps extends React.HTMLAttributes<HTMLUListElement> {
+  children: React.ReactNode;
+  id: string;
+  onClose: () => void;
+  onselect: () => void;
+  show?: boolean;
+  closeOnSelect?: boolean;
+}
+
+interface OptionsMenuState {
+  itemIndex: number;
+}
+
+export default class OptionsMenu extends React.Component<
+  OptionsMenuProps,
+  OptionsMenuState
+> {
+  public static propTypes = {
     children: PropTypes.node.isRequired,
     id: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -12,39 +28,43 @@ export default class OptionsMenu extends Component {
     closeOnSelect: PropTypes.bool
   };
 
-  static defaultProps = {
+  public static defaultProps = {
     show: false,
     closeOnSelect: true,
     onSelect: () => {}
   };
 
-  constructor() {
-    super();
-    this.itemRefs = [];
-    this.state = { itemIndex: 0 };
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.menuRef = React.createRef();
-  }
+  public readonly state: OptionsMenuState = { itemIndex: 0 };
 
-  componentDidUpdate(prevProps, prevState) {
+  private itemRefs: Array<HTMLLIElement | null> = [];
+  private menuRef: React.RefObject<HTMLUListElement>;
+
+  public componentDidUpdate(
+    prevProps: OptionsMenuProps,
+    prevState: OptionsMenuState
+  ) {
     const { itemIndex } = this.state;
     const { show } = this.props;
 
     if (!prevProps.show && show && this.itemRefs.length) {
       // handles opens
-      this.itemRefs[0].focus();
+      const item = this.itemRefs[0];
+      if (item) {
+        item.focus();
+      }
     } else if (prevState.itemIndex !== itemIndex) {
       // handle up/down arrows
-      this.itemRefs[itemIndex].focus();
+      const item = this.itemRefs[itemIndex];
+      if (item) {
+        item.focus();
+      }
     }
   }
 
-  render() {
+  public render() {
     // eslint-disable-next-line no-unused-vars
     const { children, id, show, closeOnSelect, ...other } = this.props;
-    const items = children.map(({ props }, i) => (
+    const items = React.Children.map(children as any, ({ props }, i) => (
       <li
         key={`${id}-${i}`}
         className="dqpl-options-menuitem"
@@ -73,31 +93,34 @@ export default class OptionsMenu extends Component {
     );
   }
 
-  handleClick(e) {
+  private handleClick(e: React.MouseEvent<HTMLUListElement>) {
     const { menuRef, props } = this;
     const { onSelect, onClose } = props;
-    if (menuRef.current && menuRef.current.contains(e.target)) {
+    const target = e.target as HTMLElement;
+    if (menuRef.current && menuRef.current.contains(target)) {
       if (!e.defaultPrevented && props.closeOnSelect) {
         onClose();
       }
 
-      onSelect(e);
+      if (onSelect) {
+        onSelect(e);
+      }
     }
 
-    const link = e.target.querySelector('a');
+    const link = target.querySelector('a');
     if (link) {
       link.click();
     }
   }
 
-  handleClickOutside() {
+  private handleClickOutside() {
     const { show, onClose } = this.props;
     if (show) {
       onClose();
     }
   }
 
-  handleKeyDown(e) {
+  private handleKeyDown(e: React.KeyboardEvent<HTMLUListElement>) {
     const { which, target } = e;
     switch (which) {
       // up / down
@@ -130,7 +153,7 @@ export default class OptionsMenu extends Component {
       case 13:
       case 32:
         e.preventDefault();
-        target.click();
+        (target as HTMLElement).click();
 
         break;
       // tab

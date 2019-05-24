@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 /**
  * The options menu item component which should be used
@@ -8,5 +8,7 @@ import React from 'react';
  * actually set within the <OptionsMenu /> component
  * (See src/lib/components/OptionsMenu/index.js for details)
  */
-const OptionsMenuItem = props => <div {...props} />;
+const OptionsMenuItem = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} />
+);
 export default OptionsMenuItem;

@@ -1,9 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Checkbox extends Component {
-  static propTypes = {
+const noop = () => {};
+
+// Until ts3.5 is out of beta...
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface CheckboxProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  id: string;
+  name: string;
+  label: string;
+  value: string;
+  checked?: boolean;
+  disabled?: boolean;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void;
+  checkboxRef?: (ref: HTMLInputElement | null) => void;
+}
+
+interface CheckboxState {
+  checked: boolean;
+  focused: boolean;
+}
+
+export default class Checkbox extends React.Component<
+  CheckboxProps,
+  CheckboxState
+> {
+  public static displayName = 'Checkbox';
+
+  public static propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -15,40 +45,49 @@ export default class Checkbox extends Component {
     checkboxRef: PropTypes.func
   };
 
-  static defaultProps = {
+  public static defaultProps = {
     checked: false,
     disabled: false,
-    onChange: () => {},
-    checkboxRef: () => {}
+    onChange: noop,
+    checkboxRef: noop
   };
 
-  constructor(props) {
+  public readonly state: CheckboxState;
+
+  private checkbox: HTMLInputElement | null = null;
+
+  constructor(props: CheckboxProps) {
     super(props);
-    this.state = { checked: this.props.checked, focused: false };
+    this.state = { checked: this.props.checked || false, focused: false };
     this.toggleFocus = this.toggleFocus.bind(this);
     this.onCheckboxClick = this.onCheckboxClick.bind(this);
     this.onOverlayClick = this.onOverlayClick.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const { checked } = this.props;
+  public componentDidUpdate(prevProps: CheckboxProps) {
+    const checked = this.props.checked || false;
 
     if (checked !== prevProps.checked) {
       this.setState({ checked });
     }
   }
 
-  toggleFocus() {
+  private toggleFocus() {
     this.setState({ focused: !this.state.focused });
   }
 
-  onCheckboxClick(e) {
+  private onCheckboxClick(e: React.ChangeEvent<HTMLInputElement>) {
     const checked = !this.state.checked;
     this.setState({ checked });
-    this.props.onChange(e, checked);
+    if (this.props.onChange) {
+      this.props.onChange(e, checked);
+    }
   }
 
-  onOverlayClick() {
+  private onOverlayClick() {
+    if (!this.checkbox) {
+      return;
+    }
     this.checkbox.click();
     this.checkbox.focus();
   }
@@ -66,8 +105,7 @@ export default class Checkbox extends Component {
       className,
       // eslint-disable-next-line no-unused-vars
       onChange,
-      // eslint-disable-next-line no-unused-vars
-      checkboxRef,
+      checkboxRef = noop,
       ...others
     } = this.props;
 
@@ -88,7 +126,7 @@ export default class Checkbox extends Component {
           onBlur={this.toggleFocus}
           ref={checkbox => {
             this.checkbox = checkbox;
-            this.props.checkboxRef(checkbox);
+            checkboxRef(checkbox);
           }}
         />
         <div

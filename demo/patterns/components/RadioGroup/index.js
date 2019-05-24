@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { RadioGroup } from 'src/';
+import { RadioGroup } from '../../../../src';
 
 export default class Demo extends Component {
   render() {

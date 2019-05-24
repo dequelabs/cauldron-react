@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight from '../../../Highlight';
-import { ClickOutsideListener } from 'src/';
+import { ClickOutsideListener } from '../../../../src';
 
 const Demo = () => (
   <div>

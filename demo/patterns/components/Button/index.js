@@ -1,7 +1,7 @@
 import React from 'react';
-import Demo from 'demo/Demo';
-import { Button } from 'src/';
-import { children, className } from 'demo/props';
+import Demo from '../../../Demo';
+import { Button } from '../../../../src';
+import { children, className } from '../../../props';
 
 const ButtonDemo = () => (
   <div>

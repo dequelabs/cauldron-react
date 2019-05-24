@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight from '../../../Highlight';
-import { Tooltip, Button } from 'src/';
+import { Tooltip, Button } from '../../../../src';
 import './index.css';
 
 const Demo = () => (

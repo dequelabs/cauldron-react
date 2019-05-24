@@ -1,9 +1,36 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class RadioGroup extends Component {
-  static propTypes = {
+// Until ts3.5 is out of beta...
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface Radio {
+  value: string;
+  id: string;
+  label: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+interface RadioGroupProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  name: string;
+  radios: Radio[];
+  defaultValue?: string;
+  onChange?: (radio: Radio, input: HTMLInputElement | null) => void;
+}
+
+interface RadioGroupState {
+  value: string | null;
+  focusIndex: number | null;
+}
+
+export default class RadioGroup extends React.Component<
+  RadioGroupProps,
+  RadioGroupState
+> {
+  public static propTypes = {
     name: PropTypes.string.isRequired,
     radios: PropTypes.arrayOf(
       PropTypes.shape({
@@ -12,7 +39,11 @@ export default class RadioGroup extends Component {
         label: PropTypes.string.isRequired
       })
     ).isRequired,
-    hasLabel: (props, propName, componentName) => {
+    hasLabel: (
+      props: { [prop: string]: any },
+      propName: string,
+      componentName: string
+    ) => {
       if (!props['aria-label'] && !props['aria-labelledby']) {
         return new Error(
           `${componentName} must have an "aria-label" or "aria-labelledby" prop`
@@ -24,17 +55,22 @@ export default class RadioGroup extends Component {
     onChange: PropTypes.func
   };
 
-  static defaultProps = {
+  public static defaultProps = {
     className: '',
     defaultValue: null,
     onChange: () => {}
   };
 
-  inputs = [];
-  handleChange = value => this.setState({ value });
-  onRadioFocus = focusIndex => this.setState({ focusIndex });
-  onRadioBlur = () => this.setState({ focusIndex: null });
-  onRadioClick = i => {
+  public readonly state: RadioGroupState = {
+    focusIndex: null,
+    value: null
+  };
+
+  private inputs: Array<HTMLInputElement | null> = [];
+  private handleChange = (value: string) => this.setState({ value });
+  private onRadioFocus = (focusIndex: number) => this.setState({ focusIndex });
+  private onRadioBlur = () => this.setState({ focusIndex: null });
+  private onRadioClick = (i: number) => {
     const radio = this.inputs[i];
     if (!radio) {
       return;
@@ -43,9 +79,9 @@ export default class RadioGroup extends Component {
     radio.focus();
   };
 
-  constructor(props) {
+  constructor(props: RadioGroupProps) {
     super(props);
-    this.state = { value: this.props.defaultValue };
+    this.state = { value: this.props.defaultValue || null, focusIndex: null };
   }
 
   render() {
@@ -54,7 +90,7 @@ export default class RadioGroup extends Component {
       name,
       className,
       defaultValue,
-      onChange,
+      onChange = () => {},
       radios,
       ...other
     } = this.props;
@@ -65,7 +101,7 @@ export default class RadioGroup extends Component {
     void defaultValue;
 
     const radioButtons = radios.map((radio, index) => {
-      const { label, disabled, value, id, className, ...other } = radio;
+      const { label, disabled = false, value, id, className, ...other } = radio;
       const isChecked = this.state.value === value;
       const isFocused = this.state.focusIndex === index;
 

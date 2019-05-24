@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { Select, Button } from 'src/';
+import { Select, Button } from '../../../../src';
 import './index.css';
 
 export default class Demo extends Component {

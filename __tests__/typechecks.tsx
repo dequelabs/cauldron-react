@@ -21,7 +21,7 @@ import {
   RadioGroup,
   Scrim,
   Select,
-  Sidebar,
+  SideBar,
   SkipLink,
   Toast,
   TopBar,
@@ -174,10 +174,10 @@ const select = () => (
   />
 );
 
-const sidebar = () => (
-  <Sidebar onDismiss={noop} className="hi" show>
+const sideBar = () => (
+  <SideBar onDismiss={noop} className="hi" show>
     hello
-  </Sidebar>
+  </SideBar>
 );
 
 const skiplink = () => (

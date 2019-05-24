@@ -1,4 +1,4 @@
-export default function(target, item) {
+export default function(target: HTMLElement, item: HTMLElement) {
   const link = target.tagName !== 'A' && item.querySelector('a');
   if (!link) {
     return;

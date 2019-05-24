@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Highlight from 'demo/Highlight';
-import { Button, Toast, Link } from 'src/';
+import Highlight from '../../../Highlight';
+import { Button, Toast, Link } from '../../../../src';
 
 export default class Demo extends Component {
   constructor() {

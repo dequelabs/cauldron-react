@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from '../../../Highlight';
-import { TextField, Button } from 'src/';
+import { TextField, Button } from '../../../../src';
 import './index.css';
 
 export default class Demo extends Component {

@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Card = ({ className, ...other }) => (
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const Card = ({ className, ...other }: CardProps) => (
   <div className={classNames('dqpl-tile', className)} {...other} />
 );
 

@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const CardFooter = ({ className, ...other }) => (
+interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const CardFooter = ({ className, ...other }: CardFooterProps) => (
   <div className={classNames('dqpl-tile-footer', className)} {...other} />
 );
 

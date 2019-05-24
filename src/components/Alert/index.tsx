@@ -1,51 +1,89 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import FocusTrap from 'focus-trap-react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import FocusTrap = require('focus-trap-react');
 import Scrim from '../Scrim';
 import AriaIsolate from '../../utils/aria-isolate';
 
+interface ActionsProps {
+  children: React.ReactNode;
+}
+
 const noop = () => {};
-export const Actions = ({ children }) => (
+
+export const Actions = ({ children }: ActionsProps) => (
   <div className="dqpl-buttons">{children}</div>
 );
 
-Actions.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object
-  ]).isRequired
-};
+Actions.displayName = 'AlertActions';
+
+interface AlertProps {
+  children: React.ReactNode;
+  show?: boolean;
+  className?: string;
+  contentRef?: (ref: HTMLDivElement | null) => void;
+  alertRef?: (ref: HTMLDivElement | null) => void;
+  onClose: () => void;
+  forceAction?: boolean;
+}
+
+interface AlertState {
+  show: boolean;
+  isolator?: AriaIsolate;
+}
 
 /**
  * Cauldron <Alert /> component
  */
-export default class Alert extends Component {
-  constructor(props) {
+export default class Alert extends React.Component<AlertProps, AlertState> {
+  public static displayName = 'Alert';
+
+  public static propTypes = {
+    children: PropTypes.node.isRequired,
+    show: PropTypes.bool,
+    className: PropTypes.string,
+    contentRef: PropTypes.func,
+    alertRef: PropTypes.func,
+    onClose: PropTypes.func,
+    forceAction: PropTypes.bool
+  };
+
+  public static defaultProps = {
+    onClose: noop,
+    forceAction: false,
+    alertRef: noop,
+    contentRef: noop
+  };
+
+  public readonly state: AlertState;
+
+  private element: HTMLDivElement | null = null;
+  private content: HTMLDivElement | null = null;
+
+  constructor(props: AlertProps) {
     super(props);
 
     this.state = {
-      show: props.show
+      show: props.show || false
     };
 
     this.close = this.close.bind(this);
     this.focusContent = this.focusContent.bind(this);
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     if (this.props.show) {
       this.attachIsolator(() => setTimeout(this.focusContent));
     }
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: AlertProps) {
     const showChange = prevProps.show !== this.props.show;
 
     if (!showChange) {
       return;
     }
 
-    this.setState({ show: this.props.show }, () => {
+    this.setState({ show: this.props.show || false }, () => {
       if (this.props.show) {
         this.attachIsolator(this.focusContent);
       } else {
@@ -54,7 +92,7 @@ export default class Alert extends Component {
     });
   }
 
-  attachIsolator(done) {
+  private attachIsolator(done: () => void) {
     this.setState(
       {
         isolator: new AriaIsolate(this.element)
@@ -63,9 +101,14 @@ export default class Alert extends Component {
     );
   }
 
-  render() {
+  public render() {
     const { show } = this.state;
-    const { alertRef, contentRef, forceAction, className } = this.props;
+    const {
+      alertRef = noop,
+      contentRef = noop,
+      forceAction,
+      className
+    } = this.props;
     const cl = className || '';
     const alertClass = show ? 'dqpl-dialog-show' : '';
 
@@ -105,37 +148,20 @@ export default class Alert extends Component {
     );
   }
 
-  close() {
-    this.state.isolator.deactivate();
+  private close() {
+    if (this.state.isolator) {
+      this.state.isolator.deactivate();
+    }
     this.setState({ show: false });
     this.props.onClose();
   }
 
-  focusContent() {
+  private focusContent() {
     if (this.content) {
       this.content.focus();
     }
-    this.state.isolator.activate();
+    if (this.state.isolator) {
+      this.state.isolator.activate();
+    }
   }
 }
-
-Alert.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object
-  ]).isRequired,
-  show: PropTypes.bool,
-  contentRef: PropTypes.func,
-  alertRef: PropTypes.func,
-  onClose: PropTypes.func,
-  forceAction: PropTypes.bool
-};
-
-Alert.defaultProps = {
-  onClose: noop,
-  forceAction: false,
-  alertRef: noop,
-  contentRef: noop
-};

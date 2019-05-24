@@ -1,12 +1,6 @@
 {
   "presets": ["@babel/env", "@babel/react"],
   "plugins": [
-    [
-      "module-resolver",
-      {
-        "root": ["."]
-      }
-    ],
     "transform-export-extensions",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from"

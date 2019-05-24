@@ -1,6 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'error' | 'link';
+  children?: React.ReactNode;
+  buttonRef: (ref: HTMLButtonElement | null) => void;
+}
 
 /**
  * The dqpl button component
@@ -10,8 +16,23 @@ import classNames from 'classnames';
  * NOTE: All other props (i.e. onClick) passed will be applied to the dqpl button element
  * NOTE: to support stuff like refs, avoiding a stateless component
  */
-export default class Button extends Component {
-  render() {
+
+class Button extends React.Component<ButtonProps> {
+  public static displayName = 'Button';
+
+  public static propTypes = {
+    variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
+    children: PropTypes.node,
+    className: PropTypes.string,
+    buttonRef: PropTypes.func
+  };
+
+  public static defaultProps = {
+    variant: 'primary',
+    buttonRef: () => {}
+  };
+
+  public render() {
     const { variant, children, className, buttonRef, ...other } = this.props;
     return (
       <button
@@ -31,14 +52,4 @@ export default class Button extends Component {
   }
 }
 
-Button.propTypes = {
-  variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
-  children: PropTypes.node,
-  className: PropTypes.string,
-  buttonRef: PropTypes.func
-};
-Button.displayName = 'Button';
-Button.defaultProps = {
-  variant: 'primary',
-  buttonRef: () => {}
-};
+export default Button;

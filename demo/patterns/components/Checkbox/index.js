@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Highlight from 'demo/Highlight';
-import { Checkbox, Button } from 'src/';
+import Highlight from '../../../Highlight';
+import { Checkbox, Button } from '../../../../src';
 import './index.css';
 
 export default class Demo extends Component {

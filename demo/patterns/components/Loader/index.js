@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight from '../../../Highlight';
-import { Loader } from 'src/';
+import { Loader } from '../../../../src';
 
 const Demo = () => (
   <div>

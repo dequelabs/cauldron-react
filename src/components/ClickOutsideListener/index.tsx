@@ -1,20 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export default class ClickOutsideListener extends React.Component {
-  static propTypes = {
+interface ClickOutsideListenerProps {
+  children: React.ReactNode;
+  onClickOutside: (event: Event) => void;
+  mouseEvent?: 'mousedown' | 'click' | 'mouseup' | false;
+  touchEvent?: 'touchstart' | 'touchend' | false;
+}
+
+export default class ClickOutsideListener extends React.Component<
+  ClickOutsideListenerProps
+> {
+  public static propTypes = {
     children: PropTypes.node.isRequired,
     onClickOutside: PropTypes.func.isRequired,
     mouseEvent: PropTypes.oneOf(['mousedown', 'click', 'mouseup', false]),
     touchEvent: PropTypes.oneOf(['touchstart', 'touchend', false])
   };
 
-  static defaultProps = {
+  public static defaultProps = {
     mouseEvent: 'click',
     touchEvent: 'touchend'
   };
 
-  handleEvent = event => {
+  private nodeRef: HTMLElement | null = null;
+
+  private handleEvent = (event: Event) => {
     const { nodeRef, props } = this;
     const { onClickOutside } = props;
 
@@ -22,16 +33,17 @@ export default class ClickOutsideListener extends React.Component {
       return;
     }
 
-    if (nodeRef && !nodeRef.contains(event.target)) {
+    const target = event.target as HTMLElement;
+    if (nodeRef && !nodeRef.contains(target)) {
       onClickOutside(event);
     }
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     this.attachEventListeners();
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: ClickOutsideListenerProps) {
     const { mouseEvent, touchEvent } = this.props;
     if (
       prevProps.mouseEvent !== mouseEvent ||
@@ -42,12 +54,12 @@ export default class ClickOutsideListener extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    const { mouseEvent, touchEvent } = this.props;
+  public componentWillUnmount() {
+    const { mouseEvent = 'click', touchEvent = 'touchend' } = this.props;
     this.removeEventListeners(mouseEvent, touchEvent);
   }
 
-  attachEventListeners = () => {
+  private attachEventListeners = () => {
     const { mouseEvent, touchEvent } = this.props;
     typeof mouseEvent === 'string' &&
       document.addEventListener(mouseEvent, this.handleEvent);
@@ -55,19 +67,22 @@ export default class ClickOutsideListener extends React.Component {
       document.addEventListener(touchEvent, this.handleEvent);
   };
 
-  removeEventListeners = (mouseEvent, touchEvent) => {
+  private removeEventListeners = (
+    mouseEvent?: string | boolean,
+    touchEvent?: string | boolean
+  ) => {
     typeof mouseEvent === 'string' &&
       document.removeEventListener(mouseEvent, this.handleEvent);
     typeof touchEvent === 'string' &&
       document.removeEventListener(touchEvent, this.handleEvent);
   };
 
-  resolveRef = node => {
+  private resolveRef = (node: HTMLElement) => {
     this.nodeRef = node;
 
     // If child has its own ref, we want to update
     // its ref with the newly cloned node
-    let { ref } = this.props.children;
+    const { ref } = this.props.children as any;
     if (typeof ref === 'function') {
       ref(node);
     } else if (ref !== null) {
@@ -75,8 +90,8 @@ export default class ClickOutsideListener extends React.Component {
     }
   };
 
-  render() {
+  public render() {
     const { props, resolveRef } = this;
-    return React.cloneElement(props.children, { ref: resolveRef });
+    return React.cloneElement(props.children as any, { ref: resolveRef });
   }
 }

@@ -1,9 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import Highlight from '../Highlight';
 import './index.css';
 
-const stateToPropString = state => {
+interface ComponentState {
+  [propName: string]: any;
+}
+
+interface DemoProps {
+  propDocs: {
+    [propName: string]: {
+      type: string; // TODO: make this a union
+      description: string;
+      default?: string | boolean | number | object;
+      required?: boolean;
+    };
+  };
+  states: ComponentState[];
+  component: React.ComponentType;
+  children?: React.ReactNode;
+}
+
+const stateToPropString = (state: ComponentState): string => {
   const props = [];
   for (const propName in state) {
     if (!state.hasOwnProperty(propName) || propName === 'children') {
@@ -24,15 +41,10 @@ const stateToPropString = state => {
   return props.join(' ');
 };
 
-class Demo extends Component {
-  static propTypes = {
-    propDocs: PropTypes.object.isRequired,
-    states: PropTypes.arrayOf(PropTypes.object).isRequired,
-    component: PropTypes.func.isRequired,
-    children: PropTypes.node
-  };
+class Demo extends React.Component<DemoProps> {
+  public static displayName = 'Demo';
 
-  render() {
+  public render() {
     const { states, component: Component, propDocs, children } = this.props;
     const { displayName, defaultProps = {} } = Component;
     // TODO: come up with clean way to render code snippet of children
@@ -65,8 +77,7 @@ class Demo extends Component {
             </thead>
             <tbody>
               {Object.entries(propDocs).map(([name, data]) => {
-                const defaultProp = defaultProps[name];
-
+                const defaultProp = (defaultProps as any)[name];
                 return (
                   <tr key={name}>
                     <td>{name}</td>
@@ -89,7 +100,7 @@ class Demo extends Component {
     );
   }
 
-  renderState = state => {
+  private renderState = (state: ComponentState): string => {
     const { displayName } = this.props.component;
 
     if (!displayName) {

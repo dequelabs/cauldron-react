@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type RefCallback = (ref: any) => void;
 
-interface WorkspaceProps {
+interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   workspaceRef?: RefCallback;
   layoutRef?: RefCallback;
@@ -71,14 +71,14 @@ interface TopBarTriggerProps {
 
 export const TopBarTrigger: React.ComponentType<TopBarTriggerProps>;
 
-interface SidebarProps {
+interface SideBarProps {
   children: React.ReactNode;
   onDismiss: () => void;
   className?: string;
   show?: boolean;
 }
 
-export const Sidebar: React.ComponentType<SidebarProps>;
+export const SideBar: React.ComponentType<SideBarProps>;
 
 interface AlertProps {
   className?: string;
@@ -128,8 +128,8 @@ export const ModalFooter: React.ComponentType<ModalFooterProps>;
 
 interface SkipLinkProps {
   target: string;
-  skipText: string;
-  targetText: string;
+  skipText?: string;
+  targetText?: string;
 }
 
 export const SkipLink: React.ComponentType<SkipLinkProps>;
