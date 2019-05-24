@@ -10,7 +10,8 @@ export default class FirstTimePointOut extends Component {
     noArrow: PropTypes.bool,
     arrowPosition: PropTypes.string,
     onClose: PropTypes.func,
-    dismissText: PropTypes.string
+    dismissText: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -36,7 +37,8 @@ export default class FirstTimePointOut extends Component {
       children,
       noArrow,
       dismissText,
-      arrowPosition
+      arrowPosition,
+      className
     } = this.props;
 
     if (!show) {
@@ -45,7 +47,7 @@ export default class FirstTimePointOut extends Component {
 
     return (
       <div
-        className={classNames('dqpl-pointer-wrap', {
+        className={classNames(className, 'dqpl-pointer-wrap', {
           'dqpl-no-arrow': noArrow
         })}
         role="region"

@@ -66,3 +66,13 @@ test('accepts the dismissText prop', () => {
     ftpo.find('.dqpl-ftpo-dismiss[aria-label="Fred"]').exists()
   ).toBeTruthy();
 });
+
+test('accepts className prop', () => {
+  const ftpo = mount(
+    <FirstTimePointOut {...defaults} dismissText={'Fred'} className="foo">
+      {'hello'}
+    </FirstTimePointOut>
+  );
+
+  expect(ftpo.find('.dqpl-pointer-wrap.foo').exists()).toBeTruthy();
+});
