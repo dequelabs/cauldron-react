@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MenuItem from 'src/components/MenuItem';
-import Sidebar from 'src/components/Sidebar';
+import SideBar from 'src/components/SideBar';
 import { axe } from 'jest-axe';
 
 test('clicks first direct child link given a click', () => {
@@ -56,9 +56,9 @@ test('supports menuItemRef props', () => {
 
 test('should return no axe violations', async () => {
   const item = mount(
-    <Sidebar onDismiss={() => {}}>
+    <SideBar onDismiss={() => {}}>
       <MenuItem>Foo</MenuItem>
-    </Sidebar>
+    </SideBar>
   );
   expect(await axe(item.html())).toHaveNoViolations();
 });
