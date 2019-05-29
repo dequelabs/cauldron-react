@@ -30,7 +30,9 @@ import {
   AriaIsolate,
   focusableSelector,
   TextField,
-  ClickOutsideListener
+  ClickOutsideListener,
+  ExpandCollapsePanel,
+  PanelTrigger
 } from '../types';
 
 const noop = () => {};
@@ -243,4 +245,33 @@ const clickOutside = () => {
   >
     <div>foo</div>
   </ClickOutsideListener>;
+};
+
+const expandCollapse = () => {
+  <ExpandCollapsePanel
+    id="expand-collapse-panel"
+    animationTiming={0}
+    onToggle={noopEventHandler}
+  >
+    <div>foo</div>
+  </ExpandCollapsePanel>;
+};
+
+const expandCollapseTrigger = () => {
+  <>
+    <PanelTrigger
+      id="expand-collapse-trigger"
+      open={true}
+      onClick={noopEventHandler}
+    >
+      <div>foo</div>
+    </PanelTrigger>
+    <PanelTrigger
+      id="expand-collapse-trigger2"
+      open={true}
+      onClick={noopEventHandler}
+    >
+      {({ open }: any) => (open ? 'Open' : 'Closed')}
+    </PanelTrigger>
+  </>;
 };

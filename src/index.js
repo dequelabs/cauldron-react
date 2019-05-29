@@ -37,6 +37,10 @@ export {
 } from './components/Card';
 export TextField from './components/TextField';
 export ClickOutsideListener from './components/ClickOutsideListener';
+export {
+  default as ExpandCollapsePanel,
+  PanelTrigger
+} from './components/ExpandCollapsePanel';
 /**
  * Helpers / Utils
  */
