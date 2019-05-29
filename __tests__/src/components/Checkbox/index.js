@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Checkbox from 'src/components/Checkbox';
+import { axe } from 'jest-axe';
 
 const defaultProps = {
   id: 'boognish',
@@ -95,4 +96,9 @@ test('supports checkboxRef prop', done => {
   };
 
   mount(<Checkbox {...defaultProps} checkboxRef={ref} />);
+});
+
+test('should return no axe violations', async () => {
+  const wrapper = mount(<Checkbox {...defaultProps} />);
+  expect(await axe(wrapper.html())).toHaveNoViolations();
 });

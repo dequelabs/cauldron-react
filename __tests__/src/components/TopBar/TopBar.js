@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
-import TopBar from '../../../../src/components/TopBar';
+import TopBar from 'src/components/TopBar';
+import { axe } from 'jest-axe';
 
 const [right, left] = [39, 37];
 const noop = () => {};
@@ -117,4 +118,16 @@ test('supports falsy children', () => {
       </TopBar>
     )
   ).toBeTruthy();
+});
+
+test('should return no axe violations', async () => {
+  const topbar = mount(
+    <TopBar>
+      <MenuItem />
+      <MenuItem />
+      <MenuItem />
+    </TopBar>
+  );
+
+  expect(await axe(topbar.html())).toHaveNoViolations();
 });

@@ -1,17 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import SideBar from '../../../../src/components/SideBar';
-
-const MenuItem = ({ menuItemRef }) => <div ref={menuItemRef} />;
-MenuItem.propTypes = { menuItemRef: PropTypes.func };
+import SideBar from 'src/components/SideBar';
+import MenuItem from 'src/components/MenuItem';
+import { axe } from 'jest-axe';
 
 const mountWrapper = (onDismiss = () => {}) =>
   mount(
     <SideBar onDismiss={onDismiss}>
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
+      <MenuItem>a</MenuItem>
+      <MenuItem>b</MenuItem>
+      <MenuItem>c</MenuItem>
     </SideBar>
   );
 const noop = () => {};
@@ -89,4 +87,15 @@ test('animates / toggles display given a show prop change', done => {
       done();
     }, 101);
   }, 101); // wait for animation classes to get added
+});
+
+test('should return no axe violations', async () => {
+  const sidebar = mount(
+    <SideBar onDismiss={noop}>
+      <MenuItem>Item 1</MenuItem>
+      <MenuItem>Item 2</MenuItem>
+      <MenuItem>Item 3</MenuItem>
+    </SideBar>
+  );
+  expect(await axe(sidebar.html())).toHaveNoViolations();
 });

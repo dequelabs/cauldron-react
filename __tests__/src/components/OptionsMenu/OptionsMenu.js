@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import OptionsMenu from 'src/components/OptionsMenu';
+import { axe } from 'jest-axe';
 
 const defaultProps = {
   show: false,
@@ -306,4 +307,14 @@ test('should click child links with keypress events', () => {
   item.simulate('keydown', { which: enter });
 
   expect(onClick).toBeCalledTimes(1);
+});
+
+test('should return no axe violations', async () => {
+  const optionsMenu = mount(
+    <OptionsMenu {...defaultProps}>
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+  expect(await axe(optionsMenu.html())).toHaveNoViolations();
 });
