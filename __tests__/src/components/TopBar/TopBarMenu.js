@@ -4,6 +4,7 @@ import MenuItem from 'src/components/MenuItem';
 import TopBar from 'src/components/TopBar/TopBar';
 import TopBarMenu from 'src/components/TopBar/TopBarMenu';
 import OptionsMenu from 'src/components/OptionsMenu';
+import { axe } from 'jest-axe';
 
 const [right, left, down] = [39, 37, 40];
 const noop = () => {};
@@ -98,4 +99,16 @@ test('should close menu with right key', () => {
   topBarMenu.simulate('keydown', { which: right });
 
   expect(topBarMenu.state().open).toBeFalsy();
+});
+
+test('should return no axe violations', async () => {
+  const topbar = mount(
+    <TopBar>
+      <MenuItem>a</MenuItem>
+      <TopBarMenu {...defaultProps}>{optionsMenu}</TopBarMenu>
+      <MenuItem>b</MenuItem>
+    </TopBar>
+  );
+
+  expect(await axe(topbar.html())).toHaveNoViolations();
 });
