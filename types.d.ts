@@ -326,3 +326,10 @@ interface PanelTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const PanelTrigger: React.ComponentType<PanelTriggerProps>;
+
+interface TopBarMenuProps extends React.HTMLAttributes<HTMLUListElement> {
+  id: string;
+  children: React.ReactNode;
+}
+
+export const TopBarMenu: React.ComponentType<TopBarMenuProps>;

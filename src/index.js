@@ -9,7 +9,11 @@ export Icon from './components/Icon';
 export Offscreen from './components/Offscreen';
 export Scrim from './components/Scrim';
 export MenuItem from './components/MenuItem';
-export { default as TopBar, TopBarTrigger } from './components/TopBar';
+export {
+  default as TopBar,
+  TopBarTrigger,
+  TopBarMenu
+} from './components/TopBar';
 export SideBar from './components/SideBar';
 export Alert, { Actions as AlertActions } from './components/Alert';
 export Modal, { ModalContent, ModalFooter } from './components/Modal';
