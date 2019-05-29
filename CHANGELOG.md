@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+
+# [1.0.0](https://github.com/dequelabs/cauldron-react/compare/v0.5.1...v1.0.0) (2019-05-28)
+
+### Bug Fixes
+
+- allows classNames to be passed in for ftpos ([#118](https://github.com/dequelabs/cauldron-react/issues/118)) ([a648f42](https://github.com/dequelabs/cauldron-react/commit/a648f42))
+- click nested links inside OptionsMenuItem ([#107](https://github.com/dequelabs/cauldron-react/issues/107)) ([1622f20](https://github.com/dequelabs/cauldron-react/commit/1622f20))
+- demo unable to open sidebar when collapsed ([#109](https://github.com/dequelabs/cauldron-react/issues/109)) ([2f7aa3f](https://github.com/dequelabs/cauldron-react/commit/2f7aa3f))
+- falsy children in TopBar preventing correct focus navigation ([#110](https://github.com/dequelabs/cauldron-react/issues/110)) ([555f7c6](https://github.com/dequelabs/cauldron-react/commit/555f7c6))
+- mark `classnames` as a production dependency ([#121](https://github.com/dequelabs/cauldron-react/issues/121)) ([2ad291b](https://github.com/dequelabs/cauldron-react/commit/2ad291b)), closes [/github.com/dequelabs/cauldron-react/blob/v0.5.1/src/components/Button/index.js#L3](https://github.com//github.com/dequelabs/cauldron-react/blob/v0.5.1/src/components/Button/index.js/issues/L3)
+- push state upwards in Toast and refactor deprecated method ([#108](https://github.com/dequelabs/cauldron-react/issues/108)) ([fc5268a](https://github.com/dequelabs/cauldron-react/commit/fc5268a))
+
+### Chores
+
+- remove UMD build ([#120](https://github.com/dequelabs/cauldron-react/issues/120)) ([426d339](https://github.com/dequelabs/cauldron-react/commit/426d339))
+
+### Features
+
+- add browserslist ([#119](https://github.com/dequelabs/cauldron-react/issues/119)) ([61854fe](https://github.com/dequelabs/cauldron-react/commit/61854fe))
+- add ClickOutsideListener component to capture outside of children events ([#101](https://github.com/dequelabs/cauldron-react/issues/101)) ([8dc04f5](https://github.com/dequelabs/cauldron-react/commit/8dc04f5))
+- add closeOnSelect prop to OptionsMenu ([#102](https://github.com/dequelabs/cauldron-react/issues/102)) ([a168bd5](https://github.com/dequelabs/cauldron-react/commit/a168bd5))
+- add onSelect func prop to OptionsMenu ([#100](https://github.com/dequelabs/cauldron-react/issues/100)) ([6860f0e](https://github.com/dequelabs/cauldron-react/commit/6860f0e))
+- add prop to set arrow positions on first time point out ([#99](https://github.com/dequelabs/cauldron-react/issues/99)) ([bf2bc43](https://github.com/dequelabs/cauldron-react/commit/bf2bc43))
+- allow buttons to be styled based on prop ([#114](https://github.com/dequelabs/cauldron-react/issues/114)) ([36dc542](https://github.com/dequelabs/cauldron-react/commit/36dc542))
+- demo component to be used to document components ([#116](https://github.com/dequelabs/cauldron-react/issues/116)) ([cb2db3a](https://github.com/dequelabs/cauldron-react/commit/cb2db3a))
+
+### BREAKING CHANGES
+
+- we no longer support UMD. If you want to use this library, you must use a bundler.
+
+Closes https://github.com/dequelabs/cauldron-react/issues/68
+
+- removed secondary as a boolean prop
+
 <a name="0.5.1"></a>
 
 ## [0.5.1](https://github.com/dequelabs/cauldron-react/compare/v0.5.0...v0.5.1) (2019-04-10)
