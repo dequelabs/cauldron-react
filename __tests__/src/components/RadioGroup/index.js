@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import RadioGroup from 'src/components/RadioGroup';
+import { axe } from 'jest-axe';
 
 const defaultProps = {
   name: 'fred',
@@ -107,4 +108,9 @@ test('handles clicks on the dqpl-overlay-radio element', () => {
     .at(0)
     .simulate('click');
   expect(isChecked()).toBeTruthy();
+});
+
+test('should return no axe violations', async () => {
+  const radioGroup = mount(<RadioGroup {...defaultProps} />);
+  expect(await axe(radioGroup.html())).toHaveNoViolations();
 });

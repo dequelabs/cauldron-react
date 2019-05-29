@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import SkipLink from 'src/components/SkipLink';
+import { axe } from 'jest-axe';
 
 test('onClick queries the document for the target and focuses it', () => {
   expect.assertions(2);
@@ -41,4 +42,9 @@ test('onBlur sets `currentClass` state properly', done => {
     expect(node.classList.contains('dqpl-skip-fade')).toBeFalsy();
     done();
   }, 100);
+});
+
+test('should return no axe violations', async () => {
+  const skiplink = mount(<SkipLink target="#skip-target" />);
+  expect(await axe(skiplink.html())).toHaveNoViolations();
 });

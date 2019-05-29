@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Alert from '../../../../src/components/Alert';
+import Alert from 'src/components/Alert';
+import { axe } from 'jest-axe';
 
 let fallback;
 
@@ -66,4 +67,9 @@ test('supports the "contentRef" prop', () => {
 
   expect(called).toBeTruthy();
   alert.unmount();
+});
+
+test('should return no axe violations', async () => {
+  const alert = mount(<Alert show={true}>Hello!</Alert>);
+  expect(await axe(alert.html())).toHaveNoViolations();
 });

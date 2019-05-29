@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Modal from '../../../../src/components/Modal';
+import Modal from 'src/components/Modal';
+import { axe } from 'jest-axe';
 
 const defaults = { show: false, heading: { text: 'hi' } };
 
@@ -100,4 +101,13 @@ test('does not render the close button given a thruthy "forceAction" prop', () =
 
   expect(modal.find('.dqpl-close').exists()).toBeFalsy();
   modal.unmount();
+});
+
+test('should return no axe violations', async () => {
+  const modal = mount(
+    <Modal {...defaults} show={true}>
+      Hello Modal
+    </Modal>
+  );
+  expect(await axe(modal.html())).toHaveNoViolations();
 });
