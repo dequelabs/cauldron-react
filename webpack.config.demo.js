@@ -13,8 +13,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'demo', 'dist'),
     filename: '[name].js',
-    // When deployed, the URL is http://dequelabs.github.io/cauldron-react/, so we need to use the prefix as our `publicPath`.
-    publicPath: NODE_ENV === 'development' ? '/' : '/cauldron-react/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.DefinePlugin({
