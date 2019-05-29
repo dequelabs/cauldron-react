@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import FirstTimePointOut from '../../../../src/components/FirstTimePointOut';
+import FirstTimePointOut from 'src/components/FirstTimePointOut';
+import { axe } from 'jest-axe';
 
 const defaults = { headerId: 'foo' };
 
@@ -75,4 +76,14 @@ test('accepts className prop', () => {
   );
 
   expect(ftpo.find('.dqpl-pointer-wrap.foo').exists()).toBeTruthy();
+});
+
+test('should return no axe violations', async () => {
+  const ftpo = mount(
+    <FirstTimePointOut {...defaults} dismissText={'Dismiss'}>
+      <h4 id="foo">Header</h4>
+    </FirstTimePointOut>
+  );
+
+  expect(await axe(ftpo.html())).toHaveNoViolations();
 });

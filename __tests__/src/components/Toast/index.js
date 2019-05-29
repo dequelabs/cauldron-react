@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Toast from 'src/components/Toast';
+import { axe } from 'jest-axe';
 
 const defaultProps = {
   type: 'confirmation',
@@ -138,4 +139,14 @@ test('clicking the dismiss button properly dismisses toast', done => {
     expect(called).toBe(true);
     done();
   }, 10);
+});
+
+test('should return no axe violations', async () => {
+  const toast = mount(
+    <Toast {...defaultProps} show={true}>
+      {'hi'}
+    </Toast>
+  );
+
+  expect(await axe(toast.html())).toHaveNoViolations();
 });

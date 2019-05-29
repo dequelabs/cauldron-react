@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Button from '../../../../src/components/Button';
+import Button from 'src/components/Button';
+import { axe } from 'jest-axe';
 
 test('should render primary button', () => {
   const defaultButton = shallow(<Button>primary</Button>);
@@ -22,4 +23,14 @@ test('should render error button', () => {
 test('should render button as link', () => {
   const button = shallow(<Button variant="link">link</Button>);
   expect(button.hasClass('dqpl-link'));
+});
+
+test('should return no axe violations', async () => {
+  const defaultButton = shallow(<Button>primary</Button>);
+  const button = shallow(<Button variant="primary">primary</Button>);
+  const buttonLink = shallow(<Button variant="link">link</Button>);
+
+  expect(await axe(defaultButton.html())).toHaveNoViolations();
+  expect(await axe(button.html())).toHaveNoViolations();
+  expect(await axe(buttonLink.html())).toHaveNoViolations();
 });
