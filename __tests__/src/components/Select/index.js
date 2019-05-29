@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Select from 'src/components/Select';
+import { axe } from 'jest-axe';
 
 const defaultProps = {
   label: 'Fred',
@@ -207,4 +208,21 @@ test('handles top/bottom boundaries', () => {
   wrapper.setState({ activeIndex: 2 });
   wrapper.find('[role="combobox"]').simulate('keydown', { which: 40 });
   expect(wrapper.state('activeIndex')).toBe(2);
+});
+
+test('should return no axe violations', async () => {
+  const select = mount(
+    <Select
+      {...defaultProps}
+      value="Bar"
+      options={[
+        { value: 'Bar' },
+        { value: 'Foo' },
+        { value: 'Far' },
+        { value: 'Fan' },
+        { value: 'Fun' }
+      ]}
+    />
+  );
+  expect(await axe(select.html())).toHaveNoViolations();
 });

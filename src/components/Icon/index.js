@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Icon = ({ label, type, ...other }) => {
+const Icon = ({ label, type, className, ...other }) => {
   const data = {
     ...other,
     'aria-hidden': `${!label}`,
-    className: classNames('fa', type)
+    className: classNames('fa', type, className)
   };
+
   if (label) {
     data['aria-label'] = label;
   }
@@ -17,6 +18,7 @@ const Icon = ({ label, type, ...other }) => {
 
 Icon.propTypes = {
   label: PropTypes.string,
+  className: PropTypes.string,
   type: PropTypes.string.isRequired
 };
 

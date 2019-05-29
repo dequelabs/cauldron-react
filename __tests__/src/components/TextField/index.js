@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import TextField from '../../../../src/components/TextField';
+import TextField from 'src/components/TextField';
+import { axe } from 'jest-axe';
 
 test('controlled field', () => {
   let input;
@@ -50,4 +51,14 @@ test('multiline=false renders input', done => {
       }}
     />
   );
+});
+
+test('should return no axe violations', async () => {
+  // eslint-disable-next-line no-unused-vars
+  let input;
+  const field = mount(
+    <TextField label="Fred" value="" fieldRef={el => (input = el)} />
+  );
+
+  expect(await axe(field.html())).toHaveNoViolations();
 });
