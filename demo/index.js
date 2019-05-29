@@ -36,9 +36,6 @@ import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
 import '../src/index.css';
 import './index.css';
 
-const { NODE_ENV = 'development' } = process.env;
-const basename = NODE_ENV === 'development' ? '/' : '/cauldron-react/';
-
 class App extends Component {
   state = { show: false };
   constructor() {
@@ -78,7 +75,7 @@ class App extends Component {
   render() {
     /* eslint-disable jsx-a11y/anchor-has-content */
     return (
-      <Router basename={basename}>
+      <Router>
         <div>
           <SkipLink target={'#main-content'} />
           <TopBar hasTrigger={true}>
