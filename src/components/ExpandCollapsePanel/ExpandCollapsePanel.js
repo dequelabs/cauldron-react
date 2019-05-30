@@ -12,7 +12,7 @@ export default class ExpandCollapsePanel extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    animationTiming: PropTypes.number,
+    animationTiming: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     onToggle: PropTypes.func
   };
 
@@ -37,6 +37,10 @@ export default class ExpandCollapsePanel extends React.Component {
   animateOpen = () => {
     const { current: panel } = this.panel;
     const { animationTiming } = this.props;
+
+    if (!animationTiming) {
+      return;
+    }
 
     const rect = panel.getBoundingClientRect();
 
@@ -72,6 +76,10 @@ export default class ExpandCollapsePanel extends React.Component {
     const { current: panel } = this.panel;
     const { animationTiming } = this.props;
     const { styleTag } = this;
+
+    if (!animationTiming) {
+      return;
+    }
 
     const rect = panel.getBoundingClientRect();
     setStyle(
