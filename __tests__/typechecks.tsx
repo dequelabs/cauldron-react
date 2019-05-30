@@ -32,7 +32,8 @@ import {
   TextField,
   ClickOutsideListener,
   ExpandCollapsePanel,
-  PanelTrigger
+  PanelTrigger,
+  TopBarMenu
 } from '../types';
 
 const noop = () => {};
@@ -274,4 +275,8 @@ const expandCollapseTrigger = () => {
       {({ open }: any) => (open ? 'Open' : 'Closed')}
     </PanelTrigger>
   </>;
+};
+
+const topBarMenu = () => {
+  <TopBarMenu id="top-bar-menu">foo</TopBarMenu>;
 };

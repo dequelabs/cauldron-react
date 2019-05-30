@@ -11,7 +11,7 @@ import Toast from './patterns/components/Toast';
 import Alert from './patterns/composites/Alert';
 import Modal from './patterns/composites/Modal';
 import Loader from './patterns/components/Loader';
-import OptionsMenu from './patterns/components/OptionsMenu';
+import OptionsMenuDemo from './patterns/components/OptionsMenu';
 import Select from './patterns/components/Select';
 import RadioGroup from './patterns/components/RadioGroup';
 import Checkbox from './patterns/components/Checkbox';
@@ -20,6 +20,7 @@ import Card from './patterns/components/Card';
 import TextField from './patterns/components/TextField';
 import ClickOutsideListener from './patterns/components/ClickOutsideListener';
 import ExpandCollapsePanel from './patterns/components/ExpandCollapsePanel';
+import TopBarMenuDemo from './patterns/composites/TopBarMenu';
 
 // import cauldron react components
 import {
@@ -28,7 +29,9 @@ import {
   TopBarTrigger,
   SideBar,
   SkipLink,
-  MenuItem
+  MenuItem,
+  OptionsMenu,
+  TopBarMenu
 } from 'src/';
 
 // styles
@@ -57,6 +60,30 @@ class App extends Component {
     this.setState({ show: !show });
   }
 
+  toggleMenu = () => {
+    this.setState(({ menuOpen }) => ({
+      menuOpen: !menuOpen
+    }));
+  };
+
+  handleClose = () => {
+    this.setState({ menuOpen: false });
+  };
+
+  toggleTopBarMenu = () => {
+    this.setState(({ showTopBarMenu }) => ({
+      showTopBarMenu: !showTopBarMenu
+    }));
+  };
+
+  componentDidMount() {
+    document.addEventListener('topbarmenutoggle', this.toggleTopBarMenu);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('topbarmenutoggle', this.toggleTopBarMenu);
+  }
+
   renderSideBarLink(to, text) {
     return (
       <Link
@@ -73,6 +100,8 @@ class App extends Component {
   }
 
   render() {
+    const { showTopBarMenu } = this.state;
+
     /* eslint-disable jsx-a11y/anchor-has-content */
     return (
       <Router>
@@ -92,7 +121,17 @@ class App extends Component {
             {/* The below line demonstrates the ability to conditionally include menu item children. */}
             {false && <MenuItem>Potato</MenuItem>}
 
-            <MenuItem className="dqpl-right-aligned">
+            {showTopBarMenu && (
+              <TopBarMenu id="topbar-menu" className="dqpl-right-aligned">
+                {`I'm a menu thingy`}
+                <OptionsMenu>
+                  <li>Item 1</li>
+                  <li>Item 2</li>
+                </OptionsMenu>
+              </TopBarMenu>
+            )}
+
+            <MenuItem className={showTopBarMenu ? '' : 'dqpl-right-aligned'}>
               <a
                 tabIndex={-1}
                 href="https://github.com/dequelabs/cauldron-react"
@@ -117,6 +156,12 @@ class App extends Component {
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/composites/modal', 'Modal')}
+            </MenuItem>
+            <MenuItem>
+              {this.renderSideBarLink(
+                '/composites/top-bar-menu',
+                'TopBar Menu'
+              )}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/toast', 'Toast')}
@@ -180,7 +225,7 @@ class App extends Component {
               <Route
                 exact
                 path="/components/options-menu"
-                component={OptionsMenu}
+                component={OptionsMenuDemo}
               />
               <Route exact path="/composites/alert" component={Alert} />
               <Route exact path="/composites/modal" component={Modal} />
@@ -207,6 +252,11 @@ class App extends Component {
                 exact
                 path="/components/text-field"
                 component={TextField}
+              />
+              <Route
+                exact
+                path="/composites/top-bar-menu"
+                component={TopBarMenuDemo}
               />
             </Switch>
           </Workspace>

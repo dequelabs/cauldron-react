@@ -5,16 +5,18 @@ import ClickOutsideListener from '../ClickOutsideListener';
 export default class OptionsMenu extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    id: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
+    className: PropTypes.string,
     onSelect: PropTypes.func,
     show: PropTypes.bool,
-    closeOnSelect: PropTypes.bool
+    closeOnSelect: PropTypes.bool,
+    menuRef: PropTypes.func
   };
 
   static defaultProps = {
     show: false,
     closeOnSelect: true,
+    className: 'dqpl-options-menu',
     onSelect: () => {}
   };
 
@@ -42,11 +44,19 @@ export default class OptionsMenu extends Component {
   }
 
   render() {
-    // eslint-disable-next-line no-unused-vars
-    const { children, id, show, closeOnSelect, ...other } = this.props;
+    /* eslint-disable no-unused-vars */
+    const {
+      children,
+      className,
+      show,
+      closeOnSelect,
+      menuRef,
+      ...other
+    } = this.props;
+    /* eslint-enable no-unused-vars */
     const items = children.map(({ props }, i) => (
       <li
-        key={`${id}-${i}`}
+        key={`list-item-${i}`}
         className="dqpl-options-menuitem"
         tabIndex={-1}
         role="menuitem"
@@ -59,13 +69,17 @@ export default class OptionsMenu extends Component {
       <ClickOutsideListener onClickOutside={this.handleClickOutside}>
         <ul
           {...other}
-          className="dqpl-options-menu"
+          className={className}
           aria-expanded={show}
-          id={id}
           role="menu"
           onClick={this.handleClick}
           onKeyDown={this.handleKeyDown}
-          ref={this.menuRef}
+          ref={el => {
+            this.menuRef = el;
+            if (menuRef) {
+              menuRef(el);
+            }
+          }}
         >
           {items}
         </ul>
@@ -76,7 +90,7 @@ export default class OptionsMenu extends Component {
   handleClick(e) {
     const { menuRef, props } = this;
     const { onSelect, onClose } = props;
-    if (menuRef.current && menuRef.current.contains(e.target)) {
+    if (menuRef && menuRef.contains(e.target)) {
       if (!e.defaultPrevented && props.closeOnSelect) {
         onClose();
       }
