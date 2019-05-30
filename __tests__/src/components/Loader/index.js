@@ -14,7 +14,7 @@ test('sets aria-hidden if no label is provided', () => {
 });
 
 test('does not set aria-hidden if a label is provided', () => {
-  const icon = shallow(<Loader label="hi" />);
+  const icon = mount(<Loader label="hi" />);
   expect(icon.is('[aria-hidden]')).toBe(false);
 });
 
