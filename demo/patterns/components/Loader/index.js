@@ -1,22 +1,21 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
+import Demo from 'demo/Demo';
 import { Loader } from 'src/';
+import { className } from 'demo/props';
 
-const Demo = () => (
-  <div>
-    <h1>Loader</h1>
-    <h2>Demo</h2>
-    <Loader label={'Loading'} />
-    <h2>Code Sample</h2>
-    <Highlight language="javascript">
-      {`
-import React from 'react';
-import { Loader } from 'cauldron-react';
-
-const Demo = () => (<Loader label={'Loading'} />);
-      `}
-    </Highlight>
-  </div>
+const LoaderDemo = () => (
+  <Demo
+    component={Loader}
+    states={[{ label: 'Loading...' }, {}]}
+    propDocs={{
+      label: {
+        type: 'string',
+        description:
+          'The desired label to be set on the loader as the aria-label. If not provided, aria-hidden="true" will be applied to the element.'
+      },
+      className
+    }}
+  />
 );
 
-export default Demo;
+export default LoaderDemo;
