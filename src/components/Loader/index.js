@@ -7,7 +7,7 @@ export default function Loader({ label, className, ...other }) {
     ...other,
     className: classNames('dqpl-loader', className),
     'aria-label': label,
-    'aria-hidden': label ? undefined : true
+    'aria-hidden': label ? null : true
   };
   return <div {...props} />;
 }
