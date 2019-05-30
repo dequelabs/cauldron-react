@@ -39,6 +39,7 @@ export default class ExpandCollapsePanel extends React.Component {
     const { animationTiming } = this.props;
 
     if (!animationTiming) {
+      this.setState({ isAnimating: false });
       return;
     }
 
@@ -78,6 +79,7 @@ export default class ExpandCollapsePanel extends React.Component {
     const { styleTag } = this;
 
     if (!animationTiming) {
+      this.setState({ isAnimating: false });
       return;
     }
 
