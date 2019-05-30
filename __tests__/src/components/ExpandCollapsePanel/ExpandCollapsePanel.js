@@ -52,7 +52,7 @@ test('should have hidden content when collapsed', () => {
 
 test('should have visible content when expanded', () => {
   const wrapper = mount(
-    <ExpandCollapsePanel animationTiming={0}>
+    <ExpandCollapsePanel animationTiming={1}>
       <div data-test>foo</div>
     </ExpandCollapsePanel>
   );
@@ -95,7 +95,7 @@ test('should call onToggle when toggled', () => {
 
 test('trigger should open panel collapsed panel', () => {
   const wrapper = mount(
-    <ExpandCollapsePanel animationTiming={0}>
+    <ExpandCollapsePanel animationTiming={1}>
       <PanelTrigger />
       <div data-test />
     </ExpandCollapsePanel>
@@ -110,7 +110,7 @@ test('trigger should open panel collapsed panel', () => {
 
 test('trigger should close expanded panel', () => {
   const wrapper = mount(
-    <ExpandCollapsePanel animationTiming={0}>
+    <ExpandCollapsePanel animationTiming={1}>
       <PanelTrigger />
       <div data-test />
     </ExpandCollapsePanel>
@@ -127,7 +127,7 @@ test('trigger should close expanded panel', () => {
 test('should clean up injected styletags', () => {
   const cleanup = jest.spyOn(stylesheets, 'removeStyleTag');
   const wrapper = mount(
-    <ExpandCollapsePanel animationTiming={0}>
+    <ExpandCollapsePanel animationTiming={1}>
       <PanelTrigger />
       <div />
     </ExpandCollapsePanel>
@@ -135,4 +135,19 @@ test('should clean up injected styletags', () => {
   wrapper.setState({ isOpen: true });
   wrapper.unmount();
   expect(cleanup).toBeCalled();
+});
+
+test('should not run animations if timing is not set', () => {
+  const setStyle = jest.spyOn(stylesheets, 'setStyle');
+  const wrapper = mount(
+    <ExpandCollapsePanel animationTiming={0}>
+      <PanelTrigger />
+      <div />
+    </ExpandCollapsePanel>
+  );
+  wrapper.find('PanelTrigger').simulate('click', {});
+
+  setTimeout(() => {
+    expect(setStyle).not.toBeCalled();
+  });
 });
