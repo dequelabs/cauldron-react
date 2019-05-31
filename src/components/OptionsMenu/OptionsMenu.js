@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClickOutsideListener from '../ClickOutsideListener';
+import classnames from 'classnames';
 
 export default class OptionsMenu extends Component {
   static propTypes = {
@@ -54,16 +55,19 @@ export default class OptionsMenu extends Component {
       ...other
     } = this.props;
     /* eslint-enable no-unused-vars */
-    const items = children.map(({ props }, i) => (
-      <li
-        key={`list-item-${i}`}
-        className="dqpl-options-menuitem"
-        tabIndex={-1}
-        role="menuitem"
-        ref={el => (this.itemRefs[i] = el)}
-        {...props}
-      />
-    ));
+    const items = React.Children.map(children, ({ props }, i) => {
+      const { className, ...other } = props;
+      return (
+        <li
+          key={`list-item-${i}`}
+          className={classnames('dqpl-options-menuitem', className)}
+          tabIndex={-1}
+          role="menuitem"
+          ref={el => (this.itemRefs[i] = el)}
+          {...other}
+        />
+      );
+    });
 
     return (
       <ClickOutsideListener onClickOutside={this.handleClickOutside}>
