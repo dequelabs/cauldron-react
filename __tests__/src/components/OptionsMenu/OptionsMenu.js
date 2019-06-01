@@ -309,6 +309,17 @@ test('should click child links with keypress events', () => {
   expect(onClick).toBeCalledTimes(1);
 });
 
+test('should passthrough classname to menuitem', () => {
+  const optionsMenu = mount(
+    <OptionsMenu {...defaultProps}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+  const menuItem = optionsMenu.find('li');
+  expect(menuItem.hasClass('foo')).toBeTruthy();
+  expect(menuItem.hasClass('dqpl-options-menuitem')).toBeTruthy();
+});
+
 test('should return no axe violations', async () => {
   const optionsMenu = mount(
     <OptionsMenu {...defaultProps}>
