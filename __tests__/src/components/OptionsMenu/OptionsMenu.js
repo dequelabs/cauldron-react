@@ -55,6 +55,17 @@ test('handles updates to `itemIndex` state', () => {
   );
 });
 
+test('should not render falsy children', () => {
+  const wrapper = mount(
+    <OptionsMenu {...defaultProps} show={true}>
+      <li>option 1</li>
+      {false && <li>option 2</li>}
+      <li>option 3</li>
+    </OptionsMenu>
+  );
+  expect(wrapper.find('li')).toHaveLength(2);
+});
+
 test('handles up/down keydowns', () => {
   expect.assertions(3);
   const wrapper = mount(
