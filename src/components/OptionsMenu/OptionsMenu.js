@@ -55,7 +55,7 @@ export default class OptionsMenu extends Component {
       ...other
     } = this.props;
     /* eslint-enable no-unused-vars */
-    const items = React.Children.map(children, ({ props }, i) => {
+    const items = React.Children.toArray(children).map(({ props }, i) => {
       const { className, ...other } = props;
       return (
         <li
