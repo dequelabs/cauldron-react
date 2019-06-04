@@ -1,12 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-/**
- * The options menu item component which should be used
- * as direct children of the <OptionsMenu /> component.
- *
- * NOTE: This is a dummy component in which props are
- * actually set within the <OptionsMenu /> component
- * (See src/lib/components/OptionsMenu/index.js for details)
- */
-const OptionsMenuItem = props => <div {...props} />;
-export default OptionsMenuItem;
+class OptionsMenuItemComponent extends React.Component {
+  static propTypes = {
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    onSelect: PropTypes.func
+  };
+
+  handleClick = event => {
+    const { disabled, onSelect } = this.props;
+    if (!disabled) {
+      onSelect(event);
+    }
+  };
+
+  render() {
+    const { handleClick, props } = this;
+    const { menuItemRef, disabled, ...other } = props;
+    return (
+      // keydown happens in OptionsMenu which proxies to click
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <li
+        role="menuitem"
+        ref={menuItemRef}
+        aria-disabled={disabled}
+        onClick={handleClick}
+        {...other}
+      />
+    );
+  }
+}
+
+export default React.forwardRef(function OptionsMenuItem(props, ref) {
+  return <OptionsMenuItemComponent menuItemRef={ref} {...props} />;
+});

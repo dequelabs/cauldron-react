@@ -55,18 +55,16 @@ export default class OptionsMenu extends Component {
       ...other
     } = this.props;
     /* eslint-enable no-unused-vars */
-    const items = React.Children.toArray(children).map(({ props }, i) => {
-      const { className, ...other } = props;
-      return (
-        <li
-          key={`list-item-${i}`}
-          className={classnames('dqpl-options-menuitem', className)}
-          tabIndex={-1}
-          role="menuitem"
-          ref={el => (this.itemRefs[i] = el)}
-          {...other}
-        />
-      );
+    const items = React.Children.toArray(children).map((child, i) => {
+      const { className, ...other } = child.props;
+      return React.cloneElement(child, {
+        key: `list-item-${i}`,
+        className: classnames('dqpl-options-menuitem', className),
+        tabIndex: -1,
+        role: 'menuitem',
+        ref: el => (this.itemRefs[i] = el),
+        ...other
+      });
     });
 
     return (
