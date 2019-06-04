@@ -8,6 +8,10 @@ class OptionsMenuItemComponent extends React.Component {
     onSelect: PropTypes.func
   };
 
+  static defaultProps = {
+    onSelect: () => {}
+  };
+
   handleClick = event => {
     const { disabled, onSelect } = this.props;
     if (!disabled) {
@@ -31,10 +35,6 @@ class OptionsMenuItemComponent extends React.Component {
     );
   }
 }
-
-OptionsMenuItemComponent.defaultProps = {
-  onSelect: () => {}
-};
 
 export default React.forwardRef(function OptionsMenuItem(props, ref) {
   return <OptionsMenuItemComponent menuItemRef={ref} {...props} />;
