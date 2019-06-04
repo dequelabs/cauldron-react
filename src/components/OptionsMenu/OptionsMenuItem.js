@@ -1,32 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OptionsMenuItem = React.forwardRef(
-  ({ disabled, onSelect, ...other }, ref) => {
-    const handleClick = event => {
-      if (!disabled) {
-        onSelect(event);
-      }
-    };
+class OptionsMenuItemComponent extends React.Component {
+  static propTypes = {
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    onSelect: PropTypes.func
+  };
 
+  handleClick = event => {
+    const { disabled, onSelect } = this.props;
+    if (!disabled) {
+      onSelect(event);
+    }
+  };
+
+  render() {
+    const { handleClick, props } = this;
+    const { menuItemRef, disabled, ...other } = props;
     return (
       // keydown happens in OptionsMenu which proxies to click
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <li
         role="menuitem"
-        ref={ref}
+        ref={menuItemRef}
         aria-disabled={disabled}
         onClick={handleClick}
         {...other}
       />
     );
   }
-);
+}
 
-OptionsMenuItem.propTypes = {
-  disabled: PropTypes.bool,
-  className: PropTypes.string,
-  onSelect: PropTypes.func
-};
-
-export default OptionsMenuItem;
+export default React.forwardRef(function OptionsMenuItem(props, ref) {
+  return <OptionsMenuItemComponent menuItemRef={ref} {...props} />;
+});
