@@ -32,6 +32,10 @@ class OptionsMenuItemComponent extends React.Component {
   }
 }
 
+OptionsMenuItemComponent.defaultProps = {
+  onSelect: () => {}
+};
+
 export default React.forwardRef(function OptionsMenuItem(props, ref) {
   return <OptionsMenuItemComponent menuItemRef={ref} {...props} />;
 });
