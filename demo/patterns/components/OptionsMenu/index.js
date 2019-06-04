@@ -40,6 +40,7 @@ export default class Demo extends Component {
             <OptionsMenuItem>This</OptionsMenuItem>
             <OptionsMenuItem>That</OptionsMenuItem>
             <OptionsMenuItem>The third</OptionsMenuItem>
+            <OptionsMenuItem disabled>And the other</OptionsMenuItem>
           </OptionsMenu>
         </OptionsMenuWrapper>
         <h2>Code Sample</h2>
@@ -86,6 +87,7 @@ class Demo extends Component {
             <OptionsMenuItem>This</OptionsMenuItem>
             <OptionsMenuItem>That</OptionsMenuItem>
             <OptionsMenuItem>The third</OptionsMenuItem>
+            <OptionsMenuItem disabled>And the other</OptionsMenuItem>
           </OptionsMenu>
         </OptionsMenuWrapper>
       </div>

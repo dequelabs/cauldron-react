@@ -8,6 +8,10 @@ class OptionsMenuItemComponent extends React.Component {
     onSelect: PropTypes.func
   };
 
+  static defaultProps = {
+    onSelect: () => {}
+  };
+
   handleClick = event => {
     const { disabled, onSelect } = this.props;
     if (!disabled) {
