@@ -138,7 +138,9 @@ const options = () => (
       hi
     </OptionsMenuTrigger>
     <OptionsMenu onClose={noop} onSelect={noop} id="id" show closeOnSelect>
-      <OptionsMenuItem>hi</OptionsMenuItem>
+      <OptionsMenuItem onSelect={noop} disabled className="hi">
+        hi
+      </OptionsMenuItem>
     </OptionsMenu>
   </OptionsMenuWrapper>
 );

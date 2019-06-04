@@ -189,7 +189,15 @@ interface OptionsMenuProps {
 
 export const OptionsMenu: React.ComponentType<OptionsMenuProps>;
 
-interface OptionsMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface OptionsMenuItemProps
+  extends Pick<
+      React.HTMLAttributes<HTMLLIElement>,
+      Exclude<keyof React.HTMLAttributes<HTMLLIElement>, 'onSelect'>
+    > {
+  disabled?: boolean;
+  className?: string;
+  onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
+}
 
 export const OptionsMenuItem: React.ComponentType<OptionsMenuItemProps>;
 
