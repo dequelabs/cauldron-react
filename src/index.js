@@ -25,9 +25,9 @@ export Link from './components/Link';
 export Loader from './components/Loader';
 export {
   default as OptionsMenu,
+  OptionsMenuList,
   OptionsMenuItem,
-  OptionsMenuTrigger,
-  OptionsMenuWrapper
+  OptionsMenuTrigger
 } from './components/OptionsMenu';
 export Select from './components/Select';
 export RadioGroup from './components/RadioGroup';

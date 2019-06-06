@@ -1,68 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import keyname from 'keyname';
 
 /**
- * The trigger button component to be used as the component
+ * The trigger button component to be used as the default component
  * that triggers the opening of an <OptionsMenu />.
- *
- * NOTE: This component should be used to set/update the <OptionsMenu /> "show" property
  */
-export default class OptionsMenuTrigger extends Component {
-  static propTypes = {
-    onKeyDown: PropTypes.func,
-    onClick: PropTypes.func,
-    triggerRef: PropTypes.func,
-    className: PropTypes.string
-  };
-
-  static defaultProps = {
-    onKeyDown: () => {},
-    onClick: () => {},
-    triggerRef: () => {}
-  };
-
-  constructor() {
-    super();
-    this.state = { expanded: false };
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  render() {
-    const { expanded } = this.state;
-    const { triggerRef, className, ...other } = this.props;
-
-    return (
-      <button
-        type="button"
-        {...other}
-        aria-expanded={expanded}
-        className={classNames('dqpl-options-menu-trigger', className)}
-        ref={triggerRef}
-        onKeyDown={this.onKeyDown}
-        onClick={this.onClick}
-      />
-    );
-  }
-
-  onClick(e) {
-    this.props.onClick(e);
-
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  }
-
-  onKeyDown(e) {
-    this.props.onKeyDown(e);
-    const { which, target } = e;
-    const key = keyname(which);
-
-    if (key === 'down') {
-      e.preventDefault();
-      target.click();
-    }
-  }
+function OptionsMenuTriggerComponent({ className, triggerRef, ...other }) {
+  return (
+    <button
+      type="button"
+      ref={triggerRef}
+      {...other}
+      className={classNames('dqpl-options-menu-trigger', className)}
+    />
+  );
 }
+
+OptionsMenuTriggerComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  ref: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ]),
+  // I don't think this correct, but it shouldn't be accessible anyway
+  triggerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ])
+};
+
+export default React.forwardRef(function OptionsMenuTrigger(props, ref) {
+  return <OptionsMenuTriggerComponent {...props} triggerRef={ref} />;
+});

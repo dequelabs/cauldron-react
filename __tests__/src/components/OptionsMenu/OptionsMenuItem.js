@@ -7,9 +7,12 @@ import {
 import { axe } from 'jest-axe';
 
 const defaultMenuProps = {
-  show: false,
-  id: 'foo',
-  onClose: () => {}
+  // eslint-disable-next-line react/display-name
+  trigger: props => (
+    <button {...props} type="button">
+      thingy
+    </button>
+  )
 };
 
 test('should call onSelect when menuitem is clicked', () => {

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import MenuItem from 'src/components/MenuItem';
 import TopBar from 'src/components/TopBar/TopBar';
 import TopBarMenu from 'src/components/TopBar/TopBarMenu';
-import OptionsMenu from 'src/components/OptionsMenu';
+import { OptionsMenuList } from 'src/components/OptionsMenu';
 import { axe } from 'jest-axe';
 
 const [right, left, down] = [39, 37, 40];
@@ -14,17 +14,17 @@ const defaultProps = {
 };
 
 const optionsMenu = (
-  <OptionsMenu onClose={noop}>
+  <OptionsMenuList onClose={noop}>
     <li>option 1</li>
     <li>option 2</li>
-  </OptionsMenu>
+  </OptionsMenuList>
 );
 
 test('should render children', () => {
   const topBarMenu = mount(
     <TopBarMenu {...defaultProps}>{optionsMenu}</TopBarMenu>
   );
-  expect(topBarMenu.find('OptionsMenu').length).toBeTruthy();
+  expect(topBarMenu.find('OptionsMenuList').length).toBeTruthy();
 });
 
 test('should pass-through props', () => {

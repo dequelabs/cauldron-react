@@ -178,10 +178,20 @@ interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Loader: React.ComponentType<LoaderProps>;
 
-interface OptionsMenuProps {
+interface OptionsMenuRenderTriggerProps {
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  show: boolean;
+  ref: RefCallback;
+  onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
+}
+
+interface OptionsMenuProps extends OptionsMenuAlignmentProps {
   children: React.ReactNode;
-  id: string;
-  onClose: () => void;
+  id?: string;
+  className?: string;
+  menuRef?: RefCallback;
+  trigger: (props: OptionsMenuRenderTriggerProps) => React.ReactNode;
+  onClose?: () => void;
   onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
   closeOnSelect?: boolean;
   show?: boolean;
@@ -202,16 +212,21 @@ interface OptionsMenuItemProps
 export const OptionsMenuItem: React.ComponentType<OptionsMenuItemProps>;
 
 interface OptionsMenuTriggerProps {
-  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  triggerRef?: RefCallback;
+  ref?: RefCallback;
   className?: string;
 }
 
 export const OptionsMenuTrigger: React.ComponentType<OptionsMenuTriggerProps>;
 
-interface OptionsMenuWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+interface OptionsMenuAlignmentProps {
+  align?: 'left' | 'right';
+}
+
+interface OptionsMenuWrapperProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    OptionsMenuAlignmentProps {
   className?: string;
+  children: React.ReactNode;
 }
 
 export const OptionsMenuWrapper: React.ComponentType<OptionsMenuWrapperProps>;
