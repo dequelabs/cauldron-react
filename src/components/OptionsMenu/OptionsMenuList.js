@@ -18,7 +18,6 @@ export default class OptionsMenuList extends React.Component {
 
   static defaultProps = {
     closeOnSelect: true,
-    className: 'dqpl-options-menu',
     onSelect: () => {}
   };
 
@@ -137,7 +136,7 @@ export default class OptionsMenuList extends React.Component {
       <ClickOutsideListener onClickOutside={this.handleClickOutside}>
         <ul
           {...other}
-          className={className}
+          className={('dqpl-options-menu', className)}
           /* aria-expanded is not correct usage here, but the pattern library
              currently styles the open state of the menu. based on this attribute */
           aria-expanded={show}

@@ -82,6 +82,7 @@ export default class OptionsMenu extends Component {
             }
           }}
           onClose={this.handleClose}
+          {...other}
         >
           {children}
         </OptionsMenuList>
