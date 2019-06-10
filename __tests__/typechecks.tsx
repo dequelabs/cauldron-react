@@ -127,22 +127,28 @@ const modal = () => (
 
 const offscreen = () => <Offscreen className="bananas">offscreen</Offscreen>;
 
+const optionsWrapper = () => {
+  <OptionsMenuWrapper align="left">
+    <div />
+  </OptionsMenuWrapper>;
+};
+
+const optionsTrigger = () => {
+  <OptionsMenuTrigger>hi</OptionsMenuTrigger>;
+};
+
 const options = () => (
-  <OptionsMenuWrapper>
-    <OptionsMenuTrigger
-      className="hi"
-      onClick={noopEventHandler}
-      onKeyDown={noopEventHandler}
-      triggerRef={noopRef}
-    >
+  <OptionsMenu
+    trigger={() => optionsTrigger}
+    align="left"
+    onClose={noop}
+    onSelect={noop}
+    closeOnSelect
+  >
+    <OptionsMenuItem onSelect={noop} disabled className="hi">
       hi
-    </OptionsMenuTrigger>
-    <OptionsMenu onClose={noop} onSelect={noop} id="id" show closeOnSelect>
-      <OptionsMenuItem onSelect={noop} disabled className="hi">
-        hi
-      </OptionsMenuItem>
-    </OptionsMenu>
-  </OptionsMenuWrapper>
+    </OptionsMenuItem>
+  </OptionsMenu>
 );
 
 const radio = () => (

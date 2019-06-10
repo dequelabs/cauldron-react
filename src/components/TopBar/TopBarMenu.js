@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '../MenuItem';
-import OptionsMenu from '../OptionsMenu';
+import { OptionsMenuList } from '../OptionsMenu';
 import classnames from 'classnames';
 import keyname from 'keyname';
 
@@ -55,11 +55,11 @@ export default class TopBarMenu extends React.Component {
     const { children, id, ...other } = props;
     const { open } = state;
 
-    const optionsMenu = React.Children.toArray(children).find(
-      child => child.type === OptionsMenu
+    const menu = React.Children.toArray(children).find(
+      child => child.type === OptionsMenuList
     );
     const otherChildren = React.Children.toArray(children).filter(
-      child => typeof child === 'string' || child.type !== OptionsMenu
+      child => typeof child === 'string' || child.type !== OptionsMenuList
     );
 
     return (
@@ -77,7 +77,7 @@ export default class TopBarMenu extends React.Component {
         onKeyDown={handleKeyDown}
       >
         {otherChildren}
-        {React.cloneElement(optionsMenu, {
+        {React.cloneElement(menu, {
           id,
           className: classnames('dqpl-dropdown', {
             'dqpl-dropdown-active': open

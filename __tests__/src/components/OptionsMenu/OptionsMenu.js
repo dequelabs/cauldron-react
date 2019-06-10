@@ -3,337 +3,86 @@ import { mount } from 'enzyme';
 import OptionsMenu from 'src/components/OptionsMenu';
 import { axe } from 'jest-axe';
 
-const defaultProps = {
-  show: false,
-  id: 'foo',
-  onClose: () => {}
-};
+const trigger = props => (
+  <button data-trigger type="button" {...props}>
+    foo
+  </button>
+);
 
-const [space, enter, down, esc, tab] = [32, 13, 40, 27, 9];
+const [down] = [40];
 
-test('handles a newly truthy `show` prop', () => {
-  expect.assertions(1);
+test('should render children', () => {
   const wrapper = mount(
-    <OptionsMenu {...defaultProps}>
+    <OptionsMenu trigger={trigger}>
       <li>option 1</li>
       <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  wrapper.setProps({
-    show: true
-  });
-
-  expect(document.activeElement).toBe(
-    wrapper
-      .find('li')
-      .at(0)
-      .getDOMNode()
-  );
-});
-
-test('handles updates to `itemIndex` state', () => {
-  expect.assertions(1);
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  // focus the first item
-  wrapper
-    .find('li')
-    .at(0)
-    .getDOMNode()
-    .focus();
-  wrapper.setState({ itemIndex: 1 });
-  expect(document.activeElement).toBe(
-    wrapper
-      .find('li')
-      .at(1)
-      .getDOMNode()
-  );
-});
-
-test('should not render falsy children', () => {
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true}>
-      <li>option 1</li>
-      {false && <li>option 2</li>}
-      <li>option 3</li>
     </OptionsMenu>
   );
   expect(wrapper.find('li')).toHaveLength(2);
 });
 
-test('handles up/down keydowns', () => {
-  expect.assertions(3);
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  expect(wrapper.state('itemIndex')).toBe(0);
-
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: down });
-  expect(wrapper.state('itemIndex')).toBe(1);
-
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: down });
-  expect(wrapper.state('itemIndex')).toBe(0); // circular
-});
-
-test('calls onClose given escape keydown', () => {
-  let onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: esc });
-
-  expect(onClose).toBeCalled();
-});
-
-test('calls onClose given a tab keydown', () => {
-  let onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: tab });
-
-  expect(onClose).toBeCalled();
-});
-
-test('calls onClose when clicked outside', () => {
-  let onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true} onClose={onClose}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  wrapper.instance().handleClickOutside();
-
-  expect(onClose).toBeCalled();
-});
-
-test('handles enter / space keydowns', () => {
-  expect.assertions(1);
-  let clickHandler = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} show={true}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  const element = wrapper
-    .find('li')
-    .at(0)
-    .getDOMNode();
-  element.addEventListener('click', clickHandler);
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: enter });
-
-  expect(clickHandler).toBeCalled();
-});
-
-test('fires onSelect when menu item is clicked', () => {
-  const onSelect = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onSelect={onSelect}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-  let item = wrapper.find('li').at(0);
-  let itemNode = item.getDOMNode();
-  item.simulate('click', { target: itemNode });
-
-  expect(onSelect).toBeCalled();
-  expect(onSelect).toHaveBeenCalledWith(
-    expect.objectContaining({ target: itemNode })
-  );
-});
-
-test('fires onSelect when menu item is selected with space', () => {
-  const onSelect = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onSelect={onSelect}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  let item = wrapper.find('li').at(0);
-  let itemNode = item.getDOMNode();
-
-  // Synthetic events that call delegated events apparently don't bubble correctly in enzyme
-  itemNode.addEventListener('click', event => {
-    item.simulate('click', event);
-  });
-
-  item.simulate('keydown', { which: space, target: item.getDOMNode() });
-
-  expect(onSelect).toBeCalled();
-  expect(onSelect).toHaveBeenCalledWith(
-    expect.objectContaining({ target: itemNode })
-  );
-});
-
-test('fires onSelect when menu item is selected with enter', () => {
-  const onSelect = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onSelect={onSelect}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  let item = wrapper.find('li').at(0);
-  let itemNode = item.getDOMNode();
-
-  // Synthetic events that call delegated events apparently don't bubble correctly in enzyme
-  itemNode.addEventListener('click', event => {
-    item.simulate('click', event);
-  });
-
-  item.simulate('keydown', { which: enter, target: item.getDOMNode() });
-
-  expect(onSelect).toBeCalled();
-  expect(onSelect).toHaveBeenCalledWith(
-    expect.objectContaining({ target: itemNode })
-  );
-});
-
-test('fires onClose when menu item is selected', () => {
-  const onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onClose={onClose}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('click');
-
-  expect(onClose).toBeCalled();
-});
-
-test('does not fire onClose when menu item is selected and default prevented', () => {
-  const onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onClose={onClose}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('click', { defaultPrevented: true });
-
-  expect(onClose).not.toBeCalled();
-});
-
-test('does not fire onClose when menu item is selected and closeOnSelect is false', () => {
-  const onClose = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps} onClose={onClose} closeOnSelect={false}>
-      <li>option 1</li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('click');
-
-  expect(onClose).not.toBeCalled();
-});
-
-test('should click child links when clicking on list item', () => {
-  const onClick = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps}>
-      <li>
-        <a href="#foo">Click me!</a>
-      </li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  const item = wrapper.find('li').at(0);
-  wrapper
-    .find('a')
-    .getDOMNode()
-    .addEventListener('click', onClick);
-  item.simulate('click');
-
-  expect(onClick).toBeCalledTimes(1);
-});
-
-test('should click child links with keypress events', () => {
-  const onClick = jest.fn();
-  const wrapper = mount(
-    <OptionsMenu {...defaultProps}>
-      <li>
-        <a href="#foo">Click me!</a>
-      </li>
-      <li>option 2</li>
-    </OptionsMenu>
-  );
-
-  const item = wrapper.find('li').at(0);
-  wrapper
-    .find('a')
-    .getDOMNode()
-    .addEventListener('click', onClick);
-  item
-    .getDOMNode()
-    .addEventListener('click', event => item.simulate('click', event));
-  item.simulate('keydown', { which: enter });
-
-  expect(onClick).toBeCalledTimes(1);
-});
-
-test('should passthrough classname to menuitem', () => {
+test('should render trigger prop', () => {
   const optionsMenu = mount(
-    <OptionsMenu {...defaultProps}>
+    <OptionsMenu trigger={trigger}>
       <li className="foo">option 1</li>
     </OptionsMenu>
   );
-  const menuItem = optionsMenu.find('li');
-  expect(menuItem.hasClass('foo')).toBeTruthy();
-  expect(menuItem.hasClass('dqpl-options-menuitem')).toBeTruthy();
+  expect(optionsMenu.find('[data-trigger]')).toHaveLength(1);
+});
+
+test('should toggle menu on trigger clicks', () => {
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+
+  const button = optionsMenu.find('[data-trigger]');
+  button.simulate('click');
+  expect(optionsMenu.state('show')).toBeTruthy();
+  button.simulate('click');
+  expect(optionsMenu.state('show')).toBeFalsy();
+});
+
+test('should click trigger with down key on trigger', () => {
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+  const button = optionsMenu.find('[data-trigger]');
+  const onClick = jest.spyOn(button.getDOMNode(), 'click');
+  button.simulate('keydown', { which: down, target: button.getDOMNode() });
+  expect(onClick).toBeCalled();
+});
+
+test('should focus trigger on close', () => {
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+  const button = optionsMenu.find('[data-trigger]');
+  const focus = jest.spyOn(button.getDOMNode(), 'focus');
+  optionsMenu.instance().handleClose();
+  expect(focus).toBeCalled();
+});
+
+test('should call onClose when closed', () => {
+  const onClose = jest.fn();
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger} onClose={onClose}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+  optionsMenu.setState({ show: true });
+  optionsMenu.find('.foo').simulate('click');
+  expect(onClose).toBeCalled();
 });
 
 test('should return no axe violations', async () => {
   const optionsMenu = mount(
-    <OptionsMenu {...defaultProps}>
+    <OptionsMenu trigger={trigger}>
       <li>option 1</li>
       <li>option 2</li>
     </OptionsMenu>

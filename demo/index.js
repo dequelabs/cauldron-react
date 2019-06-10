@@ -30,7 +30,7 @@ import {
   SideBar,
   SkipLink,
   MenuItem,
-  OptionsMenu,
+  OptionsMenuList,
   TopBarMenu
 } from 'src/';
 
@@ -124,10 +124,10 @@ class App extends Component {
             {showTopBarMenu && (
               <TopBarMenu id="topbar-menu" className="dqpl-right-aligned">
                 {`I'm a menu thingy`}
-                <OptionsMenu>
+                <OptionsMenuList>
                   <li>Item 1</li>
                   <li>Item 2</li>
-                </OptionsMenu>
+                </OptionsMenuList>
               </TopBarMenu>
             )}
 
