@@ -59,6 +59,7 @@ export default class OptionsMenu extends Component {
       menuRef,
       trigger,
       align,
+      onClose,
       ...other
     } = this.props;
 

@@ -68,6 +68,18 @@ test('should focus trigger on close', () => {
   expect(focus).toBeCalled();
 });
 
+test('should call onClose when closed', () => {
+  const onClose = jest.fn();
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger} onClose={onClose}>
+      <li className="foo">option 1</li>
+    </OptionsMenu>
+  );
+  optionsMenu.setState({ show: true });
+  optionsMenu.find('.foo').simulate('click');
+  expect(onClose).toBeCalled();
+});
+
 test('should return no axe violations', async () => {
   const optionsMenu = mount(
     <OptionsMenu trigger={trigger}>
