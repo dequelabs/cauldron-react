@@ -37,7 +37,7 @@ $ yarn test
 or to have tests automagically re-run when files change
 
 ```sh
-$ yarn --watch
+$ yarn test --watch
 ```
 
 ## Publishing
