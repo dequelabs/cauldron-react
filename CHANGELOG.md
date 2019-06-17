@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+
+# [1.1.0](https://github.com/dequelabs/cauldron-react/compare/v1.0.0...v1.1.0) (2019-06-17)
+
+### Bug Fixes
+
+- actually run assertions in tests for expand/collapse component ([#136](https://github.com/dequelabs/cauldron-react/issues/136)) ([bc4b70e](https://github.com/dequelabs/cauldron-react/commit/bc4b70e))
+- allow classnames to be added to existing menuitem class ([#137](https://github.com/dequelabs/cauldron-react/issues/137)) ([dbf713d](https://github.com/dequelabs/cauldron-react/commit/dbf713d))
+- don't render falsy children in OptionsMenu ([#138](https://github.com/dequelabs/cauldron-react/issues/138)) ([b3768e0](https://github.com/dequelabs/cauldron-react/commit/b3768e0))
+- don't run animations when animationTiming is not set ([#132](https://github.com/dequelabs/cauldron-react/issues/132)) ([6bcbedb](https://github.com/dequelabs/cauldron-react/commit/6bcbedb))
+- set default onSelect for OptionsMenuItem ([#140](https://github.com/dequelabs/cauldron-react/issues/140)) ([75c5ba8](https://github.com/dequelabs/cauldron-react/commit/75c5ba8))
+
+### Features
+
+- add expand/collapse component ([#113](https://github.com/dequelabs/cauldron-react/issues/113)) ([67d1517](https://github.com/dequelabs/cauldron-react/commit/67d1517))
+- **Icon:** allows className to be passed through to the icon div ([#126](https://github.com/dequelabs/cauldron-react/issues/126)) ([1c3da6a](https://github.com/dequelabs/cauldron-react/commit/1c3da6a))
+- add topbar menu component ([#130](https://github.com/dequelabs/cauldron-react/issues/130)) ([24790d1](https://github.com/dequelabs/cauldron-react/commit/24790d1))
+- **Loader:** supports loader without label ([#135](https://github.com/dequelabs/cauldron-react/issues/135)) ([4352e1f](https://github.com/dequelabs/cauldron-react/commit/4352e1f)), closes [#133](https://github.com/dequelabs/cauldron-react/issues/133)
+- allow OptionsMenuItem to be disabled ([#139](https://github.com/dequelabs/cauldron-react/issues/139)) ([f4f6dfb](https://github.com/dequelabs/cauldron-react/commit/f4f6dfb))
+- split OptionsMenu into List and controlled component ([#141](https://github.com/dequelabs/cauldron-react/issues/141)) ([ce240be](https://github.com/dequelabs/cauldron-react/commit/ce240be))
+
 <a name="1.0.0"></a>
 
 # [1.0.0](https://github.com/dequelabs/cauldron-react/compare/v0.5.1...v1.0.0) (2019-05-28)
