@@ -21,6 +21,9 @@ All notable changes to this project will be documented in this file. See [standa
 - add topbar menu component ([#130](https://github.com/dequelabs/cauldron-react/issues/130)) ([24790d1](https://github.com/dequelabs/cauldron-react/commit/24790d1))
 - **Loader:** supports loader without label ([#135](https://github.com/dequelabs/cauldron-react/issues/135)) ([4352e1f](https://github.com/dequelabs/cauldron-react/commit/4352e1f)), closes [#133](https://github.com/dequelabs/cauldron-react/issues/133)
 - allow OptionsMenuItem to be disabled ([#139](https://github.com/dequelabs/cauldron-react/issues/139)) ([f4f6dfb](https://github.com/dequelabs/cauldron-react/commit/f4f6dfb))
+
+### Breaking Changes
+
 - split OptionsMenu into List and controlled component ([#141](https://github.com/dequelabs/cauldron-react/issues/141)) ([ce240be](https://github.com/dequelabs/cauldron-react/commit/ce240be))
 
 <a name="1.0.0"></a>
