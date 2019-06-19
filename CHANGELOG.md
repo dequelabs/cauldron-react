@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+
+## [2.0.1](https://github.com/dequelabs/cauldron-react/compare/v2.0.0...v2.0.1) (2019-06-19)
+
+### Bug Fixes
+
+- use native keyDown event for optionsmenu instead of React's synthetic event system ([#151](https://github.com/dequelabs/cauldron-react/issues/151)) ([e6734a9](https://github.com/dequelabs/cauldron-react/commit/e6734a9))
+
 <a name="2.0.0"></a>
 
 # [2.0.0](https://github.com/dequelabs/cauldron-react/compare/v1.0.0...v2.0.0) (2019-06-18)
