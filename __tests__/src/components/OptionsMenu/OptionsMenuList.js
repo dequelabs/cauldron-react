@@ -41,16 +41,19 @@ test('handles up/down keydowns', () => {
   );
   expect(wrapper.state('itemIndex')).toBe(0);
 
-  wrapper
+  const li = wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: down });
+    .getDOMNode();
+
+  li.dispatchEvent(
+    new KeyboardEvent('keydown', { which: down, bubbles: true })
+  );
   expect(wrapper.state('itemIndex')).toBe(1);
 
-  wrapper
-    .find('li')
-    .at(0)
-    .simulate('keydown', { which: down });
+  li.dispatchEvent(
+    new KeyboardEvent('keydown', { which: down, bubbles: true })
+  );
   expect(wrapper.state('itemIndex')).toBe(0); // circular
 });
 
@@ -65,7 +68,8 @@ test('calls onClose given escape keydown', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: esc });
+    .getDOMNode()
+    .dispatchEvent(new KeyboardEvent('keydown', { which: esc, bubbles: true }));
 
   expect(onClose).toBeCalled();
 });
@@ -81,7 +85,8 @@ test('calls onClose given a tab keydown', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: tab });
+    .getDOMNode()
+    .dispatchEvent(new KeyboardEvent('keydown', { which: tab, bubbles: true }));
 
   expect(onClose).toBeCalled();
 });
@@ -116,7 +121,10 @@ test('handles enter / space keydowns', () => {
   wrapper
     .find('li')
     .at(0)
-    .simulate('keydown', { which: enter });
+    .getDOMNode()
+    .dispatchEvent(
+      new KeyboardEvent('keydown', { which: enter, bubbles: true })
+    );
 
   expect(clickHandler).toBeCalled();
 });
@@ -156,7 +164,11 @@ test('fires onSelect when menu item is selected with space', () => {
     item.simulate('click', event);
   });
 
-  item.simulate('keydown', { which: space, target: item.getDOMNode() });
+  item
+    .getDOMNode()
+    .dispatchEvent(
+      new KeyboardEvent('keydown', { which: space, bubbles: true })
+    );
 
   expect(onSelect).toBeCalled();
   expect(onSelect).toHaveBeenCalledWith(
@@ -181,7 +193,11 @@ test('fires onSelect when menu item is selected with enter', () => {
     item.simulate('click', event);
   });
 
-  item.simulate('keydown', { which: enter, target: item.getDOMNode() });
+  item
+    .getDOMNode()
+    .dispatchEvent(
+      new KeyboardEvent('keydown', { which: enter, bubbles: true })
+    );
 
   expect(onSelect).toBeCalled();
   expect(onSelect).toHaveBeenCalledWith(
@@ -280,7 +296,11 @@ test('should click child links with keypress events', () => {
   item
     .getDOMNode()
     .addEventListener('click', event => item.simulate('click', event));
-  item.simulate('keydown', { which: enter });
+  item
+    .getDOMNode()
+    .dispatchEvent(
+      new KeyboardEvent('keydown', { which: enter, bubbles: true })
+    );
 
   expect(onClick).toBeCalledTimes(1);
 });
