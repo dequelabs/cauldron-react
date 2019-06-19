@@ -105,8 +105,17 @@ export default class OptionsMenuList extends React.Component {
     }
   };
 
+  componentDidMount() {
+    // see https://github.com/dequelabs/cauldron-react/issues/150
+    this.menuRef.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    this.menuRef.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   render() {
-    const { props, handleClick, handleKeyDown } = this;
+    const { props, handleClick } = this;
     /* eslint-disable no-unused-vars */
     const {
       children,
@@ -132,6 +141,8 @@ export default class OptionsMenuList extends React.Component {
       });
     });
 
+    // Key event is being handled in componentDidMount
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <ClickOutsideListener onClickOutside={this.handleClickOutside}>
         <ul
@@ -141,7 +152,6 @@ export default class OptionsMenuList extends React.Component {
              currently styles the open state of the menu. based on this attribute */
           aria-expanded={show}
           role="menu"
-          onKeyDown={handleKeyDown}
           onClick={handleClick}
           ref={el => {
             this.menuRef = el;
@@ -154,5 +164,6 @@ export default class OptionsMenuList extends React.Component {
         </ul>
       </ClickOutsideListener>
     );
+    /* eslint-enable jsx-a11y/click-events-have-key-events */
   }
 }
