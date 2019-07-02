@@ -22,7 +22,9 @@ OptionsMenuTriggerComponent.propTypes = {
   className: PropTypes.string,
   triggerRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    // avoiding `PropTypes.shape({ current: PropTypes.instanceOf(Element) })`
+    // because SSR (we can't rely on any document/window globals at import or render)
+    PropTypes.shape({ current: PropTypes.object })
   ])
 };
 
