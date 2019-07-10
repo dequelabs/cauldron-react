@@ -188,3 +188,14 @@ test('should not run close animations if timing is not set', done => {
     done();
   });
 });
+
+test('should allow for controlled component', () => {
+  const wrapper = mount(
+    <ExpandCollapsePanel animationTiming={0} open={true}>
+      <PanelTrigger />
+      <div data-test />
+    </ExpandCollapsePanel>
+  );
+  expect(wrapper.state()).toEqual({ controlled: true, isOpen: true });
+  expect(isVisible(wrapper.find('[data-test]'))).toBeTruthy();
+});

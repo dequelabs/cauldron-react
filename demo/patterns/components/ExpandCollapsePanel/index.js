@@ -1,6 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Highlight from '../../../Highlight';
 import { ExpandCollapsePanel, PanelTrigger } from 'src/';
+
+const ControlledExpandCollapse = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <ExpandCollapsePanel open={open} onToggle={() => setOpen(!open)}>
+      <PanelTrigger>More bacon info</PanelTrigger>
+      Bacon ipsum dolor amet chicken frankfurter shoulder strip steak kielbasa
+      ribeye ham hamburger. Fatback kielbasa shoulder, jowl buffalo bacon jerky
+      ham pancetta. Strip steak pig chicken, spare ribs buffalo beef tail ground
+      round. Pancetta kevin strip steak bacon beef corned beef venison.
+    </ExpandCollapsePanel>
+  );
+};
 
 export default class Demo extends Component {
   render() {
@@ -16,10 +29,33 @@ export default class Demo extends Component {
           beef tail ground round. Pancetta kevin strip steak bacon beef corned
           beef venison.
         </ExpandCollapsePanel>
+        <h3>Controlled Component</h3>
+        <p>
+          If you need to manually control the open/closed state of the panel,
+          you can do this by setting the <code>open</code> prop and handling
+          changes with <code>onToggle</code>.
+        </p>
+        <ControlledExpandCollapse />
         <h2>Code Sample</h2>
         <Highlight language="javascript">{`
-import React from 'react';
-import { ExpandCollapsePanel, PanelTrigger } from 'react-cauldron';
+import React, { useState } from 'react';
+import { ExpandCollapsePanel, PanelTrigger } from 'cauldron-react';
+
+const ControlledExpandCollapsePanel = () => {
+  const [ open, setOpen ] = useState(false)
+  return (
+    <ExpandCollapsePanel open={open} onToggle={() => setOpen(!open)}>
+      <PanelTrigger>
+        More bacon info
+      </PanelTrigger>
+      Bacon ipsum dolor amet chicken frankfurter shoulder strip steak
+      kielbasa ribeye ham hamburger. Fatback kielbasa shoulder, jowl buffalo
+      bacon jerky ham pancetta. Strip steak pig chicken, spare ribs buffalo
+      beef tail ground round. Pancetta kevin strip steak bacon beef corned
+      beef venison.
+    </ExpandCollapsePanel>
+  )
+}
 
 const Demo = () => {
   <ExpandCollapsePanel>
@@ -32,6 +68,7 @@ const Demo = () => {
     beef tail ground round. Pancetta kevin strip steak bacon beef corned
     beef venison.
   </ExpandCollapsePanel>
+  <ControlledExpandCollapsePanel />
 };
         `}</Highlight>
       </div>
