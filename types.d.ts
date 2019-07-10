@@ -335,6 +335,7 @@ export const ClickOutsideListener: React.ComponentType<
 
 interface ExpandCollapsePanelProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  open?: boolean;
   children: React.ReactNode;
   animationTiming?: number | boolean;
   onToggle?: (e: React.MouseEvent<HTMLButtonElement>) => void;
