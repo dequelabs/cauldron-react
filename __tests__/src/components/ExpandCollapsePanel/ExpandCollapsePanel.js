@@ -200,7 +200,7 @@ test('should allow for controlled component', () => {
   expect(isVisible(wrapper.find('[data-test]'))).toBeTruthy();
 });
 
-test.only('should be able to switch between controlled and uncontrolled component', () => {
+test('should be able to switch between controlled and uncontrolled component', () => {
   const wrapper = mount(
     <ExpandCollapsePanel animationTiming={0}>
       <PanelTrigger />
