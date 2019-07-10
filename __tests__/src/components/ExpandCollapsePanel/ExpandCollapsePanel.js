@@ -24,6 +24,18 @@ test('should render children', () => {
   expect(wrapper.contains(children)).toBeTruthy();
 });
 
+test('should render multiple children', () => {
+  const wrapper = mount(
+    <ExpandCollapsePanel>
+      <div>blue</div>
+      <div>green</div>
+    </ExpandCollapsePanel>
+  );
+
+  expect(wrapper.contains('blue')).toBeTruthy();
+  expect(wrapper.contains('green')).toBeTruthy();
+});
+
 test('should passthrough props', () => {
   const wrapper = mount(
     <ExpandCollapsePanel foo="bar">

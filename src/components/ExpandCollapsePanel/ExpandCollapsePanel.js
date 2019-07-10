@@ -138,7 +138,7 @@ export default class ExpandCollapsePanel extends React.Component {
     const trigger = React.Children.toArray(children).find(
       child => child.type === PanelTrigger
     );
-    const panelElements = React.Children.toArray(children).find(
+    const panelElements = React.Children.toArray(children).filter(
       child => typeof child === 'string' || child.type !== PanelTrigger
     );
 
