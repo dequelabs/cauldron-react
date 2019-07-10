@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+
+# [2.1.0](https://github.com/dequelabs/cauldron-react/compare/v2.0.0...v2.1.0) (2019-07-10)
+
+### Bug Fixes
+
+- allow expand/collapse panel to render multiple children ([#157](https://github.com/dequelabs/cauldron-react/issues/157)) ([18e6969](https://github.com/dequelabs/cauldron-react/commit/18e6969))
+- removes use of document.Element for ssr's sake ([#154](https://github.com/dequelabs/cauldron-react/issues/154)) ([56296ce](https://github.com/dequelabs/cauldron-react/commit/56296ce))
+- use native keyDown event for optionsmenu instead of React's synthetic event system ([#151](https://github.com/dequelabs/cauldron-react/issues/151)) ([e6734a9](https://github.com/dequelabs/cauldron-react/commit/e6734a9))
+
+### Features
+
+- allow expand/collapse component to be controlled ([#156](https://github.com/dequelabs/cauldron-react/issues/156)) ([7041f51](https://github.com/dequelabs/cauldron-react/commit/7041f51))
+
 <a name="2.0.0"></a>
 
 # [2.0.0](https://github.com/dequelabs/cauldron-react/compare/v1.0.0...v2.0.0) (2019-06-18)
