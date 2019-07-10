@@ -199,3 +199,15 @@ test('should allow for controlled component', () => {
   expect(wrapper.state()).toEqual({ controlled: true, isOpen: true });
   expect(isVisible(wrapper.find('[data-test]'))).toBeTruthy();
 });
+
+test.only('should be able to switch between controlled and uncontrolled component', () => {
+  const wrapper = mount(
+    <ExpandCollapsePanel animationTiming={0}>
+      <PanelTrigger />
+      <div data-test />
+    </ExpandCollapsePanel>
+  );
+  expect(wrapper.state('controlled')).toBeFalsy();
+  wrapper.setProps({ open: true });
+  expect(wrapper.state('controlled')).toBeTruthy();
+});

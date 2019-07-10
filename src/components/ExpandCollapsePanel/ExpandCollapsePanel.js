@@ -130,6 +130,10 @@ export default class ExpandCollapsePanel extends React.Component {
       this.setState({ isOpen: openProp, isAnimating: true });
     }
 
+    if (typeof openProp !== typeof prevProps.open) {
+      this.setState({ controlled: typeof openProp !== 'undefined' });
+    }
+
     if (prevState.isOpen !== openState && openState) {
       this.animateOpen();
     } else if (prevState.isOpen !== openState && !openState) {
