@@ -43,6 +43,9 @@ export default class Select extends Component {
     this.focusSelect = this.focusSelect.bind(this);
     this.onTriggerKeydown = this.onTriggerKeydown.bind(this);
     this.listId = rndid();
+    this.labelId = rndid();
+    this.buttonId = rndid();
+    this.optionIdMap = new WeakMap();
   }
 
   componentDidMount() {
@@ -81,9 +84,7 @@ export default class Select extends Component {
   }
 
   render() {
-    const { listId } = this;
-    // NOTE: VoiceOver doesn't announce the active option if we keep the selectedId static
-    const selectedId = rndid();
+    const { listId, labelId, buttonId } = this;
     const { expanded, activeIndex, selectedIndex } = this.state;
     const {
       className,
@@ -97,16 +98,20 @@ export default class Select extends Component {
     const active = options[activeIndex];
     const pseudoVal =
       hasActiveOption && active && (active.label || active.value);
-    const labelId = rndid();
-    const valueId = rndid();
 
     const opts = options.map((option, i) => {
       const { value, label, disabled } = option;
+
+      if (!this.optionIdMap.has(option)) {
+        this.optionIdMap.set(option, rndid());
+      }
+
+      const id = this.optionIdMap.get(option);
       // we don't need key events here because focus stays on the combobox element
       /* eslint-disable jsx-a11y/click-events-have-key-events */
       return (
         <li
-          key={`${selectedId}-${i}`}
+          key={id}
           className={classNames('dqpl-option', {
             'dqpl-option-active': hasActiveOption ? activeIndex === i : i === 0,
             'dqpl-option-selected': selectedIndex === i
@@ -114,7 +119,7 @@ export default class Select extends Component {
           role="option"
           aria-selected={hasActiveOption && activeIndex === i}
           aria-disabled={disabled}
-          id={activeIndex === i ? selectedId : undefined}
+          id={id}
           onClick={() => {
             if (disabled) {
               return;
@@ -150,8 +155,8 @@ export default class Select extends Component {
             {...other}
             aria-haspopup="listbox"
             className={classNames('dqpl-listbox-button', className)}
-            id={valueId}
-            aria-labelledby={`${labelId} ${valueId}`}
+            id={buttonId}
+            aria-labelledby={`${labelId} ${buttonId}`}
             aria-expanded={expanded}
             onClick={this.onClick}
             ref={select => (this.select = select)}
@@ -167,7 +172,9 @@ export default class Select extends Component {
               'dqpl-listbox-show': expanded
             })}
             role="listbox"
-            aria-activedescendant={hasActiveOption ? selectedId : ''}
+            aria-activedescendant={
+              hasActiveOption ? this.optionIdMap.get(options[activeIndex]) : ''
+            }
             onKeyDown={this.onKeyDown}
             ref={listbox => (this.listbox = listbox)}
           >
