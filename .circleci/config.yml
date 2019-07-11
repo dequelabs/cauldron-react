@@ -58,16 +58,13 @@ workflows:
             - dependencies
             - tests
           filters:
-            # Make an "unstable" release when a commit lands in master.
+            # Make an "unstable" release when a commit lands in develop.
             branches:
-              only: master
+              only: develop
       - release:
           requires:
             - dependencies
             - tests
           filters:
-            # Make a "stable" release when SEMVER-ish tags are pushed.
-            tags:
-              only: /^v?[0-9]+(\.[0-9]+)*(-.+)?/
             branches:
-              ignore: /.*/
+              ignore: master
