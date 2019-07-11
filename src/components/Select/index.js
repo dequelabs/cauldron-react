@@ -19,8 +19,6 @@ export default class Select extends Component {
       }
     ).isRequired,
     label: PropTypes.string.isRequired,
-    listId: PropTypes.string.isRequired,
-    selectedId: PropTypes.string.isRequired,
     className: PropTypes.string,
     onKeyDown: PropTypes.func,
     required: PropTypes.bool,
@@ -38,11 +36,13 @@ export default class Select extends Component {
 
   state = { expanded: false };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onClick = this.onClick.bind(this);
     this.focusSelect = this.focusSelect.bind(this);
+    this.onTriggerKeydown = this.onTriggerKeydown.bind(this);
+    this.listId = rndid();
   }
 
   componentDidMount() {
@@ -81,13 +81,14 @@ export default class Select extends Component {
   }
 
   render() {
+    const { listId } = this;
+    // NOTE: VoiceOver doesn't announce the active option if we keep the selectedId static
+    const selectedId = rndid();
     const { expanded, activeIndex, selectedIndex } = this.state;
     const {
       className,
       label,
       required,
-      selectedId,
-      listId,
       options,
       onSelect,
       ...other
@@ -107,10 +108,11 @@ export default class Select extends Component {
         <li
           key={`${selectedId}-${i}`}
           className={classNames('dqpl-option', {
-            'dqpl-option-active': hasActiveOption ? activeIndex === i : i === 0
+            'dqpl-option-active': hasActiveOption ? activeIndex === i : i === 0,
+            'dqpl-option-selected': selectedIndex === i
           })}
           role="option"
-          aria-selected={selectedIndex === i}
+          aria-selected={hasActiveOption && activeIndex === i}
           aria-disabled={disabled}
           id={activeIndex === i ? selectedId : undefined}
           onClick={() => {
@@ -133,42 +135,41 @@ export default class Select extends Component {
     // to make the "dqpl-label" div behave like a native label,
     // here we add a click listener which focuses the combobox
     /* eslint-disable jsx-a11y/no-static-element-interactions */
+
+    // aria-activedescendant-has-tabindex is an invalid rule. Here we are simply following the spec/APG
+    // in which the working example has tabIndex="-1" on the list
+    // (see https://www.w3.org/TR/wai-aria-practices-1.1/examples/listbox/listbox-collapsible.html)
+    /* eslint-disable jsx-a11y/aria-activedescendant-has-tabindex */
     return (
       <div className="dqpl-field-wrap">
         <div className="dqpl-label" id={labelId} onClick={this.focusSelect}>
           {label}
         </div>
         <div className="dqpl-select">
-          <div
+          <button
             {...other}
-            className={classNames('dqpl-combobox', className)}
-            tabIndex={0}
-            role="combobox"
-            aria-autocomplete="none"
-            aria-expanded={expanded}
-            aria-required={required}
+            aria-haspopup="listbox"
+            className={classNames('dqpl-listbox-button', className)}
+            id={valueId}
             aria-labelledby={`${labelId} ${valueId}`}
-            aria-controls={listId}
-            aria-activedescendant={hasActiveOption ? selectedId : ''}
-            onKeyDown={this.onKeyDown}
+            aria-expanded={expanded}
             onClick={this.onClick}
             ref={select => (this.select = select)}
+            onKeyDown={this.onTriggerKeydown}
           >
-            <div
-              role="textbox"
-              aria-readonly={true}
-              className="dqpl-pseudo-value"
-              id={valueId}
-            >
-              {pseudoVal}
-            </div>
-          </div>
+            {pseudoVal}
+          </button>
           <ul
             id={listId}
-            role="listbox"
+            tabIndex={-1}
+            aria-required={required}
             className={classNames('dqpl-listbox', {
               'dqpl-listbox-show': expanded
             })}
+            role="listbox"
+            aria-activedescendant={hasActiveOption ? selectedId : ''}
+            onKeyDown={this.onKeyDown}
+            ref={listbox => (this.listbox = listbox)}
           >
             {opts}
           </ul>
@@ -196,6 +197,15 @@ export default class Select extends Component {
     return adjacentIndex;
   }
 
+  onTriggerKeydown(e) {
+    if (keyname(e.which) !== 'down') {
+      return;
+    }
+
+    e.preventDefault();
+    this.onClick();
+  }
+
   onKeyDown(e) {
     const { options } = this.props;
     const { expanded, activeIndex } = this.state;
@@ -208,9 +218,7 @@ export default class Select extends Component {
         e.preventDefault();
         const prev = expanded && this.findAdjacentEnabledOption('down');
 
-        if (!expanded) {
-          this.setState({ expanded: true });
-        } else if (typeof prev !== 'undefined') {
+        if (typeof prev !== 'undefined') {
           this.setState({
             activeIndex: prev
           });
@@ -237,25 +245,19 @@ export default class Select extends Component {
 
       case 'esc':
       case 'tab':
-        if (expanded) {
-          this.onClose();
-        }
-
+        this.onClose();
         break;
 
       case 'enter':
       case 'space':
         e.preventDefault();
 
-        if (expanded) {
-          this.setState({
-            selectedIndex: activeIndex,
-            expanded: false
-          });
-          onSelect(options[activeIndex]);
-        } else if (key === 'space') {
-          this.onClick();
-        }
+        this.setState({
+          selectedIndex: activeIndex,
+          expanded: false
+        });
+        onSelect(options[activeIndex]);
+        this.focusSelect();
 
         break;
 
@@ -274,9 +276,18 @@ export default class Select extends Component {
   }
 
   onClick() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
+    this.setState(
+      {
+        expanded: !this.state.expanded
+      },
+      () => {
+        if (!this.state.expanded) {
+          return;
+        }
+
+        this.listbox.focus();
+      }
+    );
   }
 
   onClose() {
@@ -284,6 +295,8 @@ export default class Select extends Component {
       expanded: false,
       activeIndex: this.state.selectedIndex
     });
+
+    this.focusSelect();
   }
 
   focusSelect() {
