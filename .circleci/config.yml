@@ -67,4 +67,4 @@ workflows:
             - tests
           filters:
             branches:
-              ignore: master
+              only: master
