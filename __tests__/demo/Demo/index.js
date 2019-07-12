@@ -36,22 +36,6 @@ test('renders the examples based on props.states', () => {
   );
 });
 
-test('renderState returns the expected snippet string', () => {
-  // props with children
-  const demo = mount(<Demo {...defaultProps} />);
-  const snippet1 = demo.instance().renderState(defaultProps.states[0]);
-  expect(snippet1).toBe('<Dummy foo={true}>\n  hi\n</Dummy>');
-
-  // no props - just children
-  const snippet2 = demo.instance().renderState({
-    children: 'foo'
-  });
-  expect(snippet2).toBe('<Dummy>\n  foo\n</Dummy>');
-  // no props
-  const snippet3 = demo.instance().renderState({});
-  expect(snippet3).toBe('<Dummy />');
-});
-
 test('throws if no displayName is passed', () => {
   const NoName = () => null;
   const props = {
