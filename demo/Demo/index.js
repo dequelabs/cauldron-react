@@ -76,7 +76,9 @@ class Demo extends Component {
     }
 
     const Tag = displayName;
-    return jsxStringify(<Tag {...state} />);
+    return jsxStringify(<Tag {...state} />, {
+      showDefaultProps: false
+    });
   };
 }
 
