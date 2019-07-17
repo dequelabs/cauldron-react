@@ -80,9 +80,7 @@ export default class Demo extends Component {
       <Select
         label='Day'
         value='Monday'
-        selectedId='day-selected'
-        listId='day-list'
-        onSelect={(selected) => console.log('Selected: ', selected)}
+        onSelect={selected => console.log('Selected: ', selected)}
         options={[
           { label: 'Monday' },
           { label: 'Tuesday' },
