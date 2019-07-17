@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 // import demo views
 import Home from './Home';
 import Layout from './Layout';
@@ -106,6 +106,10 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <Helmet
+            titleTemplate="%s | Deque Cauldron React"
+            defaultTitle="Deque Cauldron React"
+          />
           <SkipLink target={'#main-content'} />
           <TopBar hasTrigger={true}>
             <TopBarTrigger

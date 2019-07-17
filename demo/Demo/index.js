@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import jsxStringify from 'react-element-to-jsx-string';
 import Highlight from '../Highlight';
 import './index.css';
@@ -18,6 +19,9 @@ class Demo extends Component {
 
     return (
       <div className="Demo">
+        <Helmet>
+          <title>{`${displayName} | Component demo`}</title>
+        </Helmet>
         <h1>{displayName}</h1>
         <div className="Demo-states">
           <h2>Examples</h2>
