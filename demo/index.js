@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 // import demo views
 import Home from './Home';
@@ -84,10 +84,13 @@ class App extends Component {
     document.removeEventListener('topbarmenutoggle', this.toggleTopBarMenu);
   }
 
-  renderSideBarLink(to, text) {
+  renderSideBarLink(pathname, text) {
     return (
       <Link
-        to={to}
+        to={{
+          pathname,
+          state: { title: `${text} | Component demo` }
+        }}
         onClick={() => {
           this.setState({ show: false });
           this.workspace.focus();
@@ -152,7 +155,7 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink(
                 '/components/first-time-point-out',
-                'First time point out'
+                'FirstTimePointOut'
               )}
             </MenuItem>
             <MenuItem>
@@ -162,10 +165,7 @@ class App extends Component {
               {this.renderSideBarLink('/composites/modal', 'Modal')}
             </MenuItem>
             <MenuItem>
-              {this.renderSideBarLink(
-                '/composites/top-bar-menu',
-                'TopBar Menu'
-              )}
+              {this.renderSideBarLink('/composites/top-bar-menu', 'TopBarMenu')}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/toast', 'Toast')}
@@ -176,14 +176,14 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink(
                 '/components/options-menu',
-                'Options Menu'
+                'OptionsMenu'
               )}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/select', 'Select')}
             </MenuItem>
             <MenuItem>
-              {this.renderSideBarLink('/components/radio-group', 'Radio Group')}
+              {this.renderSideBarLink('/components/radio-group', 'RadioGroup')}
             </MenuItem>
             <MenuItem>
               {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
@@ -191,7 +191,7 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink(
                 '/components/clickoutside',
-                'Click Outside Listener'
+                'ClickOutsideListener'
               )}
             </MenuItem>
             <MenuItem>
@@ -203,7 +203,7 @@ class App extends Component {
             <MenuItem>
               {this.renderSideBarLink(
                 '/components/expand-collapse-panel',
-                'Expand/Collapse Panel'
+                'ExpandCollapsePanel'
               )}
             </MenuItem>
             <MenuItem>
@@ -215,54 +215,55 @@ class App extends Component {
             workspaceRef={el => (this.workspace = el)}
             tabIndex={-1}
           >
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/layout" component={Layout} />
-              <Route exact path="/components/button" component={Button} />
-              <Route
-                exact
-                path="/components/first-time-point-out"
-                component={FirstTimePointOut}
-              />
-              <Route exact path="/components/toast" component={Toast} />
-              <Route exact path="/components/loader" component={Loader} />
-              <Route
-                exact
-                path="/components/options-menu"
-                component={OptionsMenuDemo}
-              />
-              <Route exact path="/composites/alert" component={Alert} />
-              <Route exact path="/composites/modal" component={Modal} />
-              <Route exact path="/components/select" component={Select} />
-              <Route
-                exact
-                path="/components/radio-group"
-                component={RadioGroup}
-              />
-              <Route exact path="/components/checkbox" component={Checkbox} />
-              <Route
-                exact
-                path="/components/clickoutside"
-                component={ClickOutsideListener}
-              />
-              <Route exact path="/components/tooltip" component={Tooltip} />
-              <Route exact path="/components/card" component={Card} />
-              <Route
-                exact
-                path="/components/expand-collapse-panel"
-                component={ExpandCollapsePanel}
-              />
-              <Route
-                exact
-                path="/components/text-field"
-                component={TextField}
-              />
-              <Route
-                exact
-                path="/composites/top-bar-menu"
-                component={TopBarMenuDemo}
-              />
-            </Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/layout" component={Layout} />
+            <Route exact path="/components/button" component={Button} />
+            <Route
+              exact
+              path="/components/first-time-point-out"
+              component={FirstTimePointOut}
+            />
+            <Route exact path="/components/toast" component={Toast} />
+            <Route exact path="/components/loader" component={Loader} />
+            <Route
+              exact
+              path="/components/options-menu"
+              component={OptionsMenuDemo}
+            />
+            <Route exact path="/composites/alert" component={Alert} />
+            <Route exact path="/composites/modal" component={Modal} />
+            <Route exact path="/components/select" component={Select} />
+            <Route
+              exact
+              path="/components/radio-group"
+              component={RadioGroup}
+            />
+            <Route exact path="/components/checkbox" component={Checkbox} />
+            <Route
+              exact
+              path="/components/clickoutside"
+              component={ClickOutsideListener}
+            />
+            <Route exact path="/components/tooltip" component={Tooltip} />
+            <Route exact path="/components/card" component={Card} />
+            <Route
+              exact
+              path="/components/expand-collapse-panel"
+              component={ExpandCollapsePanel}
+            />
+            <Route exact path="/components/text-field" component={TextField} />
+            <Route
+              exact
+              path="/composites/top-bar-menu"
+              component={TopBarMenuDemo}
+            />
+            <Route
+              component={({ location }) =>
+                location.state && location.state.title ? (
+                  <Helmet title={location.state.title} />
+                ) : null
+              }
+            />
           </Workspace>
         </div>
       </Router>
