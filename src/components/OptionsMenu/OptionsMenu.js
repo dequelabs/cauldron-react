@@ -67,7 +67,7 @@ export default class OptionsMenu extends Component {
     const { show } = this.state;
 
     return (
-      <OptionsMenuWrapper align={align}>
+      <OptionsMenuWrapper align={align} className={className}>
         {trigger({
           onClick: toggleMenu,
           'aria-expanded': show,
