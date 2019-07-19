@@ -119,7 +119,7 @@ export default class FirstTimePointOut extends Component {
     const { target, portal, arrowPosition } = this.props;
 
     let targetNode;
-    if (!target || !target.current) {
+    if (!(target || (target && target.current))) {
       return;
     } else {
       targetNode = target.current || target;

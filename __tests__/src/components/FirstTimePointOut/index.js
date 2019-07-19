@@ -78,6 +78,44 @@ test('accepts className prop', () => {
   expect(ftpo.find('.dqpl-pointer-wrap.foo').exists()).toBeTruthy();
 });
 
+test('renders to portal when using a target', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      target={{
+        getBoundingClientRect() {
+          return { top: 0, left: 0, height: 0, width: 0 };
+        }
+      }}
+    >
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  expect(ftpo.find('Portal').exists()).toBeTruthy();
+});
+
+test('should be positioned relative to target', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      arrowPosition="top-left"
+      target={{
+        getBoundingClientRect() {
+          return { top: 123, left: 456, height: 200, width: 100 };
+        }
+      }}
+    >
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  const { top, left } = ftpo
+    .find('Portal')
+    .find('.dqpl-pointer-wrap')
+    .prop('style');
+  expect(top).toEqual('323px');
+  expect(left).toEqual('506px');
+});
+
 test('should return no axe violations', async () => {
   const ftpo = mount(
     <FirstTimePointOut {...defaults} dismissText={'Dismiss'}>
