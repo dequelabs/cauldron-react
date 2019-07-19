@@ -144,12 +144,27 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const Button: React.ComponentType<ButtonProps>;
 
 interface FirstTimePointOutProps {
+  arrowPosition:
+    | 'top-left'
+    | 'top-middle'
+    | 'top-right'
+    | 'right-top'
+    | 'right-middle'
+    | 'right-bottom'
+    | 'bottom-right'
+    | 'bottom-middle'
+    | 'bottom-left'
+    | 'left-bottom'
+    | 'left-middle'
+    | 'left-top';
   headerId: string;
   children: React.ReactNode;
-  ftpRef?: RefCallback;
+  ftpRef?: React.RefObject<HTMLElement>;
   noArrow?: boolean;
   onClose?: () => void;
   dismissText?: string;
+  target?: HTMLElement | React.RefObject<HTMLElement>;
+  portal?: HTMLElement | React.RefObject<HTMLElement>;
 }
 
 export const FirstTimePointOut: React.ComponentType<FirstTimePointOutProps>;

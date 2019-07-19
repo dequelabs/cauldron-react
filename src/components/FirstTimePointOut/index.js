@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+const __Element = typeof Element === 'undefined' ? function() {} : Element;
 
 export default class FirstTimePointOut extends Component {
   static propTypes = {
@@ -11,7 +14,12 @@ export default class FirstTimePointOut extends Component {
     arrowPosition: PropTypes.string,
     onClose: PropTypes.func,
     dismissText: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    target: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.instanceOf(__Element) })
+    ]),
+    portal: PropTypes.instanceOf(__Element)
   };
 
   static defaultProps = {
@@ -22,15 +30,157 @@ export default class FirstTimePointOut extends Component {
     arrowPosition: 'top-left'
   };
 
-  constructor() {
-    super();
-
-    this.state = { show: true };
+  constructor(props) {
+    super(props);
+    this.state = { show: true, style: {} };
     this.onCloseClick = this.onCloseClick.bind(this);
+
+    if (
+      process.env.NODE_ENV === 'development' &&
+      props.target &&
+      props.noArrow === true
+    ) {
+      throw new Error(
+        `FirstTimePointOut: A "target" prop with "noArrow=true" is not currently supported.`
+      );
+    }
+  }
+
+  componentDidMount() {
+    const { positionRelativeToTarget, attachOffscreenListeners } = this;
+
+    positionRelativeToTarget();
+
+    // debounce resize event to rAF
+    this.resizeDebounce = () => {
+      if (this.resizeDebounce) {
+        cancelAnimationFrame(this.resizeDebounce);
+      }
+      this.resizeDebounce = requestAnimationFrame(() => {
+        this.positionRelativeToTarget();
+      });
+    };
+    window.addEventListener('resize', this.resizeDebounce);
+    attachOffscreenListeners();
+  }
+
+  forceUpdate() {
+    super.forceUpdate();
+    requestAnimationFrame(() => this.positionRelativeToTarget());
+  }
+
+  componentWillUnmount() {
+    const {
+      resizeDebounce,
+      offscreenButtonRef,
+      handleOffscreenFocusIn,
+      handleOffscreenFocusOut
+    } = this;
+
+    if (resizeDebounce) {
+      window.removeEventListener('resize', resizeDebounce);
+    }
+
+    if (offscreenButtonRef) {
+      offscreenButtonRef.removeEventListener('focusin', handleOffscreenFocusIn);
+      offscreenButtonRef.removeEventListener(
+        'focusout',
+        handleOffscreenFocusOut
+      );
+    }
+  }
+
+  handleOffscreenFocusIn = () => {
+    this.setState({ offscreenFocus: true });
+  };
+
+  handleOffscreenFocusOut = () => {
+    // focusin is firing before focusout
+    setTimeout(() => this.setState({ offscreenFocus: false }), 0);
+  };
+
+  // Mirror the offscreen button focus to the visible button
+  attachOffscreenListeners = () => {
+    const {
+      offscreenButtonRef,
+      handleOffscreenFocusIn,
+      handleOffscreenFocusOut
+    } = this;
+
+    if (offscreenButtonRef) {
+      offscreenButtonRef.addEventListener('focusin', handleOffscreenFocusIn);
+      offscreenButtonRef.addEventListener('focusout', handleOffscreenFocusOut);
+      offscreenButtonRef.addEventListener('focusin', handleOffscreenFocusIn);
+      offscreenButtonRef.addEventListener('focusout', handleOffscreenFocusIn);
+    }
+  };
+
+  positionRelativeToTarget = () => {
+    const { target, portal, arrowPosition } = this.props;
+
+    let targetNode;
+    if (!target || !target.current) {
+      return;
+    } else {
+      targetNode = target.current || target;
+    }
+
+    let { top, left, width, height } = targetNode.getBoundingClientRect();
+    if (portal && portal !== document.body) {
+      // If the portal is not placed on document.body
+      // position the FTPO relative to the portal
+      let rect = portal.getBoundingClientRect();
+      top -= rect.top - portal.scrollTop;
+      left -= rect.left - portal.scrollLeft;
+    }
+
+    const [arrowBoxSide] = arrowPosition.split('-');
+
+    let style;
+    switch (arrowBoxSide) {
+      case 'right':
+        style = {
+          left: `${left}px`,
+          top: `${top + height / 2}px`
+        };
+        break;
+      case 'bottom':
+        style = {
+          top: `${top}px`,
+          left: `${left + width / 2}px`
+        };
+        break;
+      case 'left':
+        style = {
+          left: `${left + width}px`,
+          top: `${top + height / 2}px`
+        };
+        break;
+      case 'top':
+      default:
+        style = {
+          top: `${top + height}px`,
+          left: `${left + width / 2}px`
+        };
+        break;
+    }
+
+    this.setState({ style });
+  };
+
+  componentDidUpdate(nextProps) {
+    const { props, attachOffscreenListeners, positionRelativeToTarget } = this;
+    if (
+      props.arrowPosition !== nextProps.arrowPosition ||
+      props.portal !== nextProps.portal
+    ) {
+      attachOffscreenListeners();
+      positionRelativeToTarget();
+    }
   }
 
   render() {
-    const { show } = this.state;
+    const { show, style, offscreenFocus } = this.state;
     const {
       headerId,
       ftpRef,
@@ -38,18 +188,23 @@ export default class FirstTimePointOut extends Component {
       noArrow,
       dismissText,
       arrowPosition,
-      className
+      className,
+      target,
+      portal = document.body
     } = this.props;
 
     if (!show) {
       return null;
     }
 
-    return (
+    const FTPO = (
       <div
         className={classNames(className, 'dqpl-pointer-wrap', {
-          'dqpl-no-arrow': noArrow
+          'dqpl-no-arrow': noArrow,
+          'dqpl-ftpo-auto': !!target,
+          [arrowPosition]: !!arrowPosition && !noArrow
         })}
+        style={style}
         role="region"
         aria-labelledby={headerId}
       >
@@ -65,10 +220,13 @@ export default class FirstTimePointOut extends Component {
         )}
         <div className="dqpl-box">
           <button
-            className="dqpl-ftpo-dismiss fa fa-close"
+            className={classNames('dqpl-ftpo-dismiss fa fa-close', {
+              'dqpl-focus-active': offscreenFocus
+            })}
             type="button"
             aria-label={dismissText}
             onClick={this.onCloseClick}
+            tabIndex={target ? -1 : 0}
           />
           <div className="dqpl-content" tabIndex="-1" ref={ftpRef}>
             {children}
@@ -76,6 +234,25 @@ export default class FirstTimePointOut extends Component {
         </div>
       </div>
     );
+
+    if (target && portal) {
+      return (
+        <React.Fragment>
+          <div className="dqpl-offscreen">
+            <button
+              type="button"
+              ref={el => (this.offscreenButtonRef = el)}
+              aria-label={dismissText}
+              onClick={this.onCloseClick}
+            />
+            {children}
+          </div>
+          {createPortal(FTPO, portal)}
+        </React.Fragment>
+      );
+    }
+
+    return FTPO;
   }
 
   onCloseClick() {
@@ -83,7 +260,3 @@ export default class FirstTimePointOut extends Component {
     this.props.onClose();
   }
 }
-
-FirstTimePointOut.defaultProps = {
-  onClose: () => {}
-};
