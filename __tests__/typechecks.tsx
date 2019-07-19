@@ -91,6 +91,7 @@ const ftpo = () => (
     noArrow
     onClose={noop}
     target={document.body}
+    portal={document.body}
   >
     hi
   </FirstTimePointOut>
