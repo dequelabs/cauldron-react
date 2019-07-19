@@ -90,6 +90,7 @@ const ftpo = () => (
     headerId="id"
     noArrow
     onClose={noop}
+    target={document.body}
   >
     hi
   </FirstTimePointOut>
