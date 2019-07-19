@@ -95,8 +95,7 @@ export default class FirstTimePointOut extends Component {
   };
 
   handleOffscreenFocusOut = () => {
-    // focusin is firing before focusout
-    setTimeout(() => this.setState({ offscreenFocus: false }), 0);
+    this.setState({ offscreenFocus: false });
   };
 
   // Mirror the offscreen button focus to the visible button
@@ -108,22 +107,24 @@ export default class FirstTimePointOut extends Component {
     } = this;
 
     if (offscreenButtonRef) {
+      offscreenButtonRef.removeEventListener('focusin', handleOffscreenFocusIn);
+      offscreenButtonRef.removeEventListener(
+        'focusout',
+        handleOffscreenFocusOut
+      );
       offscreenButtonRef.addEventListener('focusin', handleOffscreenFocusIn);
       offscreenButtonRef.addEventListener('focusout', handleOffscreenFocusOut);
-      offscreenButtonRef.addEventListener('focusin', handleOffscreenFocusIn);
-      offscreenButtonRef.addEventListener('focusout', handleOffscreenFocusIn);
     }
   };
 
   positionRelativeToTarget = () => {
     const { target, portal, arrowPosition } = this.props;
 
-    let targetNode;
     if (!(target || (target && target.current))) {
       return;
-    } else {
-      targetNode = target.current || target;
     }
+
+    let targetNode = target.current || target;
 
     let { top, left, width, height } = targetNode.getBoundingClientRect();
     if (portal && portal !== document.body) {
