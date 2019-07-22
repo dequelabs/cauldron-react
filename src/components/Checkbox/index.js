@@ -113,3 +113,4 @@ export default class Checkbox extends Component {
     );
   }
 }
+Checkbox.displayName = 'Checkbox';

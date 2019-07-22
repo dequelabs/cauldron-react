@@ -42,8 +42,6 @@ export default class Demo extends Component {
         <div>
           <Select
             label="Day"
-            selectedId="day-selected"
-            listId="day-list"
             value={this.state.value}
             onSelect={this.onSelect}
             options={this.state.options}
@@ -57,7 +55,7 @@ export default class Demo extends Component {
           </p>
           <Button
             className="select-demo-button"
-            secondary={true}
+            variant="secondary"
             onClick={this.onClick}
           >
             Select Sunday
@@ -82,9 +80,7 @@ export default class Demo extends Component {
       <Select
         label='Day'
         value='Monday'
-        selectedId='day-selected'
-        listId='day-list'
-        onSelect={(selected) => console.log('Selected: ', selected)}
+        onSelect={selected => console.log('Selected: ', selected)}
         options={[
           { label: 'Monday' },
           { label: 'Tuesday' },
