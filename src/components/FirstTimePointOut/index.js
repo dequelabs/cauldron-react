@@ -208,6 +208,7 @@ export default class FirstTimePointOut extends Component {
         style={style}
         role="region"
         aria-labelledby={headerId}
+        aria-hidden={!!target}
       >
         {noArrow ? null : (
           <div
