@@ -23,29 +23,29 @@ const Demo = () => {
       <h2>Demo</h2>
 
       <h3>With Default Arrow</h3>
-      <FirstTimePointOut headerId="ftpo-head" dismissText="Close">
-        <h4 id="ftpo-head">First time point out!</h4>
+      <FirstTimePointOut headerId="ftpo-head-pointer" dismissText="Close">
+        <h4 id="ftpo-head-pointer">First time point out!</h4>
         <p>This is a first time point out with a pointer</p>
       </FirstTimePointOut>
       <Highlight language="javascript">
-        {`<FirstTimePointOut headerId="ftpo-head" dismissText="Close">
-  <h4 id="ftpo-head">First time point out!</h4>
+        {`<FirstTimePointOut headerId="ftpo-head-pointer" dismissText="Close">
+  <h4 id="ftpo-head-pointer">First time point out!</h4>
   <p>This is a first time point out with a pointer</p>
 </FirstTimePointOut>`}
       </Highlight>
 
       <h3>With Positioned Arrow</h3>
       <FirstTimePointOut
-        headerId="ftpo-head"
+        headerId="ftpo-head-positioned"
         dismissText="Close"
         arrowPosition="top-right"
       >
-        <h4 id="ftpo-head">First time point out!</h4>
+        <h4 id="ftpo-head-positioned">First time point out!</h4>
         <p>This is a first time point out with a positioned pointer</p>
       </FirstTimePointOut>
       <Highlight language="javascript">
-        {`<FirstTimePointOut headerId="ftpo-head" dismissText="Close" arrowPosition="top-right>
-  <h4 id="ftpo-head">First time point out!</h4>
+        {`<FirstTimePointOut headerId="ftpo-head-positioned" dismissText="Close" arrowPosition="top-right>
+  <h4 id="ftpo-head-positioned">First time point out!</h4>
   <p>This is a first time point out with a positioned pointer</p>
 </FirstTimePointOut>`}
       </Highlight>
@@ -66,7 +66,7 @@ const Demo = () => {
       <p>
         First time point outs can specify a <code>target</code> prop that will
         dynamically position itself pointing to the target element on render.
-        Under the hood, we arre using{' '}
+        Under the hood, we are using{' '}
         <a href="https://reactjs.org/docs/portals.html">Portals</a> to render
         the element to <code>document.body</code> but you can customize the
         portal location by setting the <code>portal</code> prop with your own
