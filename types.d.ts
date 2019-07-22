@@ -2,6 +2,8 @@ import * as React from 'react';
 
 type RefCallback = (ref: any) => void;
 
+type Ref<T> = React.RefObject<T> | T;
+
 interface WorkspaceProps {
   children: React.ReactNode;
   workspaceRef?: RefCallback;
@@ -144,12 +146,27 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const Button: React.ComponentType<ButtonProps>;
 
 interface FirstTimePointOutProps {
+  arrowPosition?:
+    | 'top-left'
+    | 'top-middle'
+    | 'top-right'
+    | 'right-top'
+    | 'right-middle'
+    | 'right-bottom'
+    | 'bottom-right'
+    | 'bottom-middle'
+    | 'bottom-left'
+    | 'left-bottom'
+    | 'left-middle'
+    | 'left-top';
   headerId: string;
   children: React.ReactNode;
   ftpRef?: RefCallback;
   noArrow?: boolean;
   onClose?: () => void;
   dismissText?: string;
+  target?: Ref<HTMLElement>;
+  portal?: Ref<HTMLElement>;
 }
 
 export const FirstTimePointOut: React.ComponentType<FirstTimePointOutProps>;

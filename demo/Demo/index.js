@@ -1,28 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import jsxStringify from 'react-element-to-jsx-string';
 import Highlight from '../Highlight';
 import './index.css';
-
-const stateToPropString = state => {
-  const props = [];
-  for (const propName in state) {
-    if (!state.hasOwnProperty(propName) || propName === 'children') {
-      continue;
-    }
-    const val = state[propName];
-    let prop = `${propName}=`;
-    if (typeof val === 'string') {
-      prop += `"${val}"`;
-    } else if (typeof val === 'number') {
-      prop += `{${val}}`;
-    } else {
-      // Hope for the best...
-      prop += `{${JSON.stringify(val)}}`;
-    }
-    props.push(prop);
-  }
-  return props.join(' ');
-};
 
 class Demo extends Component {
   static propTypes = {
@@ -35,16 +15,15 @@ class Demo extends Component {
   render() {
     const { states, component: Component, propDocs, children } = this.props;
     const { displayName, defaultProps = {} } = Component;
-    // TODO: come up with clean way to render code snippet of children
-    // For now it can be manual (as in if you pass children to this thing,
-    // then you have to provide some <Highlighted /> snippet(s) as well)
+
     return (
       <div className="Demo">
         <h1>{displayName}</h1>
         <div className="Demo-states">
           <h2>Examples</h2>
+          {/* setting children to null in the key to avoid stringify choking on potential jsx children */}
           {states.map(state => (
-            <div key={JSON.stringify(state)}>
+            <div key={JSON.stringify({ ...state, children: null })}>
               <Component {...state} />
               <Highlight>{this.renderState(state)}</Highlight>
             </div>
@@ -96,27 +75,10 @@ class Demo extends Component {
       throw new Error('Component missing displayName');
     }
 
-    const { children } = state;
-
-    // Only prop is children.
-    if (children && Object.keys(state).length === 1) {
-      return `<${displayName}>\n  ${children}\n</${displayName}>`;
-    }
-
-    const props = stateToPropString(state);
-
-    // No props.
-    if (!props) {
-      return `<${displayName} />`;
-    }
-
-    // Props without children.
-    if (!children) {
-      return `<${displayName} ${props} />`;
-    }
-
-    // Props and children.
-    return `<${displayName} ${props}>\n  ${children}\n</${displayName}>`;
+    const Tag = displayName;
+    return jsxStringify(<Tag {...state} />, {
+      showDefaultProps: false
+    });
   };
 }
 

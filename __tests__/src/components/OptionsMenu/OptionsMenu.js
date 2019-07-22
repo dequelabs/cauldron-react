@@ -89,3 +89,16 @@ test('should return no axe violations', async () => {
   );
   expect(await axe(optionsMenu.html())).toHaveNoViolations();
 });
+
+test('should pass className through to OptionsMenuWrapper', () => {
+  const optionsMenu = mount(
+    <OptionsMenu trigger={trigger} className="foo bar">
+      <li>option 1</li>
+      <li>option 2</li>
+    </OptionsMenu>
+  );
+
+  expect(optionsMenu.find('.dqpl-options-menu-wrap.foo.bar').exists()).toBe(
+    true
+  );
+});
