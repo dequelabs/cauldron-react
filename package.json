@@ -1,6 +1,6 @@
 {
   "name": "cauldron-react",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Fully accessible react components library for Deque Cauldron",
   "main": "lib/index.js",
   "style": "lib/cauldron.css",
