@@ -53,10 +53,10 @@ export default class FirstTimePointOut extends Component {
 
     // debounce resize event to rAF
     this.resizeDebounce = () => {
-      if (this.resizeDebounce) {
-        cancelAnimationFrame(this.resizeDebounce);
+      if (this.resizeDebounceId) {
+        cancelAnimationFrame(this.resizeDebounceId);
       }
-      this.resizeDebounce = requestAnimationFrame(() => {
+      this.resizeDebounceId = requestAnimationFrame(() => {
         this.positionRelativeToTarget();
       });
     };
@@ -182,7 +182,7 @@ export default class FirstTimePointOut extends Component {
   positionRelativeToTarget = () => {
     const { target, portal, arrowPosition } = this.props;
 
-    if (!(target || (target && target.current))) {
+    if (!target) {
       return;
     }
 
