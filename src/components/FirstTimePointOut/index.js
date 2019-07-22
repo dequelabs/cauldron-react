@@ -65,7 +65,7 @@ export default class FirstTimePointOut extends Component {
 
     // If the component mounts before fonts have finished loading, ensure that we
     // reposition the element when all fonts are ready
-    if (document.fonts && document.fonts.ready) {
+    if (document && document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => this.positionRelativeToTarget());
     }
   }
