@@ -10,7 +10,13 @@ export default class FirstTimePointOut extends Component {
     headerId: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
-    noArrow: PropTypes.bool,
+    noArrow: function(props, propName) {
+      if (props[propName] === true && typeof props['target'] !== 'undefined') {
+        return new Error(
+          'A "target" prop with "noArrow=true" is not currently supported.'
+        );
+      }
+    },
     arrowPosition: PropTypes.string,
     onClose: PropTypes.func,
     dismissText: PropTypes.string,
@@ -34,16 +40,6 @@ export default class FirstTimePointOut extends Component {
     super(props);
     this.state = { show: true, style: {} };
     this.onCloseClick = this.onCloseClick.bind(this);
-
-    if (
-      process.env.NODE_ENV === 'development' &&
-      props.target &&
-      props.noArrow === true
-    ) {
-      throw new Error(
-        `FirstTimePointOut: A "target" prop with "noArrow=true" is not currently supported.`
-      );
-    }
   }
 
   componentDidMount() {
