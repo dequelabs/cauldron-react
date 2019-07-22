@@ -12,6 +12,11 @@
   outline-offset: 2px;
 }
 
+/* TODO: this should probably live in pattern-library */
+.dqpl-content-focus-active:before {
+  background: #283640;
+}
+
 .dqpl-pointer-wrap.dqpl-ftpo-auto .dqpl-arrow[class*='top-'],
 .dqpl-pointer-wrap.dqpl-ftpo-auto .dqpl-arrow[class*='bottom-'] {
   top: 0;
