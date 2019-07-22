@@ -78,6 +78,79 @@ test('accepts className prop', () => {
   expect(ftpo.find('.dqpl-pointer-wrap.foo').exists()).toBeTruthy();
 });
 
+test('renders to portal when using a target', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      target={{
+        getBoundingClientRect() {
+          return { top: 0, left: 0, height: 0, width: 0 };
+        }
+      }}
+    >
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  expect(ftpo.find('Portal').exists()).toBeTruthy();
+});
+
+test('should be positioned relative to target', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      arrowPosition="top-left"
+      target={{
+        getBoundingClientRect() {
+          return { top: 123, left: 456, height: 200, width: 100 };
+        }
+      }}
+    >
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  const { top, left } = ftpo
+    .find('Portal')
+    .find('.dqpl-pointer-wrap')
+    .prop('style');
+  expect(top).toEqual('323px');
+  expect(left).toEqual('506px');
+});
+
+test('should mirror focus to visual FTPO', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      arrowPosition="top-left"
+      target={{
+        getBoundingClientRect() {
+          return { top: 0, left: 0, height: 0, width: 0 };
+        }
+      }}
+    >
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  const hiddenButton = ftpo.find('button').at(0);
+  hiddenButton.getDOMNode().dispatchEvent(new Event('focusin'));
+  ftpo.update();
+  expect(
+    ftpo
+      .find('button')
+      .at(1)
+      .hasClass('dqpl-focus-active')
+  ).toBeTruthy();
+
+  const hiddenContent = ftpo.find('.dqpl-content').at(0);
+  hiddenContent.getDOMNode().dispatchEvent(new Event('focusin'));
+  ftpo.update();
+  expect(
+    ftpo
+      .find('.dqpl-content')
+      .at(1)
+      .hasClass('dqpl-content-focus-active')
+  ).toBeTruthy();
+});
+
 test('should return no axe violations', async () => {
   const ftpo = mount(
     <FirstTimePointOut {...defaults} dismissText={'Dismiss'}>
