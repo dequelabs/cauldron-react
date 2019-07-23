@@ -160,3 +160,26 @@ test('should return no axe violations', async () => {
 
   expect(await axe(ftpo.html())).toHaveNoViolations();
 });
+
+test('should return no axe violations when rendering via a portal', async () => {
+  const FTPOWithTarget = () => {
+    const elementRef = React.createRef();
+    return (
+      <React.Fragment>
+        <button type="button" ref={elementRef}>
+          Button
+        </button>
+        <FirstTimePointOut
+          {...defaults}
+          target={elementRef}
+          dismissText={'Dismiss'}
+        >
+          <h4 id="foo">Header</h4>
+        </FirstTimePointOut>
+      </React.Fragment>
+    );
+  };
+  const ftpo = mount(<FTPOWithTarget />);
+
+  expect(await axe(ftpo.html())).toHaveNoViolations();
+});

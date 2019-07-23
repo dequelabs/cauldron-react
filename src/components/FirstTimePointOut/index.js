@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import removeIds from '../../utils/remove-ids';
 
 const __Element = typeof Element === 'undefined' ? function() {} : Element;
 
@@ -311,7 +312,7 @@ export default class FirstTimePointOut extends Component {
     if (target && portal) {
       return (
         <React.Fragment>
-          <div className="dqpl-offscreen">
+          <div className="dqpl-offscreen" aria-labelledby={headerId}>
             <button
               type="button"
               ref={el => (this.offscreenButtonRef = el)}
@@ -326,7 +327,8 @@ export default class FirstTimePointOut extends Component {
               {children}
             </div>
           </div>
-          {createPortal(FTPO, portal)}
+          {/* remove ids in the visible FTPO as they may be duplicated in the hidden children above */}
+          {createPortal(removeIds(FTPO), portal)}
         </React.Fragment>
       );
     }
