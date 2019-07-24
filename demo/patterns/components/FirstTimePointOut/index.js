@@ -90,6 +90,11 @@ const Demo = () => {
         These ids will not be available to style, so it&#39;s recommended that
         you use classes or attribute to target styling instead.
       </p>
+      <p>
+        <strong>NOTE:</strong> Any ids/attributes of children will be applied to
+        the offscreen/screen-reader-only ftpo, so things like aria-labelledby
+        and aria-describedby etc will still work as expected.
+      </p>
 
       <button
         style={{ marginLeft: `${position}%`, marginBottom: '171px' }}
