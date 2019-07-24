@@ -19,7 +19,9 @@ function recursivelyRemoveIds(element) {
     );
   };
 
-  return walker(element);
+  return Array.isArray(element)
+    ? Children.map(element, walker)
+    : walker(element);
 }
 
 export default recursivelyRemoveIds;

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import rndid from '../../utils/rndid';
 import removeIds from '../../utils/remove-ids';
 
 const __Element = typeof Element === 'undefined' ? function() {} : Element;
 
 export default class FirstTimePointOut extends Component {
   static propTypes = {
-    headerId: PropTypes.string.isRequired,
+    header: PropTypes.node,
     children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
     noArrow: function(props, propName) {
@@ -47,6 +48,8 @@ export default class FirstTimePointOut extends Component {
     const { positionRelativeToTarget, attachOffscreenListeners } = this;
 
     positionRelativeToTarget();
+
+    this.setState({ headerId: rndid() });
 
     // debounce resize event to rAF
     this.resizeDebounce = () => {
@@ -232,7 +235,8 @@ export default class FirstTimePointOut extends Component {
     const { props, attachOffscreenListeners, positionRelativeToTarget } = this;
     if (
       props.arrowPosition !== nextProps.arrowPosition ||
-      props.portal !== nextProps.portal
+      props.portal !== nextProps.portal ||
+      props.target !== nextProps.target
     ) {
       attachOffscreenListeners();
       positionRelativeToTarget();
@@ -244,10 +248,11 @@ export default class FirstTimePointOut extends Component {
       show,
       style,
       offscreenButtonFocus,
-      offscreenContentFocus
+      offscreenContentFocus,
+      headerId
     } = this.state;
     const {
-      headerId,
+      header,
       ftpRef,
       children,
       noArrow,
@@ -271,7 +276,7 @@ export default class FirstTimePointOut extends Component {
         })}
         style={style}
         role="region"
-        aria-labelledby={headerId}
+        aria-labelledby={header ? headerId : null}
         aria-hidden={!!target}
       >
         {noArrow ? null : (
@@ -302,7 +307,9 @@ export default class FirstTimePointOut extends Component {
             tabIndex={!target ? -1 : null}
             ref={ftpRef}
           >
-            {children}
+            {header &&
+              React.cloneElement(header, { id: target ? null : headerId })}
+            {target ? removeIds(children) : children}
           </div>
           {/* eslint-enable jsx-a11y/no-noninteractive-tabindex */}
         </div>
@@ -312,7 +319,10 @@ export default class FirstTimePointOut extends Component {
     if (target && portal) {
       return (
         <React.Fragment>
-          <div className="dqpl-offscreen" aria-labelledby={headerId}>
+          <div
+            className="dqpl-offscreen"
+            aria-labelledby={header ? headerId : null}
+          >
             <button
               type="button"
               ref={el => (this.offscreenButtonRef = el)}
@@ -324,11 +334,11 @@ export default class FirstTimePointOut extends Component {
               tabIndex="-1"
               ref={el => (this.offscreenContentRef = el)}
             >
+              {header && React.cloneElement(header, { id: headerId })}
               {children}
             </div>
           </div>
-          {/* remove ids in the visible FTPO as they may be duplicated in the hidden children above */}
-          {createPortal(removeIds(FTPO), portal)}
+          {createPortal(FTPO, portal)}
         </React.Fragment>
       );
     }

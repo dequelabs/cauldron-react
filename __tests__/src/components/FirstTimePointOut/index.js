@@ -116,6 +116,21 @@ test('should be positioned relative to target', () => {
   expect(left).toEqual('506px');
 });
 
+test('should associate FTPO with header id', () => {
+  const ftpo = mount(
+    <FirstTimePointOut header={<h4>Header</h4>} {...defaults}>
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  ftpo.update();
+
+  const header = ftpo.find('h4');
+  const wrap = ftpo.find('.dqpl-pointer-wrap');
+
+  expect(typeof header.prop('id') === 'string').toBeTruthy();
+  expect(header.prop('id')).toEqual(wrap.prop('aria-labelledby'));
+});
+
 test('should mirror focus to visual FTPO', () => {
   const ftpo = mount(
     <FirstTimePointOut
@@ -151,10 +166,42 @@ test('should mirror focus to visual FTPO', () => {
   ).toBeTruthy();
 });
 
+test('should clean ids from portal FTPO', () => {
+  const FTPOWithTarget = () => {
+    const elementRef = React.createRef();
+    return (
+      <React.Fragment>
+        <button type="button" ref={elementRef}>
+          Button
+        </button>
+        <FirstTimePointOut
+          {...defaults}
+          header={<h4>Header</h4>}
+          target={elementRef}
+          dismissText={'Dismiss'}
+        >
+          Body
+          <p id="foo" />
+        </FirstTimePointOut>
+      </React.Fragment>
+    );
+  };
+  const ftpo = mount(<FTPOWithTarget />);
+  const offscreenFtpo = ftpo.find('.dqpl-offscreen .dqpl-content');
+  const portalFtpo = ftpo.find('Portal .dqpl-content');
+
+  expect(offscreenFtpo.exists('#foo')).toBeTruthy();
+  expect(portalFtpo.exists('#foo')).toBeFalsy();
+});
+
 test('should return no axe violations', async () => {
   const ftpo = mount(
-    <FirstTimePointOut {...defaults} dismissText={'Dismiss'}>
-      <h4 id="foo">Header</h4>
+    <FirstTimePointOut
+      {...defaults}
+      header={<h4>Header</h4>}
+      dismissText={'Dismiss'}
+    >
+      Body
     </FirstTimePointOut>
   );
 
@@ -171,15 +218,15 @@ test('should return no axe violations when rendering via a portal', async () => 
         </button>
         <FirstTimePointOut
           {...defaults}
+          header={<h4>Header</h4>}
           target={elementRef}
           dismissText={'Dismiss'}
         >
-          <h4 id="foo">Header</h4>
+          Body
         </FirstTimePointOut>
       </React.Fragment>
     );
   };
   const ftpo = mount(<FTPOWithTarget />);
-
   expect(await axe(ftpo.html())).toHaveNoViolations();
 });
