@@ -24,20 +24,20 @@ const Demo = () => {
 
       <h3>With Default Arrow</h3>
       <FirstTimePointOut
-        header={<h4>First time point out!</h4>}
+        heading={<h4>First time point out!</h4>}
         dismissText="Close"
       >
         <p>This is a first time point out with a pointer</p>
       </FirstTimePointOut>
       <Highlight language="javascript">
-        {`<FirstTimePointOut header={<h4>First time point out!</h4>} dismissText="Close">
+        {`<FirstTimePointOut heading={<h4>First time point out!</h4>} dismissText="Close">
   <p>This is a first time point out with a pointer</p>
 </FirstTimePointOut>`}
       </Highlight>
 
       <h3>With Positioned Arrow</h3>
       <FirstTimePointOut
-        header={<h4>First time point out!</h4>}
+        heading={<h4>First time point out!</h4>}
         dismissText="Close"
         arrowPosition="top-right"
       >
@@ -45,7 +45,7 @@ const Demo = () => {
       </FirstTimePointOut>
       <Highlight language="javascript">
         {`<FirstTimePointOut
-  header={<h4>First time point out!</h4>}
+  heading={<h4>First time point out!</h4>}
   dismissText="Close"
   arrowPosition="top-right"
 >
@@ -54,11 +54,14 @@ const Demo = () => {
       </Highlight>
 
       <h3>Without Arrow</h3>
-      <FirstTimePointOut header={<h4>First time point out!</h4>} noArrow={true}>
+      <FirstTimePointOut
+        heading={<h4>First time point out!</h4>}
+        noArrow={true}
+      >
         <p>This is a first time point out without a pointer</p>
       </FirstTimePointOut>
       <Highlight language="javascript">
-        {`<FirstTimePointOut header={<h4>First time point out!</h4>} noArrow={true}>
+        {`<FirstTimePointOut heading={<h4>First time point out!</h4>} noArrow={true}>
   <h4>First time point out!</h4>
   <p>This is a first time point out without a pointer</p>
 </FirstTimePointOut>`}
@@ -107,7 +110,7 @@ const Demo = () => {
       </button>
       <FirstTimePointOut
         ref={ftpoRef}
-        header={<h4>Targeted FTPO</h4>}
+        heading={<h4>Targeted FTPO</h4>}
         dismissText="Close"
         target={buttonRef}
         portal={portal}
@@ -120,7 +123,7 @@ const Demo = () => {
   return (
     <div>
       <button type="button" ref={buttonRef}>Button</button>
-      <FirstTimePointOut header={<h4>Targeted FTPO</h4>} dismissText="Close" target={buttonRef}
+      <FirstTimePointOut heading={<h4>Targeted FTPO</h4>} dismissText="Close" target={buttonRef}
         <p>This is a first time point out pointing to an element target.</p>
       </FirstTimePointOut>
     </div>

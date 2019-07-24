@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import FirstTimePointOut from 'src/components/FirstTimePointOut';
 import { axe } from 'jest-axe';
 
-const defaults = { headerId: 'foo' };
+const defaults = { headingId: 'foo' };
 
 test('handles "noArrow" prop properly', () => {
   expect.assertions(1);
@@ -116,19 +116,19 @@ test('should be positioned relative to target', () => {
   expect(left).toEqual('506px');
 });
 
-test('should associate FTPO with header id', () => {
+test('should associate FTPO with heading id', () => {
   const ftpo = mount(
-    <FirstTimePointOut header={<h4>Header</h4>} {...defaults}>
+    <FirstTimePointOut heading={<h4>heading</h4>} {...defaults}>
       {'hello'}
     </FirstTimePointOut>
   );
   ftpo.update();
 
-  const header = ftpo.find('h4');
+  const heading = ftpo.find('h4');
   const wrap = ftpo.find('.dqpl-pointer-wrap');
 
-  expect(typeof header.prop('id') === 'string').toBeTruthy();
-  expect(header.prop('id')).toEqual(wrap.prop('aria-labelledby'));
+  expect(typeof heading.prop('id') === 'string').toBeTruthy();
+  expect(heading.prop('id')).toEqual(wrap.prop('aria-labelledby'));
 });
 
 test('should mirror focus to visual FTPO', () => {
@@ -176,7 +176,7 @@ test('should clean ids from portal FTPO', () => {
         </button>
         <FirstTimePointOut
           {...defaults}
-          header={<h4>Header</h4>}
+          heading={<h4>heading</h4>}
           target={elementRef}
           dismissText={'Dismiss'}
         >
@@ -198,7 +198,7 @@ test('should return no axe violations', async () => {
   const ftpo = mount(
     <FirstTimePointOut
       {...defaults}
-      header={<h4>Header</h4>}
+      heading={<h4>heading</h4>}
       dismissText={'Dismiss'}
     >
       Body
@@ -218,7 +218,7 @@ test('should return no axe violations when rendering via a portal', async () => 
         </button>
         <FirstTimePointOut
           {...defaults}
-          header={<h4>Header</h4>}
+          heading={<h4>heading</h4>}
           target={elementRef}
           dismissText={'Dismiss'}
         >

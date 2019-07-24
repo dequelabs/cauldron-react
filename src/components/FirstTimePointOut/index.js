@@ -9,7 +9,7 @@ const __Element = typeof Element === 'undefined' ? function() {} : Element;
 
 export default class FirstTimePointOut extends Component {
   static propTypes = {
-    header: PropTypes.node,
+    heading: PropTypes.node,
     children: PropTypes.node.isRequired,
     ftpRef: PropTypes.func,
     noArrow: function(props, propName) {
@@ -49,7 +49,7 @@ export default class FirstTimePointOut extends Component {
 
     positionRelativeToTarget();
 
-    this.setState({ headerId: rndid() });
+    this.setState({ headingId: rndid() });
 
     // debounce resize event to rAF
     this.resizeDebounce = () => {
@@ -249,10 +249,10 @@ export default class FirstTimePointOut extends Component {
       style,
       offscreenButtonFocus,
       offscreenContentFocus,
-      headerId
+      headingId
     } = this.state;
     const {
-      header,
+      heading,
       ftpRef,
       children,
       noArrow,
@@ -276,7 +276,7 @@ export default class FirstTimePointOut extends Component {
         })}
         style={style}
         role={target ? null : 'region'}
-        aria-labelledby={header ? headerId : null}
+        aria-labelledby={heading ? headingId : null}
         aria-hidden={!!target}
       >
         {noArrow ? null : (
@@ -307,8 +307,8 @@ export default class FirstTimePointOut extends Component {
             tabIndex={!target ? -1 : null}
             ref={ftpRef}
           >
-            {header &&
-              React.cloneElement(header, { id: target ? null : headerId })}
+            {heading &&
+              React.cloneElement(heading, { id: target ? null : headingId })}
             {target ? removeIds(children) : children}
           </div>
           {/* eslint-enable jsx-a11y/no-noninteractive-tabindex */}
@@ -322,7 +322,7 @@ export default class FirstTimePointOut extends Component {
           <div
             className="dqpl-offscreen"
             role="region"
-            aria-labelledby={header ? headerId : null}
+            aria-labelledby={heading ? headingId : null}
           >
             <button
               type="button"
@@ -335,7 +335,7 @@ export default class FirstTimePointOut extends Component {
               tabIndex="-1"
               ref={el => (this.offscreenContentRef = el)}
             >
-              {header && React.cloneElement(header, { id: headerId })}
+              {heading && React.cloneElement(heading, { id: headingId })}
               {children}
             </div>
           </div>
