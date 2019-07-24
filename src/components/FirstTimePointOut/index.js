@@ -275,7 +275,7 @@ export default class FirstTimePointOut extends Component {
           [arrowPosition]: !!arrowPosition && !noArrow
         })}
         style={style}
-        role="region"
+        role={target ? null : 'region'}
         aria-labelledby={header ? headerId : null}
         aria-hidden={!!target}
       >
@@ -321,6 +321,7 @@ export default class FirstTimePointOut extends Component {
         <React.Fragment>
           <div
             className="dqpl-offscreen"
+            role="region"
             aria-labelledby={header ? headerId : null}
           >
             <button
