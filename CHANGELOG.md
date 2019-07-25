@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+
+# [4.0.0](https://github.com/dequelabs/cauldron-react/compare/v3.0.0...v4.0.0) (2019-07-25)
+
+### Bug Fixes
+
+- remove duplicate ids from visible FTPO ([#174](https://github.com/dequelabs/cauldron-react/issues/174)) ([9de06c2](https://github.com/dequelabs/cauldron-react/commit/9de06c2))
+
+### BREAKING CHANGES
+
+- introduced heading prop for FTPOs replacing headerId and strip ids from visible FTPOs
+
 <a name="3.0.0"></a>
 
 # [3.0.0](https://github.com/dequelabs/cauldron-react/compare/v2.0.0...v3.0.0) (2019-07-22)
