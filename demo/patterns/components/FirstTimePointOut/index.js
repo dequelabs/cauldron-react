@@ -55,13 +55,12 @@ const Demo = () => {
 
       <h3>Without Arrow</h3>
       <FirstTimePointOut
-        heading={<h4>First time point out!</h4>}
         noArrow={true}
       >
         <p>This is a first time point out without a pointer</p>
       </FirstTimePointOut>
       <Highlight language="javascript">
-        {`<FirstTimePointOut heading={<h4>First time point out!</h4>} noArrow={true}>
+        {`<FirstTimePointOut noArrow={true}>
   <h4>First time point out!</h4>
   <p>This is a first time point out without a pointer</p>
 </FirstTimePointOut>`}
