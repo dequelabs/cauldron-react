@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import FirstTimePointOut from 'src/components/FirstTimePointOut';
 import { axe } from 'jest-axe';
 
-const defaults = { headingId: 'foo' };
+const defaults = {};
 
 test('handles "noArrow" prop properly', () => {
   expect.assertions(1);
