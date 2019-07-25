@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import FirstTimePointOut from 'src/components/FirstTimePointOut';
 import { axe } from 'jest-axe';
 
-const defaults = { headerId: 'foo' };
+const defaults = {};
 
 test('handles "noArrow" prop properly', () => {
   expect.assertions(1);
@@ -116,6 +116,21 @@ test('should be positioned relative to target', () => {
   expect(left).toEqual('506px');
 });
 
+test('should associate FTPO with heading id', () => {
+  const ftpo = mount(
+    <FirstTimePointOut heading={<h4>heading</h4>} {...defaults}>
+      {'hello'}
+    </FirstTimePointOut>
+  );
+  ftpo.update();
+
+  const heading = ftpo.find('h4');
+  const wrap = ftpo.find('.dqpl-pointer-wrap');
+
+  expect(typeof heading.prop('id') === 'string').toBeTruthy();
+  expect(heading.prop('id')).toEqual(wrap.prop('aria-labelledby'));
+});
+
 test('should mirror focus to visual FTPO', () => {
   const ftpo = mount(
     <FirstTimePointOut
@@ -151,12 +166,67 @@ test('should mirror focus to visual FTPO', () => {
   ).toBeTruthy();
 });
 
+test('should clean ids from portal FTPO', () => {
+  const FTPOWithTarget = () => {
+    const elementRef = React.createRef();
+    return (
+      <React.Fragment>
+        <button type="button" ref={elementRef}>
+          Button
+        </button>
+        <FirstTimePointOut
+          {...defaults}
+          heading={<h4>heading</h4>}
+          target={elementRef}
+          dismissText={'Dismiss'}
+        >
+          Body
+          <p id="foo" />
+        </FirstTimePointOut>
+      </React.Fragment>
+    );
+  };
+  const ftpo = mount(<FTPOWithTarget />);
+  const offscreenFtpo = ftpo.find('.dqpl-offscreen .dqpl-content');
+  const portalFtpo = ftpo.find('Portal .dqpl-content');
+
+  expect(offscreenFtpo.exists('#foo')).toBeTruthy();
+  expect(portalFtpo.exists('#foo')).toBeFalsy();
+});
+
 test('should return no axe violations', async () => {
   const ftpo = mount(
-    <FirstTimePointOut {...defaults} dismissText={'Dismiss'}>
-      <h4 id="foo">Header</h4>
+    <FirstTimePointOut
+      {...defaults}
+      heading={<h4>heading</h4>}
+      dismissText={'Dismiss'}
+    >
+      Body
     </FirstTimePointOut>
   );
 
+  expect(await axe(ftpo.html())).toHaveNoViolations();
+});
+
+test('should return no axe violations when rendering via a portal', async () => {
+  const FTPOWithTarget = () => {
+    const elementRef = React.createRef();
+    return (
+      <React.Fragment>
+        <button type="button" ref={elementRef}>
+          Button
+        </button>
+        <FirstTimePointOut
+          {...defaults}
+          heading={<h4>heading</h4>}
+          target={elementRef}
+          dismissText={'Dismiss'}
+        >
+          Body
+        </FirstTimePointOut>
+      </React.Fragment>
+    );
+  };
+  const ftpo = mount(<FTPOWithTarget />);
   expect(await axe(ftpo.html())).toHaveNoViolations();
 });
