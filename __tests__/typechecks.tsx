@@ -235,17 +235,20 @@ const ariaIsolate = () => {
 document.querySelectorAll(focusableSelector);
 
 const textField = () => (
-  <TextField
-    label={<span>Email</span>}
-    id="email"
-    error={<span>invalid email</span>}
-    defaultValue="foo@bar.io"
-    onChange={noop}
-    fieldRef={noop}
-    required
-    requiredText="Required"
-    aria-describedby="help-text"
-  />
+  <>
+    <TextField
+      label={<span>Email</span>}
+      id="email"
+      error={<span>invalid email</span>}
+      defaultValue="foo@bar.io"
+      onChange={noop}
+      fieldRef={noop}
+      required
+      requiredText="Required"
+      aria-describedby="help-text"
+    />
+    <TextField name="url" type="url" label="URL" />
+  </>
 );
 
 const clickOutside = () => {

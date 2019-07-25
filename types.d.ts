@@ -333,6 +333,8 @@ interface TextFieldProps {
   requiredText?: string;
   mulitline?: boolean;
   'aria-describedby'?: string;
+  type?: string;
+  name?: string;
 }
 
 export const TextField: React.ComponentType<TextFieldProps>;
