@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.1"></a>
+
+## [4.0.1](https://github.com/dequelabs/cauldron-react/compare/v4.0.0...v4.0.1) (2019-07-26)
+
+### Bug Fixes
+
+- **Select:** correct `onSelect` TypeScript definition ([#183](https://github.com/dequelabs/cauldron-react/issues/183)) ([423afc5](https://github.com/dequelabs/cauldron-react/commit/423afc5))
+- **TextField:** correct "multiline" typo ([#184](https://github.com/dequelabs/cauldron-react/issues/184)) ([16dc06a](https://github.com/dequelabs/cauldron-react/commit/16dc06a))
+- **TextField:** support `type=` and `name=` props ([#179](https://github.com/dequelabs/cauldron-react/issues/179)) ([29793e3](https://github.com/dequelabs/cauldron-react/commit/29793e3)), closes [#178](https://github.com/dequelabs/cauldron-react/issues/178)
+
 <a name="4.0.0"></a>
 
 # [4.0.0](https://github.com/dequelabs/cauldron-react/compare/v3.0.0...v4.0.0) (2019-07-25)
