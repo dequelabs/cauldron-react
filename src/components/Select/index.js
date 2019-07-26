@@ -283,7 +283,12 @@ export default class Select extends Component {
   }
 
   onClick(e) {
-    e.preventDefault();
+    // Prevent the click from triggering other events (see #188).
+    // NOTE: this method is invoked without an event (`e`) elsewhere.
+    if (e) {
+      e.preventDefault();
+    }
+
     this.setState(
       {
         expanded: !this.state.expanded
