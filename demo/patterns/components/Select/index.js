@@ -39,7 +39,7 @@ export default class Demo extends Component {
       <div className="select-demo">
         <h1>Select</h1>
         <h2>Demo</h2>
-        <div>
+        <form onSubmit={this.handleSubmit}>
           <Select
             label="Day"
             value={this.state.value}
@@ -69,7 +69,7 @@ export default class Demo extends Component {
             <strong>Current value: </strong>
             <span>{this.state.current}</span>
           </div>
-        </div>
+        </form>
         <h2>Code Sample</h2>
         <Highlight language="javascript">
           {`
@@ -97,4 +97,9 @@ export default class Demo extends Component {
       </div>
     );
   }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    alert('form submitted');
+  };
 }
