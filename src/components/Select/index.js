@@ -282,7 +282,8 @@ export default class Select extends Component {
     this.props.onKeyDown(e);
   }
 
-  onClick() {
+  onClick(e) {
+    e.preventDefault();
     this.setState(
       {
         expanded: !this.state.expanded
