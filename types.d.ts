@@ -261,7 +261,7 @@ interface SelectProps {
   selectedId: string;
   className?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  onSelect?: (value: any) => void;
+  onSelect?: (option: SelectOption) => void;
   required?: boolean;
   value?: string;
 }
