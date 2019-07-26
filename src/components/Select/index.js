@@ -161,6 +161,7 @@ export default class Select extends Component {
             onClick={this.onClick}
             ref={select => (this.select = select)}
             onKeyDown={this.onTriggerKeydown}
+            type="button"
           >
             {pseudoVal}
           </button>
