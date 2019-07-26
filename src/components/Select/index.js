@@ -161,6 +161,7 @@ export default class Select extends Component {
             onClick={this.onClick}
             ref={select => (this.select = select)}
             onKeyDown={this.onTriggerKeydown}
+            type="button"
           >
             {pseudoVal}
           </button>
@@ -282,13 +283,7 @@ export default class Select extends Component {
     this.props.onKeyDown(e);
   }
 
-  onClick(e) {
-    // Prevent the click from triggering other events (see #188).
-    // NOTE: this method is invoked without an event (`e`) elsewhere.
-    if (e) {
-      e.preventDefault();
-    }
-
+  onClick() {
     this.setState(
       {
         expanded: !this.state.expanded
