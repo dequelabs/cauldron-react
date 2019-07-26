@@ -331,7 +331,7 @@ interface TextFieldProps {
   fieldRef?: RefCallback;
   required?: boolean;
   requiredText?: string;
-  mulitline?: boolean;
+  multiline?: boolean;
   'aria-describedby'?: string;
   type?: string;
   name?: string;
