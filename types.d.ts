@@ -261,7 +261,7 @@ interface SelectProps {
   selectedId: string;
   className?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  onSelect?: (value: any) => void;
+  onSelect?: (option: SelectOption) => void;
   required?: boolean;
   value?: string;
 }
@@ -331,8 +331,10 @@ interface TextFieldProps {
   fieldRef?: RefCallback;
   required?: boolean;
   requiredText?: string;
-  mulitline?: boolean;
+  multiline?: boolean;
   'aria-describedby'?: string;
+  type?: string;
+  name?: string;
 }
 
 export const TextField: React.ComponentType<TextFieldProps>;
