@@ -254,7 +254,11 @@ interface SelectOption {
   label?: React.ReactNode;
 }
 
-interface SelectProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface SelectProps
+  extends Omit<
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onKeyDown'>,
+      'onSelect'
+    > {
   options: SelectOption[];
   label: string;
   listId: string;
