@@ -325,20 +325,15 @@ export const CardFooter: React.ComponentType<
   React.HTMLAttributes<HTMLDivElement>
 >;
 
-interface TextFieldProps {
+interface TextFieldProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label: React.ReactNode;
-  id?: string;
   error?: React.ReactNode;
   defaultValue?: string;
-  value?: string;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
   fieldRef?: RefCallback;
-  required?: boolean;
   requiredText?: string;
   multiline?: boolean;
-  'aria-describedby'?: string;
-  type?: string;
-  name?: string;
 }
 
 export const TextField: React.ComponentType<TextFieldProps>;
