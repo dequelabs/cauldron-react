@@ -161,11 +161,13 @@ export default class Select extends Component {
             onClick={this.onClick}
             ref={select => (this.select = select)}
             onKeyDown={this.onTriggerKeydown}
+            type="button"
           >
             {pseudoVal}
           </button>
           <ul
             id={listId}
+            aria-labelledby={buttonId}
             tabIndex={-1}
             aria-required={required}
             className={classNames('dqpl-listbox', {

@@ -64,6 +64,7 @@ const buttons = () => (
     <Button variant="secondary">button</Button>
     <Button variant="error">button</Button>
     <Button variant="link">button</Button>
+    <Button disabled>button</Button>
   </React.Fragment>
 );
 
@@ -78,6 +79,7 @@ const checkbox = () => (
     disabled
     className="hi"
     onChange={noopEventHandler}
+    autoFocus
   >
     checkbox
   </Checkbox>
@@ -99,7 +101,14 @@ const ftpo = () => (
 
 const icon = () => <Icon label="icon" type="type" />;
 
-const link = () => <Link>link</Link>;
+const link = () => (
+  <>
+    <Link>link</Link>
+    <Link href="hi">link</Link>
+    <Link download="hi">link</Link>
+    <Link rel="hi">link</Link>
+  </>
+);
 
 const loader = () => <Loader label="loader" />;
 
@@ -247,7 +256,15 @@ const textField = () => (
       requiredText="Required"
       aria-describedby="help-text"
     />
-    <TextField name="url" type="url" label="URL" />
+    <TextField name="url" type="url" label="URL" required />
+    <TextField
+      disabled
+      aria-label="foo"
+      label="banana"
+      id="potato"
+      value="sharks"
+      multiline
+    />
   </>
 );
 

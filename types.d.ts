@@ -136,7 +136,7 @@ interface SkipLinkProps {
 
 export const SkipLink: React.ComponentType<SkipLinkProps>;
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'error' | 'link';
   children: React.ReactNode;
   className?: string;
@@ -183,7 +183,7 @@ interface ToastProps {
 
 export const Toast: React.ComponentType<ToastProps>;
 
-interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
 }
 
@@ -254,7 +254,11 @@ interface SelectOption {
   label?: React.ReactNode;
 }
 
-interface SelectProps {
+interface SelectProps
+  extends Omit<
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onKeyDown'>,
+      'onSelect'
+    > {
   options: SelectOption[];
   label: string;
   listId: string;
@@ -286,13 +290,13 @@ interface RadioGroupProps {
 
 export const RadioGroup: React.ComponentType<RadioGroupProps>;
 
-interface CheckboxProps {
+interface CheckboxProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   id: string;
   name: string;
   label: string;
   value: string;
   checked?: boolean;
-  disabled?: boolean;
   className?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>, checked: boolean) => void;
   checkboxRef?: RefCallback;
@@ -321,20 +325,15 @@ export const CardFooter: React.ComponentType<
   React.HTMLAttributes<HTMLDivElement>
 >;
 
-interface TextFieldProps {
+interface TextFieldProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label: React.ReactNode;
-  id?: string;
   error?: React.ReactNode;
   defaultValue?: string;
-  value?: string;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
   fieldRef?: RefCallback;
-  required?: boolean;
   requiredText?: string;
   multiline?: boolean;
-  'aria-describedby'?: string;
-  type?: string;
-  name?: string;
 }
 
 export const TextField: React.ComponentType<TextFieldProps>;
@@ -362,7 +361,8 @@ interface ExpandCollapsePanelProps
 
 export const ExpandCollapsePanel: React.ComponentType<ExpandCollapsePanelProps>;
 
-interface PanelTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface PanelTriggerProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ((props: { close: boolean }) => React.ReactNode) | React.ReactNode;
   open?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;

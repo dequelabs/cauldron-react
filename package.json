@@ -1,6 +1,6 @@
 {
   "name": "cauldron-react",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Fully accessible react components library for Deque Cauldron",
   "main": "lib/index.js",
   "style": "lib/cauldron.css",
@@ -83,7 +83,7 @@
     "react-router-dom": "^4.2.2",
     "standard-version": "^4.3.0",
     "style-loader": "^0.19.0",
-    "typescript": "^3.2.4",
+    "typescript": "^3.5.3",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
