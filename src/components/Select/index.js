@@ -167,6 +167,7 @@ export default class Select extends Component {
           </button>
           <ul
             id={listId}
+            aria-labelledby={buttonId}
             tabIndex={-1}
             aria-required={required}
             className={classNames('dqpl-listbox', {
