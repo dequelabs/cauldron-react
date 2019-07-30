@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+
+# [5.0.0](https://github.com/dequelabs/cauldron-react/compare/v3.0.0...v5.0.0) (2019-07-30)
+
+### Bug Fixes
+
+- remove duplicate ids from visible FTPO ([#174](https://github.com/dequelabs/cauldron-react/issues/174)) ([9de06c2](https://github.com/dequelabs/cauldron-react/commit/9de06c2))
+- **Select:** adds accessible name to listbox ([#196](https://github.com/dequelabs/cauldron-react/issues/196)) ([cb046d8](https://github.com/dequelabs/cauldron-react/commit/cb046d8)), closes [#195](https://github.com/dequelabs/cauldron-react/issues/195)
+- **Select:** correct `onSelect` TypeScript definition ([#183](https://github.com/dequelabs/cauldron-react/issues/183)) ([423afc5](https://github.com/dequelabs/cauldron-react/commit/423afc5))
+- **Select:** prevent unwanted <form> submissions ([#189](https://github.com/dequelabs/cauldron-react/issues/189)) ([8030afd](https://github.com/dequelabs/cauldron-react/commit/8030afd)), closes [#188](https://github.com/dequelabs/cauldron-react/issues/188) [#186](https://github.com/dequelabs/cauldron-react/issues/186)
+- **TextField:** correct "multiline" typo ([#184](https://github.com/dequelabs/cauldron-react/issues/184)) ([16dc06a](https://github.com/dequelabs/cauldron-react/commit/16dc06a))
+- **TextField:** properly implement `HTMLInputElement` props ([#193](https://github.com/dequelabs/cauldron-react/issues/193)) ([40840eb](https://github.com/dequelabs/cauldron-react/commit/40840eb))
+- **TextField:** support `type=` and `name=` props ([#179](https://github.com/dequelabs/cauldron-react/issues/179)) ([29793e3](https://github.com/dequelabs/cauldron-react/commit/29793e3)), closes [#178](https://github.com/dequelabs/cauldron-react/issues/178)
+- **types:** correct several pass through prop definitions ([#191](https://github.com/dequelabs/cauldron-react/issues/191)) ([08dd88c](https://github.com/dequelabs/cauldron-react/commit/08dd88c)), closes [#182](https://github.com/dequelabs/cauldron-react/issues/182)
+
+### BREAKING CHANGES
+
+- introduced heading prop for FTPOs replacing headerId and strip ids from visible FTPOs
+
 <a name="4.0.1"></a>
 
 ## [4.0.1](https://github.com/dequelabs/cauldron-react/compare/v4.0.0...v4.0.1) (2019-07-26)
