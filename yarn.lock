@@ -3394,10 +3394,10 @@ dependency-graph@^0.8.0:
   resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-0.8.0.tgz#2da2d35ed852ecc24a5d6c17788ba57c3708755b"
   integrity sha512-DCvzSq2UiMsuLnj/9AL484ummEgLtZIcRS7YvtO38QnpX3vqh9nJ8P+zhu8Ja+SmLrBHO2iDbva20jq38qvBkQ==
 
-deque-pattern-library@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/deque-pattern-library/-/deque-pattern-library-6.1.0.tgz#bd22c4e0fac7cd216e0f2161d90a033de2f27b34"
-  integrity sha512-m4zielwGO+byP9PxVwoJeTI2SR8tADVnlFBVCpRBOdcq9MxF+gNsWA0OhsEPP4MYvJrU0extz/pjhQGEWyprCQ==
+deque-pattern-library@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/deque-pattern-library/-/deque-pattern-library-7.0.0.tgz#66aecc0e1a1f3dab2dec258c2fcff97f9643b2b2"
+  integrity sha512-Yussy79QpYxV/VJj59wnuEFIePFxn8Hq7PnSCfJTyKH+vdp35tvemtc4rEnDcrnb7CYu0CGtjJAfuNcXw2nNHA==
 
 des.js@^1.0.0:
   version "1.0.0"

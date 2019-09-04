@@ -2,10 +2,6 @@
   display: inline-block;
 }
 
-.dqpl-pointer-wrap.dqpl-ftpo-auto {
-  position: absolute;
-}
-
 /* TODO: this should probably live in pattern-library */
 .dqpl-focus-active {
   outline: #d71ef7 solid 2px;
@@ -17,102 +13,66 @@
   background: #283640;
 }
 
-.dqpl-pointer-wrap.dqpl-ftpo-auto .dqpl-arrow[class*='top-'],
-.dqpl-pointer-wrap.dqpl-ftpo-auto .dqpl-arrow[class*='bottom-'] {
-  top: 0;
-  bottom: 0;
+.dqpl-ftpo-auto[class*='top-'] {
+  margin-top: 42px;
 }
 
-.dqpl-ftpo-auto [class*='left-'].dqpl-arrow {
-  left: -14px;
+.dqpl-ftpo-auto[class*='bottom-'] {
+  margin-top: -44px;
 }
 
-.dqpl-ftpo-auto [class*='right-'].dqpl-arrow {
-  right: -12px;
-  z-index: 10; /* dqpl-box has an implicit z-index so we need this so the arrow is layered correctly */
+.dqpl-ftpo-auto[class*='left-'] {
+  margin-left: 44px;
 }
 
-/* we need to overwrite the middle arrow positions because of a pattern-library issue */
-/* see: https://github.com/dequelabs/pattern-library/issues/122 */
-.dqpl-ftpo-auto .dqpl-arrow.left-middle,
-.dqpl-ftpo-auto .dqpl-arrow.right-middle {
-  left: unset;
-  right: unset;
-  bottom: unset;
-  transform: unset;
-  top: 50%;
-}
-
-.dqpl-ftpo-auto .dqpl-arrow.left-middle {
-  left: 0;
-  transform: translateY(-50%) rotate(-90deg) translateY(-12px);
-}
-
-.dqpl-ftpo-auto .dqpl-arrow.right-middle {
-  right: 0;
-  transform: translateY(-50%) rotate(90deg) translateY(-12px);
-}
-
-.dqpl-ftpo-auto [class*='top-'] + .dqpl-box {
-  margin-top: 62px;
-}
-
-.dqpl-ftpo-auto [class*='bottom-'] + .dqpl-box {
-  margin-bottom: 62px;
-}
-
-.dqpl-ftpo-auto [class*='left-'] + .dqpl-box {
-  margin-left: 62px;
-}
-
-.dqpl-ftpo-auto [class*='right-'] + .dqpl-box {
-  transform: translateX(-62px);
+.dqpl-ftpo-auto[class*='right-'] {
+  margin-left: -44px;
 }
 
 .dqpl-ftpo-auto.top-left {
-  transform: translateX(-6px);
+  transform: translateX(-5px);
 }
 
 .dqpl-ftpo-auto.top-middle {
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateX(2px);
 }
 
 .dqpl-ftpo-auto.top-right {
-  transform: translateX(calc(-100% + 6px));
+  transform: translateX(-100%) translateX(5px);
 }
 
 .dqpl-ftpo-auto.left-top {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
 }
 
 .dqpl-ftpo-auto.left-middle {
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateY(-2px);
 }
 
 .dqpl-ftpo-auto.left-bottom {
-  transform: translateY(calc(-100% + 6px));
+  transform: translateY(-100%) translateY(5px);
 }
 
 .dqpl-ftpo-auto.bottom-left {
-  transform: translateY(-100%) translateX(-6px);
+  transform: translateY(-100%) translateX(-5px);
 }
 
 .dqpl-ftpo-auto.bottom-middle {
-  transform: translateY(-100%) translateX(-50%);
+  transform: translateY(-100%) translateX(-50%) translateX(-2px);
 }
 
 .dqpl-ftpo-auto.bottom-right {
-  transform: translateY(-100%) translateX(calc(-100% + 6px));
+  transform: translateY(-100%) translateX(-100%) translateX(5px);
 }
 
 .dqpl-ftpo-auto.right-top {
-  transform: translateX(-100%) translateY(-6px);
+  transform: translateX(-100%) translateY(-5px);
 }
 
 .dqpl-ftpo-auto.right-middle {
-  transform: translateX(-100%) translateY(-50%);
+  transform: translateX(-100%) translateY(-50%) translateY(2px);
 }
 
 .dqpl-ftpo-auto.right-bottom {
-  transform: translateX(-100%) translateY(calc(-100% + 6px));
+  transform: translateX(-100%) translateY(-100%) translateY(5px);
 }
