@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+
+# [5.0.0](https://github.com/dequelabs/cauldron-react/compare/v4.0.1...v5.0.0) (2019-09-04)
+
+### Features
+
+- implement smaller ftpo arrows from pattern-library ([#202](https://github.com/dequelabs/cauldron-react/issues/202)) ([1cfdbcd](https://github.com/dequelabs/cauldron-react/commit/1cfdbcd))
+
+### BREAKING CHANGES
+
+- FTPOs have new positioning and layout due to smaller arrows
+
+<a name="4.0.2"></a>
+
+## [4.0.2](https://github.com/dequelabs/cauldron-react/compare/v4.0.1...v4.0.2) (2019-07-30)
+
+### Bug Fixes
+
+- **Select:** adds accessible name to listbox ([#196](https://github.com/dequelabs/cauldron-react/issues/196)) ([cb046d8](https://github.com/dequelabs/cauldron-react/commit/cb046d8)), closes [#195](https://github.com/dequelabs/cauldron-react/issues/195)
+- **Select:** prevent unwanted <form> submissions ([#189](https://github.com/dequelabs/cauldron-react/issues/189)) ([8030afd](https://github.com/dequelabs/cauldron-react/commit/8030afd)), closes [#188](https://github.com/dequelabs/cauldron-react/issues/188) [#186](https://github.com/dequelabs/cauldron-react/issues/186)
+- **TextField:** properly implement `HTMLInputElement` props ([#193](https://github.com/dequelabs/cauldron-react/issues/193)) ([40840eb](https://github.com/dequelabs/cauldron-react/commit/40840eb))
+- **types:** correct several pass through prop definitions ([#191](https://github.com/dequelabs/cauldron-react/issues/191)) ([08dd88c](https://github.com/dequelabs/cauldron-react/commit/08dd88c)), closes [#182](https://github.com/dequelabs/cauldron-react/issues/182)
+
 <a name="4.0.1"></a>
 
 ## [4.0.1](https://github.com/dequelabs/cauldron-react/compare/v4.0.0...v4.0.1) (2019-07-26)
