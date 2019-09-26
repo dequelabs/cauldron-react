@@ -131,7 +131,7 @@ test('should associate FTPO with heading id', () => {
   expect(heading.prop('id')).toEqual(wrap.prop('aria-labelledby'));
 });
 
-test.skip('should mirror focus to visual FTPO', () => {
+test('should mirror focus to visual FTPO', () => {
   const ftpo = mount(
     <FirstTimePointOut
       {...defaults}
@@ -142,21 +142,30 @@ test.skip('should mirror focus to visual FTPO', () => {
         }
       }}
     >
-      {'hello'}
+      Hello <a href="#foo">Cruel World</a>
     </FirstTimePointOut>
   );
-  // the node that jest uses is not the same element in dom so this test fails
-  const hiddenButton = ftpo.find('button').at(0);
-  ftpo
-    .find('.dqpl-offscreen')
-    .getDOMNode()
-    .dispatchEvent(new Event('focusin', { target: hiddenButton.getDOMNode() }));
-  ftpo.update();
+
+  const offscreenFTPO = ftpo.find('.dqpl-offscreen');
+  const visibleFTPO = ftpo.find('.dqpl-pointer-wrap');
+  const [
+    offscreenFocusableButton,
+    offscreenFocusableAnchor
+  ] = ftpo.instance().getFocusableElements(offscreenFTPO.getDOMNode());
+  ftpo.instance().handleOffscreenFocusIn({ target: offscreenFocusableButton });
+  ftpo.instance().handleOffscreenFocusIn({ target: offscreenFocusableAnchor });
+
   expect(
-    ftpo
-      .find('button')
-      .at(1)
-      .hasClass('dqpl-focus-active')
+    visibleFTPO
+      .getDOMNode()
+      .querySelector('button')
+      .classList.contains('dqpl-focus-active')
+  ).toBeTruthy();
+  expect(
+    visibleFTPO
+      .getDOMNode()
+      .querySelector('a')
+      .classList.contains('dqpl-focus-active')
   ).toBeTruthy();
 
   const hiddenContent = ftpo.find('.dqpl-content').at(0);
@@ -168,6 +177,44 @@ test.skip('should mirror focus to visual FTPO', () => {
       .at(1)
       .hasClass('dqpl-content-focus-active')
   ).toBeTruthy();
+});
+
+test('should remove tabindex from focusable elements on visual FTPO with target', () => {
+  const ftpo = mount(
+    <FirstTimePointOut
+      {...defaults}
+      arrowPosition="top-left"
+      target={{
+        getBoundingClientRect() {
+          return { top: 0, left: 0, height: 0, width: 0 };
+        }
+      }}
+    >
+      Hello <a href="#foo">Cruel World</a>
+    </FirstTimePointOut>
+  );
+
+  const offscreenFTPO = ftpo.find('.dqpl-offscreen');
+  const visibleFTPO = ftpo.find('.dqpl-pointer-wrap');
+  const [
+    offscreenFocusableButton,
+    offscreenFocusableAnchor
+  ] = ftpo.instance().getFocusableElements(offscreenFTPO.getDOMNode());
+  ftpo.instance().handleOffscreenFocusIn({ target: offscreenFocusableButton });
+  ftpo.instance().handleOffscreenFocusIn({ target: offscreenFocusableAnchor });
+
+  expect(
+    visibleFTPO
+      .getDOMNode()
+      .querySelector('button')
+      .getAttribute('tabindex')
+  ).toEqual('-1');
+  expect(
+    visibleFTPO
+      .getDOMNode()
+      .querySelector('a')
+      .getAttribute('tabindex')
+  ).toEqual('-1');
 });
 
 test('should clean ids from portal FTPO', () => {
