@@ -46,7 +46,7 @@ export default class FirstTimePointOut extends Component {
   }
 
   getFocusableElements(root) {
-    return Array.from(root.querySelectorAll(focusable));
+    return Array.from(root.querySelectorAll(`${focusable}, [data-focusable]`));
   }
 
   componentDidMount() {
@@ -174,7 +174,7 @@ export default class FirstTimePointOut extends Component {
       element => element === target
     );
 
-    if (elementIndex === -1) {
+    if (elementIndex === -1 || !visibleFocusable[elementIndex]) {
       return;
     }
 
@@ -194,6 +194,10 @@ export default class FirstTimePointOut extends Component {
     const elementIndex = offscreenFocusable.findIndex(
       element => element === target
     );
+
+    if (elementIndex === -1 || !visibleFocusable[elementIndex]) {
+      return;
+    }
 
     visibleFocusable[elementIndex].classList.remove('dqpl-focus-active');
   };
