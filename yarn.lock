@@ -4395,8 +4395,8 @@ focus-trap@^2.0.1:
 
 focusable@^2.3.0:
   version "2.3.0"
-  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/focusable/-/focusable-2.3.0.tgz#f9eef68dc6d6015e5526f1aa19e59f48b3ae2892"
-  integrity sha1-+e72jcbWAV5VJvGqGeWfSLOuKJI=
+  resolved "https://registry.yarnpkg.com/focusable/-/focusable-2.3.0.tgz#f9eef68dc6d6015e5526f1aa19e59f48b3ae2892"
+  integrity sha512-e63a4CAb5yLbn4Scn0wG9F+rEq4ZcbggRc9pD3hufAWf8y8dpZImdIES8YNUufRpKB+p0JS+BRd8RBU+sLAeIw==
 
 follow-redirects@^1.0.0:
   version "1.7.0"
