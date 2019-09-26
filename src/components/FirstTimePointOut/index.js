@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import focusable from 'focusable';
 import rndid from '../../utils/rndid';
 import removeIds from '../../utils/remove-ids';
 
@@ -45,27 +46,7 @@ export default class FirstTimePointOut extends Component {
   }
 
   getFocusableElements(root) {
-    return Array.from(
-      root.querySelectorAll(
-        [
-          'a[href]',
-          'button:not([disabled])',
-          'input:not([disabled])',
-          'select:not([disabled])',
-          'textarea:not([disabled])',
-          'area[href]',
-          'iframe',
-          'object',
-          'embed',
-          '[tabindex="0"]',
-          '[contenteditable]',
-          'audio[controls]',
-          'video[controls]',
-          'summary',
-          'data-focusable'
-        ].join(', ')
-      )
-    );
+    return Array.from(root.querySelectorAll(focusable));
   }
 
   componentDidMount() {

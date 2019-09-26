@@ -4393,6 +4393,11 @@ focus-trap@^2.0.1:
   dependencies:
     tabbable "^1.0.3"
 
+focusable@^2.3.0:
+  version "2.3.0"
+  resolved "https://agora.dequecloud.com/artifactory/api/npm/dequelabs/focusable/-/focusable-2.3.0.tgz#f9eef68dc6d6015e5526f1aa19e59f48b3ae2892"
+  integrity sha1-+e72jcbWAV5VJvGqGeWfSLOuKJI=
+
 follow-redirects@^1.0.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
