@@ -28,7 +28,7 @@
     "prop-types": "^15.6.0",
     "rc-tooltip": "^3.7.2",
     "react-syntax-highlighter": "^6.1.1",
-    "unique-string": "^1.0.0"
+    "unique-string": "^2.0.0"
   },
   "repository": {
     "type": "git",
