@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import focusable from 'focusable';
 import rndid from '../../utils/rndid';
 import removeIds from '../../utils/remove-ids';
 
@@ -44,6 +45,10 @@ export default class FirstTimePointOut extends Component {
     this.onCloseClick = this.onCloseClick.bind(this);
   }
 
+  getFocusableElements(root) {
+    return Array.from(root.querySelectorAll(`${focusable}, [data-focusable]`));
+  }
+
   componentDidMount() {
     const { positionRelativeToTarget, attachOffscreenListeners } = this;
 
@@ -78,10 +83,8 @@ export default class FirstTimePointOut extends Component {
   componentWillUnmount() {
     const {
       resizeDebounce,
-      offscreenButtonRef,
+      offscreenRef,
       offscreenContentRef,
-      handleOffscreenButtonFocusIn,
-      handleOffscreenButtonFocusOut,
       handleOffscreenContentFocusIn,
       handleOffscreenContentFocusOut
     } = this;
@@ -90,15 +93,9 @@ export default class FirstTimePointOut extends Component {
       window.removeEventListener('resize', resizeDebounce);
     }
 
-    if (offscreenButtonRef) {
-      offscreenButtonRef.removeEventListener(
-        'focusin',
-        handleOffscreenButtonFocusIn
-      );
-      offscreenButtonRef.removeEventListener(
-        'focusout',
-        handleOffscreenButtonFocusOut
-      );
+    if (offscreenRef) {
+      this.offscreenRef.removeEventListener('focusin', this.handleFocusIn);
+      this.offscreenRef.removeEventListener('focusout', this.handleFocusOut);
     }
 
     if (offscreenContentRef) {
@@ -113,70 +110,96 @@ export default class FirstTimePointOut extends Component {
     }
   }
 
-  handleOffscreenButtonFocusIn = () => {
-    this.setState({ offscreenButtonFocus: true });
-  };
-
-  handleOffscreenButtonFocusOut = () => {
-    this.setState({ offscreenButtonFocus: false });
-  };
-
-  handleOffscreenContentFocusIn = () => {
-    this.setState({ offscreenContentFocus: true });
-  };
-
-  handleOffscreenContentFocusOut = () => {
-    this.setState({ offscreenContentFocus: false });
-  };
-
-  // Mirror the offscreen button focus to the visible content
+  // Mirror the offscreen focus to the visible content
   attachOffscreenListeners = () => {
-    const {
-      offscreenButtonRef,
-      offscreenContentRef,
-      handleOffscreenButtonFocusIn,
-      handleOffscreenButtonFocusOut,
-      handleOffscreenContentFocusIn,
-      handleOffscreenContentFocusOut
-    } = this;
+    const { offscreenRef, offscreenContentRef } = this;
 
-    if (offscreenButtonRef) {
-      offscreenButtonRef.removeEventListener(
+    if (offscreenRef) {
+      this.offscreenRef.removeEventListener(
         'focusin',
-        handleOffscreenButtonFocusIn
+        this.handleOffscreenFocusIn
       );
-      offscreenButtonRef.removeEventListener(
-        'focusout',
-        handleOffscreenButtonFocusOut
-      );
-      offscreenButtonRef.addEventListener(
+      this.offscreenRef.addEventListener(
         'focusin',
-        handleOffscreenButtonFocusIn
+        this.handleOffscreenFocusIn
       );
-      offscreenButtonRef.addEventListener(
+      this.offscreenRef.removeEventListener(
         'focusout',
-        handleOffscreenButtonFocusOut
+        this.handleOffscreenFocusOut
+      );
+      this.offscreenRef.addEventListener(
+        'focusout',
+        this.handleOffscreenFocusOut
       );
     }
 
+    // Manually handle offscreen content since it has a -1 tab index
     if (offscreenContentRef) {
-      offscreenContentRef.removeEventListener(
+      this.offscreenContentRef.removeEventListener(
         'focusin',
-        handleOffscreenContentFocusIn
+        this.handleOffscreenContentFocusIn
       );
-      offscreenContentRef.removeEventListener(
-        'focusout',
-        handleOffscreenContentFocusOut
-      );
-      offscreenContentRef.addEventListener(
+      this.offscreenContentRef.addEventListener(
         'focusin',
-        handleOffscreenContentFocusIn
+        this.handleOffscreenContentFocusIn
       );
-      offscreenContentRef.addEventListener(
+      this.offscreenContentRef.removeEventListener(
         'focusout',
-        handleOffscreenContentFocusOut
+        this.handleOffscreenContentFocusOut
+      );
+      this.offscreenContentRef.addEventListener(
+        'focusout',
+        this.handleOffscreenContentFocusOut
       );
     }
+  };
+
+  handleOffscreenContentFocusIn = ({ target }) => {
+    if (target === this.offscreenContentRef) {
+      this.setState({ offscreenContentFocus: true });
+    }
+  };
+
+  handleOffscreenContentFocusOut = ({ target }) => {
+    if (target === this.offscreenContentRef) {
+      this.setState({ offscreenContentFocus: false });
+    }
+  };
+
+  handleOffscreenFocusIn = ({ target }) => {
+    const { offscreenRef, visibleRef, getFocusableElements } = this;
+    const offscreenFocusable = getFocusableElements(offscreenRef);
+    const visibleFocusable = getFocusableElements(visibleRef);
+    const elementIndex = offscreenFocusable.findIndex(
+      element => element === target
+    );
+
+    if (elementIndex === -1 || !visibleFocusable[elementIndex]) {
+      return;
+    }
+
+    // Tag focusable elements
+    for (var element of visibleFocusable) {
+      element.setAttribute('data-focusable', 'true');
+      element.setAttribute('tabindex', '-1');
+    }
+
+    visibleFocusable[elementIndex].classList.add('dqpl-focus-active');
+  };
+
+  handleOffscreenFocusOut = ({ target }) => {
+    const { offscreenRef, visibleRef, getFocusableElements } = this;
+    const offscreenFocusable = getFocusableElements(offscreenRef);
+    const visibleFocusable = getFocusableElements(visibleRef);
+    const elementIndex = offscreenFocusable.findIndex(
+      element => element === target
+    );
+
+    if (elementIndex === -1 || !visibleFocusable[elementIndex]) {
+      return;
+    }
+
+    visibleFocusable[elementIndex].classList.remove('dqpl-focus-active');
   };
 
   positionRelativeToTarget = () => {
@@ -244,13 +267,7 @@ export default class FirstTimePointOut extends Component {
   }
 
   render() {
-    const {
-      show,
-      style,
-      offscreenButtonFocus,
-      offscreenContentFocus,
-      headingId
-    } = this.state;
+    const { show, style, offscreenContentFocus, headingId } = this.state;
     const {
       heading,
       ftpRef,
@@ -278,6 +295,7 @@ export default class FirstTimePointOut extends Component {
         role={target ? null : 'region'}
         aria-labelledby={heading ? headingId : null}
         aria-hidden={!!target}
+        ref={el => (this.visibleRef = el)}
       >
         {noArrow ? null : (
           <div
@@ -291,9 +309,7 @@ export default class FirstTimePointOut extends Component {
         )}
         <div className="dqpl-box">
           <button
-            className={classNames('dqpl-ftpo-dismiss fa fa-close', {
-              'dqpl-focus-active': offscreenButtonFocus
-            })}
+            className="dqpl-ftpo-dismiss fa fa-close"
             type="button"
             aria-label={dismissText}
             onClick={this.onCloseClick}
@@ -323,10 +339,10 @@ export default class FirstTimePointOut extends Component {
             className="dqpl-offscreen"
             role="region"
             aria-labelledby={heading ? headingId : null}
+            ref={el => (this.offscreenRef = el)}
           >
             <button
               type="button"
-              ref={el => (this.offscreenButtonRef = el)}
               aria-label={dismissText}
               onClick={this.onCloseClick}
             />
