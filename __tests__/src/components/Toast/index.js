@@ -20,7 +20,7 @@ test('handles initial show prop on mount', done => {
       wrapper.find('.dqpl-toast').getDOMNode()
     );
     expect(
-      wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup')
+      wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-flex')
     ).toBeTruthy();
     done();
   }); // wait for animation timeouts / async setState calls
@@ -46,14 +46,14 @@ test('handles autoHide properly', done => {
 
 test('handles transition from falsey show to truthy show prop', done => {
   const wrapper = mount(<Toast {...defaultProps}>{'hi'}</Toast>);
-  expect(wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup')).toBeFalsy();
+  expect(wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-flex')).toBeFalsy();
 
   wrapper.setProps({ show: true });
 
   setTimeout(() => {
     wrapper.update();
     expect(
-      wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-setup')
+      wrapper.find('.dqpl-toast').hasClass('dqpl-fadein-flex')
     ).toBeTruthy();
     done();
   }); // wait for animation timeouts / async setState calls

@@ -39,7 +39,7 @@ export default class Toast extends Component {
     super(props);
 
     this.state = {
-      animationClass: props.show ? 'dqpl-fadein-setup' : 'dqpl-hidden'
+      animationClass: props.show ? 'dqpl-fadein-flex' : 'dqpl-hidden'
     };
 
     this.dismissToast = this.dismissToast.bind(this);
@@ -64,7 +64,7 @@ export default class Toast extends Component {
     const { show } = this.props;
     if (prevProps.show !== show) {
       if (show) {
-        this.setState({ animationClass: 'dqpl-fadein-setup' }, () => {
+        this.setState({ animationClass: 'dqpl-fadein-flex' }, () => {
           setTimeout(this.showToast);
         });
       } else {
@@ -120,7 +120,7 @@ export default class Toast extends Component {
 
     this.setState(
       {
-        animationClass: 'dqpl-fadein-setup'
+        animationClass: 'dqpl-fadein-flex'
       },
       () => {
         // Timeout because CSS display: none/block and opacity:
@@ -143,7 +143,7 @@ export default class Toast extends Component {
 
     this.setState(
       {
-        animationClass: 'dqpl-fadein-setup dqpl-fadein'
+        animationClass: 'dqpl-fadein-flex dqpl-fadein'
       },
       () => {
         if (type === 'action-needed') {
