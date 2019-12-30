@@ -4,6 +4,11 @@ import jsxStringify from 'react-element-to-jsx-string';
 import Highlight from '../Highlight';
 import './index.css';
 
+const stringifyConfig = {
+  showDefaultProps: false,
+  showFunctions: true
+};
+
 class Demo extends Component {
   static propTypes = {
     propDocs: PropTypes.object.isRequired,
@@ -19,17 +24,39 @@ class Demo extends Component {
     return (
       <div className="Demo">
         <h1>{displayName}</h1>
-        <div className="Demo-states">
-          <h2>Examples</h2>
-          {/* setting children to null in the key to avoid stringify choking on potential jsx children */}
-          {states.map(state => (
-            <div key={JSON.stringify({ ...state, children: null })}>
-              <Component {...state} />
-              <Highlight>{this.renderState(state)}</Highlight>
-            </div>
-          ))}
-          {children}
-        </div>
+        {states.length ? (
+          <div className="Demo-states">
+            <h2>Examples</h2>
+            {/* setting children to null in the key to avoid stringify choking on potential jsx children */}
+            {states.map(state => {
+              const { renderAfter, ...thinState } = state;
+              const componentMarkup = this.renderState(thinState);
+              const afterMarkup =
+                renderAfter && jsxStringify(renderAfter, stringifyConfig);
+
+              return (
+                <div
+                  key={JSON.stringify({
+                    ...thinState,
+                    children:
+                      typeof state.children === 'string' ? state.children : null
+                  })}
+                >
+                  <Component {...thinState} />
+                  {renderAfter}
+                  <Highlight>
+                    {`${componentMarkup}${
+                      afterMarkup ? `\n${afterMarkup}` : ''
+                    }`}
+                  </Highlight>
+                </div>
+              );
+            })}
+            {children}
+          </div>
+        ) : (
+          children
+        )}
         <div className="Demo-props">
           <h2>Props</h2>
           <table>
@@ -76,9 +103,7 @@ class Demo extends Component {
     }
 
     const Tag = displayName;
-    return jsxStringify(<Tag {...state} />, {
-      showDefaultProps: false
-    });
+    return jsxStringify(<Tag {...state} />, stringifyConfig);
   };
 }
 
