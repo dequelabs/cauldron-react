@@ -55,3 +55,18 @@ test('renders the propDocs table', () => {
     Object.keys(defaultProps.propDocs).length
   );
 });
+
+test('handles state.renderAfter', () => {
+  const props = {
+    ...defaultProps,
+    states: [
+      {
+        children: 'hi',
+        foo: true,
+        renderAfter: <button id="bar" />
+      }
+    ]
+  };
+  const demo = mount(<Demo {...props} />);
+  expect(demo.find('.foo').getDOMNode().nextElementSibling.id).toBe('bar');
+});

@@ -161,3 +161,5 @@ export default class Toast extends Component {
     );
   }
 }
+
+Toast.displayName = 'Toast';
