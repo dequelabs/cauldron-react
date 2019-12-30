@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default function Link({ children, ...other }) {
-  return (
-    <a className="dqpl-link" {...other}>
-      {children}
-    </a>
-  );
+export default class Link extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    linkRef: PropTypes.func
+  };
+
+  render() {
+    const { children, linkRef, className, ...other } = this.props;
+    return (
+      <a
+        ref={linkRef}
+        className={classNames('dqpl-link', className)}
+        {...other}
+      >
+        {children}
+      </a>
+    );
+  }
 }
 
-Link.propTypes = {
-  children: PropTypes.node.isRequired
-};
+Link.displayName = 'Link';

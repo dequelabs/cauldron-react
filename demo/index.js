@@ -18,6 +18,7 @@ import Checkbox from './patterns/components/Checkbox';
 import Tooltip from './patterns/components/Tooltip';
 import Card from './patterns/components/Card';
 import TextField from './patterns/components/TextField';
+import CauldronLink from './patterns/components/Link';
 import ClickOutsideListener from './patterns/components/ClickOutsideListener';
 import ExpandCollapsePanel from './patterns/components/ExpandCollapsePanel';
 import TopBarMenuDemo from './patterns/composites/TopBarMenu';
@@ -153,6 +154,9 @@ class App extends Component {
               {this.renderSideBarLink('/components/button', 'Button')}
             </MenuItem>
             <MenuItem>
+              {this.renderSideBarLink('/components/link', 'Link')}
+            </MenuItem>
+            <MenuItem>
               {this.renderSideBarLink(
                 '/components/first-time-point-out',
                 'FirstTimePointOut'
@@ -218,6 +222,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/layout" component={Layout} />
             <Route exact path="/components/button" component={Button} />
+            <Route exact path="/components/link" component={CauldronLink} />
             <Route
               exact
               path="/components/first-time-point-out"
