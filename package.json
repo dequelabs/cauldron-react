@@ -16,7 +16,7 @@
     "fmt": "prettier --write 'demo/**/*.{css,js}' '{src,test}/**/*.{js,ts,tsx}' *.{js,json,md,ts}",
     "prepublishOnly": "NODE_ENV=production npm run build",
     "release": "standard-version",
-    "test": "jest --coverage",
+    "test": "jest --maxWorkers=1 --coverage",
     "test:ts": "tsc"
   },
   "author": "Harris Schneiderman",
