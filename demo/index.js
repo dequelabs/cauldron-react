@@ -2,27 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-// import demo views
 import Home from './Home';
-import Layout from './Layout';
-import Button from './patterns/components/Button';
-import FirstTimePointOut from './patterns/components/FirstTimePointOut';
-import Toast from './patterns/components/Toast';
-import Alert from './patterns/composites/Alert';
-import Modal from './patterns/composites/Modal';
-import Loader from './patterns/components/Loader';
-import OptionsMenuDemo from './patterns/components/OptionsMenu';
-import Select from './patterns/components/Select';
-import RadioGroup from './patterns/components/RadioGroup';
-import Checkbox from './patterns/components/Checkbox';
-import Tooltip from './patterns/components/Tooltip';
-import Card from './patterns/components/Card';
-import TextField from './patterns/components/TextField';
-import ClickOutsideListener from './patterns/components/ClickOutsideListener';
-import ExpandCollapsePanel from './patterns/components/ExpandCollapsePanel';
-import TopBarMenuDemo from './patterns/composites/TopBarMenu';
-
-// import cauldron react components
 import {
   TopBar,
   Workspace,
@@ -38,6 +18,26 @@ import {
 import '../node_modules/deque-pattern-library/dist/css/pattern-library.min.css';
 import '../src/index.css';
 import './index.css';
+
+const componentsList = [
+  'Button',
+  'FirstTimePointOut',
+  'Alert',
+  'Modal',
+  'TopBarMenu',
+  'Toast',
+  'Loader',
+  'Layout',
+  'OptionsMenu',
+  'Select',
+  'RadioGroup',
+  'Checkbox',
+  'ClickOutsideListener',
+  'Tooltip',
+  'Card',
+  'ExpandCollapsePanel',
+  'TextField'
+].sort();
 
 class App extends Component {
   state = { show: false };
@@ -148,67 +148,11 @@ class App extends Component {
             </MenuItem>
           </TopBar>
           <SideBar show={this.state.show} onDismiss={this.onTriggerClick}>
-            <MenuItem>{this.renderSideBarLink('/layout', 'Layout')}</MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/button', 'Button')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink(
-                '/components/first-time-point-out',
-                'FirstTimePointOut'
-              )}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/composites/alert', 'Alert')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/composites/modal', 'Modal')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/composites/top-bar-menu', 'TopBarMenu')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/toast', 'Toast')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/loader', 'Loader')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink(
-                '/components/options-menu',
-                'OptionsMenu'
-              )}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/select', 'Select')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/radio-group', 'RadioGroup')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/checkbox', 'Checkbox')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink(
-                '/components/clickoutside',
-                'ClickOutsideListener'
-              )}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/tooltip', 'Tooltip')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/card', 'Card')}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink(
-                '/components/expand-collapse-panel',
-                'ExpandCollapsePanel'
-              )}
-            </MenuItem>
-            <MenuItem>
-              {this.renderSideBarLink('/components/text-field', 'TextField')}
-            </MenuItem>
+            {componentsList.map(name => (
+              <MenuItem key={name}>
+                {this.renderSideBarLink(`/components/${name}`, name)}
+              </MenuItem>
+            ))}
           </SideBar>
           <Workspace
             id="main-content"
@@ -216,47 +160,18 @@ class App extends Component {
             tabIndex={-1}
           >
             <Route exact path="/" component={Home} />
-            <Route exact path="/layout" component={Layout} />
-            <Route exact path="/components/button" component={Button} />
-            <Route
-              exact
-              path="/components/first-time-point-out"
-              component={FirstTimePointOut}
-            />
-            <Route exact path="/components/toast" component={Toast} />
-            <Route exact path="/components/loader" component={Loader} />
-            <Route
-              exact
-              path="/components/options-menu"
-              component={OptionsMenuDemo}
-            />
-            <Route exact path="/composites/alert" component={Alert} />
-            <Route exact path="/composites/modal" component={Modal} />
-            <Route exact path="/components/select" component={Select} />
-            <Route
-              exact
-              path="/components/radio-group"
-              component={RadioGroup}
-            />
-            <Route exact path="/components/checkbox" component={Checkbox} />
-            <Route
-              exact
-              path="/components/clickoutside"
-              component={ClickOutsideListener}
-            />
-            <Route exact path="/components/tooltip" component={Tooltip} />
-            <Route exact path="/components/card" component={Card} />
-            <Route
-              exact
-              path="/components/expand-collapse-panel"
-              component={ExpandCollapsePanel}
-            />
-            <Route exact path="/components/text-field" component={TextField} />
-            <Route
-              exact
-              path="/composites/top-bar-menu"
-              component={TopBarMenuDemo}
-            />
+            {componentsList.map(name => {
+              const DemoComponent = require(`./patterns/components/${name}`)
+                .default;
+              return (
+                <Route
+                  key={name}
+                  exact
+                  path={`/components/${name}`}
+                  component={DemoComponent}
+                />
+              );
+            })}
             <Route
               component={({ location }) =>
                 location.state && location.state.title ? (
