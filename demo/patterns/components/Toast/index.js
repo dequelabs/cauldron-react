@@ -1,106 +1,128 @@
 import React, { Component } from 'react';
-import Highlight from 'demo/Highlight';
 import { Button, Toast, Link } from 'src/';
+import DemoComponent from 'demo/Demo';
+import { children } from 'demo/props';
 
 export default class Demo extends Component {
-  constructor() {
-    super();
+  state = {
+    type: null
+  };
 
-    this.state = {};
-    this.onToastDismiss = this.onToastDismiss.bind(this);
+  onTriggerClick(type) {
+    this.setState({ type });
   }
 
-  onTriggerClick(nextType) {
-    this.setState({ type: null, nextType });
-  }
+  onToastDismiss = dismissed => {
+    const { type } = this.state;
 
-  onToastDismiss() {
-    const { type, nextType } = this.state;
-    const trigger = this[type];
+    if (dismissed !== type) {
+      return;
+    }
 
-    // return focus back to the dismissed toast's trigger
-    if (trigger) {
+    this.setState({ type: null }, () => {
+      const trigger = this[type];
+
+      if (!trigger) {
+        return;
+      }
+
+      // return focus back to the dismissed toast's trigger
       trigger.focus();
-    }
-
-    this.setState({ type: nextType ? nextType : null, nextType: null });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { nextType } = this.state;
-    if (nextType && nextType !== prevState.nextType) {
-      this.setState({ type: nextType });
-    }
-  }
+    });
+  };
 
   render() {
     const { type } = this.state;
 
     return (
-      <div>
-        <Toast
-          type={'confirmation'}
-          onDismiss={this.onToastDismiss}
-          show={type === 'confirmation'}
-        >
-          {'Everything is good!'}
-        </Toast>
-        <Toast
-          type={'caution'}
-          onDismiss={this.onToastDismiss}
-          show={type === 'caution'}
-        >
-          {'Your software is out of date, please update it.'}
-        </Toast>
+      <DemoComponent
+        component={Toast}
+        states={[
+          {
+            type: 'confirmation',
+            children: 'Your toast is ready!',
+            show: type === 'confirmation',
+            autoHide: 5000,
+            onDismiss: () => this.onToastDismiss('confirmation'),
+            renderAfter: (
+              <Button
+                onClick={() => this.onTriggerClick('confirmation')}
+                buttonRef={el => (this.confirmation = el)}
+              >
+                Confirmation
+              </Button>
+            )
+          },
+          {
+            type: 'caution',
+            children: 'The toast is getting toasty...',
+            onDismiss: () => this.onToastDismiss('caution'),
+            show: type === 'caution',
+            renderAfter: (
+              <Button
+                variant="secondary"
+                onClick={() => this.onTriggerClick('caution')}
+                buttonRef={el => (this.caution = el)}
+              >
+                Caution
+              </Button>
+            )
+          },
+          {
+            type: 'action-needed',
+            children:
+              'You burnt the toast! Check yourself before you wreck yourself...',
+            show: false,
+            renderAfter: (
+              <Button
+                variant="error"
+                onClick={() => this.onTriggerClick('action-needed')}
+                buttonRef={el => (this['action-needed'] = el)}
+              >
+                Action Needed
+              </Button>
+            )
+          }
+        ]}
+        propDocs={{
+          children,
+          show: {
+            type: 'boolean',
+            description: 'whether or not to show the toast'
+          },
+          type: {
+            type: 'string',
+            required: true,
+            description: '"confirmation", "caution", or "action-needed"'
+          },
+          onDismiss: {
+            type: 'function',
+            description: 'function to be executed when toast is dismissed'
+          },
+          autoHide: {
+            type: 'number',
+            description:
+              'optional timeout (ms) before automatically hiding the toast'
+          },
+          dismissText: {
+            type: 'string',
+            description:
+              'text to be added as the aria-label of the "x" dismiss button (default: "Dismiss")'
+          },
+          toastRef: {
+            type: 'function',
+            description:
+              'optional ref function to get a handle on the toast element'
+          }
+        }}
+      >
         <Toast type={'action-needed'} show={type === 'action-needed'}>
           <span>{'You have entered an alternate universe.'}</span>
-          <Link href="#" onClick={this.onToastDismiss}>
-            {'Go back to non-alternate universe!'}
+          <Link href="#" onClick={() => this.onToastDismiss('action-needed')}>
+            Go back to non-alternate universe!
           </Link>
         </Toast>
-        <h1>Toasts</h1>
-        <h2>Demo</h2>
-        <Button
-          secondary={true}
-          onClick={() => this.onTriggerClick('confirmation')}
-          buttonRef={el => (this.confirmation = el)}
-        >
-          {'Confirmation'}
-        </Button>
-        <Button
-          secondary={true}
-          onClick={() => this.onTriggerClick('caution')}
-          buttonRef={el => (this.caution = el)}
-        >
-          {'Caution'}
-        </Button>
-        <Button
-          secondary={true}
-          onClick={() => this.onTriggerClick('action-needed')}
-          buttonRef={el => (this['action-needed'] = el)}
-        >
-          {'Action Needed'}
-        </Button>
-        <h2>Code Sample</h2>
-        <Highlight language="javascript">
-          {`
-    import React from 'react';
-    import { Toast } from 'cauldron-react';
-
-    // a toast that hides itself after 7 seconds...
-    const Demo = () => (
-      <Toast
-        type={'confirmation'}
-        autoHide={7000}
-        dismissText={'Close'}
-        onClose={() => console.log('toast dismissed!')}
-      >
-        {'Everything is good!'}
-      </Toast>
-    );
-          `}
-        </Highlight>
-      </div>
+      </DemoComponent>
     );
   }
 }
