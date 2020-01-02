@@ -44,7 +44,7 @@ export default class Demo extends Component {
             show: type === 'confirmation',
             autoHide: 5000,
             onDismiss: () => this.onToastDismiss('confirmation'),
-            renderAfter: (
+            DEMO_renderAfter: (
               <Button
                 onClick={() => this.onTriggerClick('confirmation')}
                 buttonRef={el => (this.confirmation = el)}
@@ -58,7 +58,7 @@ export default class Demo extends Component {
             children: 'The toast is getting toasty...',
             onDismiss: () => this.onToastDismiss('caution'),
             show: type === 'caution',
-            renderAfter: (
+            DEMO_renderAfter: (
               <Button
                 variant="secondary"
                 onClick={() => this.onTriggerClick('caution')}
@@ -73,7 +73,7 @@ export default class Demo extends Component {
             children:
               'You burnt the toast! Check yourself before you wreck yourself...',
             show: false,
-            renderAfter: (
+            DEMO_renderAfter: (
               <Button
                 variant="error"
                 onClick={() => this.onTriggerClick('action-needed')}

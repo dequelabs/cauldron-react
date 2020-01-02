@@ -45,6 +45,13 @@ export {
   default as ExpandCollapsePanel,
   PanelTrigger
 } from './components/ExpandCollapsePanel';
+export {
+  default as Dialog,
+  DialogHeading,
+  DialogFooter,
+  DialogContent,
+  DialogActions
+} from './components/Dialog';
 /**
  * Helpers / Utils
  */

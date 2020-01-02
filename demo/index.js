@@ -37,7 +37,8 @@ const componentsList = [
   'Card',
   'ExpandCollapsePanel',
   'TextField',
-  'Link'
+  'Link',
+  'Dialog'
 ].sort();
 
 class App extends Component {
