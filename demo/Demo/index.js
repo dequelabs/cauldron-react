@@ -24,8 +24,9 @@ class Demo extends Component {
     return (
       <div className="Demo">
         <h1>{displayName}</h1>
-        <Highlight
-        >{`import { ${displayName} } from 'cauldron-react'`}</Highlight>
+        <Highlight>
+          {`import { ${displayName} } from 'cauldron-react'`}
+        </Highlight>
         {states.length ? (
           <div className="Demo-states">
             <h2>Examples</h2>
