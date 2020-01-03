@@ -32,7 +32,8 @@ test('renders the examples based on props.states', () => {
   expect(demo.find('.foo').length).toBe(1);
   expect(demo.find('.bar').length).toBe(1);
   expect(demo.find('Highlight').length).toBe(
-    Object.keys(defaultProps.propDocs).length
+    // adding 1 here to account for the "import {x } from 'cauldron-react'" code block
+    Object.keys(defaultProps.propDocs).length + 1
   );
 });
 
