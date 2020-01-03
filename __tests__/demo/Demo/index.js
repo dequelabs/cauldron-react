@@ -56,17 +56,19 @@ test('renders the propDocs table', () => {
   );
 });
 
-test('handles state.renderAfter', () => {
+test('handles state.DEMO_renderAfter/DEMO_renderBefore', () => {
   const props = {
     ...defaultProps,
     states: [
       {
         children: 'hi',
         foo: true,
-        renderAfter: <button id="bar" />
+        DEMO_renderBefore: <button id="baz" />,
+        DEMO_renderAfter: <button id="bar" />
       }
     ]
   };
   const demo = mount(<Demo {...props} />);
+  expect(demo.find('.foo').getDOMNode().previousElementSibling.id).toBe('baz');
   expect(demo.find('.foo').getDOMNode().nextElementSibling.id).toBe('bar');
 });
