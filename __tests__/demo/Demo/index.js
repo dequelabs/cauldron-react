@@ -32,7 +32,8 @@ test('renders the examples based on props.states', () => {
   expect(demo.find('.foo').length).toBe(1);
   expect(demo.find('.bar').length).toBe(1);
   expect(demo.find('Highlight').length).toBe(
-    Object.keys(defaultProps.propDocs).length
+    // adding 1 here to account for the "import {x } from 'cauldron-react'" code block
+    Object.keys(defaultProps.propDocs).length + 1
   );
 });
 
@@ -56,17 +57,19 @@ test('renders the propDocs table', () => {
   );
 });
 
-test('handles state.renderAfter', () => {
+test('handles state.DEMO_renderAfter/DEMO_renderBefore', () => {
   const props = {
     ...defaultProps,
     states: [
       {
         children: 'hi',
         foo: true,
-        renderAfter: <button id="bar" />
+        DEMO_renderBefore: <button id="baz" />,
+        DEMO_renderAfter: <button id="bar" />
       }
     ]
   };
   const demo = mount(<Demo {...props} />);
+  expect(demo.find('.foo').getDOMNode().previousElementSibling.id).toBe('baz');
   expect(demo.find('.foo').getDOMNode().nextElementSibling.id).toBe('bar');
 });
