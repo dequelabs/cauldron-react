@@ -43,13 +43,7 @@ class Demo extends Component {
                 jsxStringify(DEMO_renderAfter, stringifyConfig);
 
               return (
-                <div
-                  key={JSON.stringify({
-                    ...thinState,
-                    children:
-                      typeof state.children === 'string' ? state.children : null
-                  })}
-                >
+                <div key={componentMarkup}>
                   {DEMO_renderBefore}
                   <Component {...thinState} />
                   {DEMO_renderAfter}
