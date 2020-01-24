@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
     "module": "commonjs",
     "lib": ["es6", "dom"],
     "noImplicitAny": true,
@@ -9,6 +11,5 @@
     "typeRoots": ["node_modules/@types"],
     "jsx": "react",
     "noEmit": true
-  },
-  "files": ["types.d.ts", "__tests__/typechecks.tsx"]
+  }
 }
