@@ -148,7 +148,7 @@ export default class FirstTimePointOut extends React.Component<
 
     if (offscreenRef) {
       offscreenRef.removeEventListener('focusin', handleOffscreenFocusIn);
-      offscreenRef?.addEventListener('focusin', handleOffscreenFocusIn);
+      offscreenRef.addEventListener('focusin', handleOffscreenFocusIn);
       offscreenRef.removeEventListener('focusout', handleOffscreenFocusOut);
       offscreenRef.addEventListener('focusout', handleOffscreenFocusOut);
     }
