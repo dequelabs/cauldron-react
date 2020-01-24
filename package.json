@@ -17,7 +17,7 @@
     "prepublishOnly": "NODE_ENV=production npm run build",
     "release": "standard-version",
     "test": "jest --maxWorkers=1 --coverage",
-    "test:ts": "tsc"
+    "test:ts": "tsc --noEmit"
   },
   "author": "Harris Schneiderman",
   "license": "MPL-2.0",

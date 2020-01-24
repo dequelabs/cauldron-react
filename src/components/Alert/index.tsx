@@ -75,7 +75,7 @@ export default class Alert extends React.Component<AlertProps, AlertState> {
   private attachIsolator(done: () => void) {
     this.setState(
       {
-        isolator: new AriaIsolate(this.element)
+        isolator: new AriaIsolate(this.element as HTMLElement)
       },
       done
     );
