@@ -7,7 +7,7 @@
   "typings": "types.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:css",
-    "build:lib": "babel --out-dir=lib src",
+    "build:lib": "babel --out-dir=lib src --extensions '.ts,.tsx'",
     "build:css": "postcss --output=lib/cauldron.css src/index.css",
     "build:demo": "webpack --bail --config=webpack.config.demo.js",
     "postbuild:demo": "cp demo/_redirects demo/dist/",
