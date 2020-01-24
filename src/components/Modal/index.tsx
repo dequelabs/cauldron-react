@@ -63,7 +63,7 @@ export default class Modal extends React.Component<ModalProps, ModalState> {
   private attachIsolator(done: () => void) {
     this.setState(
       {
-        isolator: new AriaIsolate(this.element)
+        isolator: new AriaIsolate(this.element as HTMLElement)
       },
       done
     );

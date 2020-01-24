@@ -8,9 +8,15 @@ export interface OptionsMenuAlignmentProps {
   align?: 'left' | 'right';
 }
 
+export interface OptionsMenuRenderTriggerProps {
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  show: boolean;
+  onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
+}
+
 export interface OptionsMenuProps extends OptionsMenuAlignmentProps {
   id?: string;
-  menuRef?: RefCallback<HTMLElement>;
+  menuRef?: RefCallback<OptionsMenuList>;
   trigger: (props: OptionsMenuRenderTriggerProps) => React.ReactNode;
   onClose: () => void;
   onSelect: (e: React.MouseEvent<HTMLElement>) => void;
@@ -35,14 +41,13 @@ export default class OptionsMenu extends Component<
     align: 'right'
   };
 
-  private triggerRef: React.Ref<HTMLElement>;
-  private menuRef: React.Ref<HTMLElement>;
+  private triggerRef: React.RefObject<HTMLElement>;
+  private menuRef: OptionsMenuList | null;
 
   constructor(props: AllOptionsMenuProps) {
     super(props);
     this.state = { show: false };
     this.triggerRef = React.createRef();
-    this.menuRef = React.createRef();
   }
 
   toggleMenu = (event: Event) => {
@@ -53,10 +58,10 @@ export default class OptionsMenu extends Component<
   handleClose = () => {
     this.setState({ show: false });
     this.props.onClose();
-    this.triggerRef?.current?.focus();
+    this.triggerRef.current?.focus();
   };
 
-  handleTriggerKeyDown = (event: Event) => {
+  handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const { which, target } = event;
     if (which === down) {
       event.preventDefault();

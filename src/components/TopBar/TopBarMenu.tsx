@@ -10,6 +10,7 @@ export interface TopBarMenuProps
     Exclude<keyof React.HTMLAttributes<HTMLLIElement>, 'onKeyDown'>
   > {
   onKeyDown: (e: React.KeyboardEvent<HTMLLIElement>) => void;
+  menuItemRef: RefCallback<HTMLLIElement>;
 }
 
 interface TopBarMenuState {
@@ -28,8 +29,8 @@ export default class TopBarMenu extends React.Component<
     open: false
   };
 
-  private optionsMenuRef: React.Ref<HTMLUListElement>;
-  private menuItemRef: React.Ref<HTMLLIElement>;
+  private optionsMenuRef: HTMLUListElement | null;
+  private menuItemRef: HTMLLIElement | null;
 
   private handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { optionsMenuRef, state } = this;
@@ -46,7 +47,7 @@ export default class TopBarMenu extends React.Component<
     this.menuItemRef?.focus();
   };
 
-  private handleKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
+  private handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     const key = keyname(e.which);
     const { handleClose, state, props } = this;
     const { open } = state;
@@ -68,10 +69,12 @@ export default class TopBarMenu extends React.Component<
     const { open } = state;
 
     const menu = React.Children.toArray(children).find(
-      child => child?.type === OptionsMenuList
+      child => (child as React.ReactElement<any>).type === OptionsMenuList
     );
     const otherChildren = React.Children.toArray(children).filter(
-      child => typeof child === 'string' || child.type !== OptionsMenuList
+      child =>
+        typeof child === 'string' ||
+        (child as React.ReactElement<any>).type !== OptionsMenuList
     );
 
     return (
@@ -89,12 +92,12 @@ export default class TopBarMenu extends React.Component<
         onKeyDown={handleKeyDown}
       >
         {otherChildren}
-        {React.cloneElement(menu, {
+        {React.cloneElement(menu as React.ReactElement<any>, {
           id,
           className: classnames('dqpl-dropdown', {
             'dqpl-dropdown-active': open
           }),
-          menuRef: el => (this.optionsMenuRef = el),
+          menuRef: (el: HTMLUListElement | null) => (this.optionsMenuRef = el),
           show: open,
           onClose: handleClose
         })}

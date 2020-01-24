@@ -3,10 +3,10 @@ import { Children, isValidElement, cloneElement } from 'react';
 /*
  * Recursively walks React element tree removing any id props for descendant nodes
  */
-function recursivelyRemoveIds(element: JSX.Element) {
-  const walker = (element: JSX.Element): React.ReactElement<any> => {
+function recursivelyRemoveIds(element: React.ReactNode) {
+  const walker = (element: React.ReactNode): React.ReactElement<any> => {
     if (!isValidElement(element)) {
-      return element;
+      return element as any;
     }
 
     return cloneElement(

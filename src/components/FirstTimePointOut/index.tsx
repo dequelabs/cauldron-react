@@ -19,14 +19,16 @@ export interface FirstTimePointOutProps {
     | 'left-bottom'
     | 'left-middle'
     | 'left-top';
+  heading?: React.ReactNode;
+  className: string;
   headerId: string;
   children: React.ReactNode;
   ftpoRef: RefCallback<HTMLElement>;
   noArrow?: boolean;
   onClose: () => void;
   dismissText?: string;
-  target?: Ref<HTMLElement>;
-  portal?: Ref<HTMLElement>;
+  target?: React.RefObject<HTMLElement> | HTMLElement;
+  portal?: React.RefObject<HTMLElement> | HTMLElement;
 }
 
 interface FirstTimePointOutState {
@@ -62,8 +64,10 @@ export default class FirstTimePointOut extends React.Component<
     this.onCloseClick = this.onCloseClick.bind(this);
   }
 
-  getFocusableElements(root: HTMLElement) {
-    return Array.from(root.querySelectorAll(`${focusable}, [data-focusable]`));
+  getFocusableElements(root: HTMLElement | null) {
+    return root
+      ? Array.from(root.querySelectorAll(`${focusable}, [data-focusable]`))
+      : [];
   }
 
   componentDidMount() {
@@ -104,6 +108,8 @@ export default class FirstTimePointOut extends React.Component<
       resizeDebounce,
       offscreenRef,
       offscreenContentRef,
+      handleOffscreenFocusIn,
+      handleOffscreenFocusOut,
       handleOffscreenContentFocusIn,
       handleOffscreenContentFocusOut
     } = this;
@@ -113,8 +119,8 @@ export default class FirstTimePointOut extends React.Component<
     }
 
     if (offscreenRef) {
-      this.offscreenRef?.removeEventListener('focusin', this.handleFocusIn);
-      this.offscreenRef?.removeEventListener('focusout', this.handleFocusOut);
+      offscreenRef.removeEventListener('focusin', handleOffscreenFocusIn);
+      offscreenRef.removeEventListener('focusout', handleOffscreenFocusOut);
     }
 
     if (offscreenContentRef) {
@@ -131,61 +137,56 @@ export default class FirstTimePointOut extends React.Component<
 
   // Mirror the offscreen focus to the visible content
   attachOffscreenListeners = () => {
-    const { offscreenRef, offscreenContentRef } = this;
+    const {
+      offscreenRef,
+      offscreenContentRef,
+      handleOffscreenFocusIn,
+      handleOffscreenFocusOut,
+      handleOffscreenContentFocusIn,
+      handleOffscreenContentFocusOut
+    } = this;
 
     if (offscreenRef) {
-      this.offscreenRef?.removeEventListener(
-        'focusin',
-        this.handleOffscreenFocusIn
-      );
-      this.offscreenRef?.addEventListener(
-        'focusin',
-        this.handleOffscreenFocusIn
-      );
-      this.offscreenRef?.removeEventListener(
-        'focusout',
-        this.handleOffscreenFocusOut
-      );
-      this.offscreenRef?.addEventListener(
-        'focusout',
-        this.handleOffscreenFocusOut
-      );
+      offscreenRef.removeEventListener('focusin', handleOffscreenFocusIn);
+      offscreenRef?.addEventListener('focusin', handleOffscreenFocusIn);
+      offscreenRef.removeEventListener('focusout', handleOffscreenFocusOut);
+      offscreenRef.addEventListener('focusout', handleOffscreenFocusOut);
     }
 
     // Manually handle offscreen content since it has a -1 tab index
     if (offscreenContentRef) {
-      this.offscreenContentRef?.removeEventListener(
+      offscreenContentRef.removeEventListener(
         'focusin',
-        this.handleOffscreenContentFocusIn
+        handleOffscreenContentFocusIn
       );
-      this.offscreenContentRef?.addEventListener(
+      offscreenContentRef.addEventListener(
         'focusin',
-        this.handleOffscreenContentFocusIn
+        handleOffscreenContentFocusIn
       );
-      this.offscreenContentRef?.removeEventListener(
+      offscreenContentRef.removeEventListener(
         'focusout',
-        this.handleOffscreenContentFocusOut
+        handleOffscreenContentFocusOut
       );
-      this.offscreenContentRef?.addEventListener(
+      offscreenContentRef.addEventListener(
         'focusout',
-        this.handleOffscreenContentFocusOut
+        handleOffscreenContentFocusOut
       );
     }
   };
 
-  handleOffscreenContentFocusIn = ({ target }: { target: HTMLElement }) => {
+  handleOffscreenContentFocusIn = ({ target }: FocusEvent) => {
     if (target === this.offscreenContentRef) {
       this.setState({ offscreenContentFocus: true });
     }
   };
 
-  handleOffscreenContentFocusOut = ({ target }: { target: HTMLElement }) => {
+  handleOffscreenContentFocusOut = ({ target }: FocusEvent) => {
     if (target === this.offscreenContentRef) {
       this.setState({ offscreenContentFocus: false });
     }
   };
 
-  handleOffscreenFocusIn = ({ target }: { target: HTMLElement }) => {
+  handleOffscreenFocusIn = ({ target }: FocusEvent) => {
     const { offscreenRef, visibleRef, getFocusableElements } = this;
     const offscreenFocusable = getFocusableElements(offscreenRef);
     const visibleFocusable = getFocusableElements(visibleRef);
@@ -206,7 +207,7 @@ export default class FirstTimePointOut extends React.Component<
     visibleFocusable[elementIndex].classList.add('dqpl-focus-active');
   };
 
-  handleOffscreenFocusOut = ({ target }: { target: HTMLElement }) => {
+  handleOffscreenFocusOut = ({ target }: FocusEvent) => {
     const { offscreenRef, visibleRef, getFocusableElements } = this;
     const offscreenFocusable = getFocusableElements(offscreenRef);
     const visibleFocusable = getFocusableElements(visibleRef);
@@ -228,15 +229,20 @@ export default class FirstTimePointOut extends React.Component<
       return;
     }
 
-    let targetNode = target.current || target;
+    const targetNode =
+      (target as React.RefObject<HTMLElement>).current ||
+      (target as HTMLElement);
+    const portalNode =
+      (portal as React.RefObject<HTMLElement>).current ||
+      (portal as HTMLElement);
 
     let { top, left, width, height } = targetNode.getBoundingClientRect();
-    if (portal && portal !== document.body) {
+    if (portalNode && portalNode !== document.body) {
       // If the portal is not placed on document.body
       // position the FTPO relative to the portal
-      let rect = portal.getBoundingClientRect();
-      top -= rect.top - portal.scrollTop;
-      left -= rect.left - portal.scrollLeft;
+      let rect = portalNode.getBoundingClientRect();
+      top -= rect.top - portalNode.scrollTop;
+      left -= rect.left - portalNode.scrollLeft;
     }
 
     const [arrowBoxSide] = arrowPosition.split('-');
@@ -311,8 +317,8 @@ export default class FirstTimePointOut extends React.Component<
           [arrowPosition]: !!arrowPosition && !noArrow
         })}
         style={style}
-        role={target ? null : 'region'}
-        aria-labelledby={heading ? headingId : null}
+        role={target ? undefined : 'region'}
+        aria-labelledby={heading ? headingId : undefined}
         aria-hidden={!!target}
         ref={el => (this.visibleRef = el)}
       >
@@ -339,11 +345,13 @@ export default class FirstTimePointOut extends React.Component<
             className={classNames('dqpl-content', {
               'dqpl-content-focus-active': offscreenContentFocus
             })}
-            tabIndex={!target ? -1 : null}
+            tabIndex={!target ? -1 : undefined}
             ref={ftpoRef}
           >
             {heading &&
-              React.cloneElement(heading, { id: target ? null : headingId })}
+              React.cloneElement(heading as React.ReactElement<any>, {
+                id: target ? null : headingId
+              })}
             {target ? removeIds(children) : children}
           </div>
           {/* eslint-enable jsx-a11y/no-noninteractive-tabindex */}
@@ -357,7 +365,7 @@ export default class FirstTimePointOut extends React.Component<
           <div
             className="dqpl-offscreen"
             role="region"
-            aria-labelledby={heading ? headingId : null}
+            aria-labelledby={heading ? headingId : undefined}
             ref={el => (this.offscreenRef = el)}
           >
             <button
@@ -367,14 +375,17 @@ export default class FirstTimePointOut extends React.Component<
             />
             <div
               className="dqpl-content"
-              tabIndex="-1"
+              tabIndex={-1}
               ref={el => (this.offscreenContentRef = el)}
             >
-              {heading && React.cloneElement(heading, { id: headingId })}
+              {heading &&
+                React.cloneElement(heading as React.ReactElement<any>, {
+                  id: headingId
+                })}
               {children}
             </div>
           </div>
-          {createPortal(FTPO, portal)}
+          {createPortal(FTPO, portal as HTMLElement)}
         </React.Fragment>
       );
     }
