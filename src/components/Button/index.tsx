@@ -14,7 +14,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
  * NOTE: All other props (i.e. onClick) passed will be applied to the dqpl button element
  * NOTE: to support stuff like refs, avoiding a stateless component
  */
-export default class Button extends React.Component<ButtonProps, {}> {
+export default class Button extends React.Component<ButtonProps> {
   static defaultProps = {
     variant: 'primary',
     buttonRef: () => {}
