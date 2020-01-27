@@ -139,7 +139,7 @@ export default class Toast extends React.Component<ToastProps, ToastState> {
       },
       () => {
         if (type === 'action-needed') {
-          const isolator = new AriaIsolate(this.el);
+          const isolator = new AriaIsolate(this.el as HTMLDivElement);
           tabIndexHandler(false, this.el);
           this.setState({ isolator });
           isolator.activate();

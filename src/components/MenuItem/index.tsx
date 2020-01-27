@@ -5,7 +5,7 @@ import clickLink from './click-link';
 interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
   menuItemRef: RefCallback<HTMLLIElement>;
-  onClick: (e?: React.MouseEvent<HTMLLIElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLLIElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLLIElement>) => void;
   autoClickLink?: boolean;
 }
