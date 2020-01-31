@@ -81,7 +81,10 @@ export default class TextField extends React.Component<
       'aria-describedby': ariaDescribedby,
       ...other
     } = this.props;
-    const Field = multiline ? 'textarea' : 'input';
+    // typescript can't infer the type so it's complaining about
+    // textarea and input props being incompatible
+    // we should probably fix this
+    const Field: any = multiline ? 'textarea' : 'input';
     const inputProps = {
       'aria-describedby': error
         ? tokenList(this.errorId, ariaDescribedby)
