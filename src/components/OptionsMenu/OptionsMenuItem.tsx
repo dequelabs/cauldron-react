@@ -25,7 +25,7 @@ class OptionsMenuItemComponent extends React.Component<OptionsMenuItemProps> {
 
   render() {
     const { handleClick, props } = this;
-    const { menuItemRef, disabled, ...other } = props;
+    const { menuItemRef, disabled, onSelect, ...other } = props;
     return (
       // keydown happens in OptionsMenu which proxies to click
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export interface RadioItem extends React.HTMLAttributes<HTMLInputElement> {
+export interface RadioItem extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 

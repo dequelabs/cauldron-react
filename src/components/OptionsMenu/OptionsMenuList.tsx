@@ -5,7 +5,10 @@ import classnames from 'classnames';
 
 const [up, down, tab, enter, space, esc] = [38, 40, 9, 13, 32, 27];
 
-export interface OptionsMenuListProps extends OptionsMenuProps {}
+export interface OptionsMenuListProps
+  extends Omit<OptionsMenuProps, 'trigger'> {
+  className?: string;
+}
 
 interface OptionsMenuListState {
   itemIndex: number;
@@ -20,8 +23,8 @@ export default class OptionsMenuList extends React.Component<
     onSelect: () => {}
   };
 
-  private itemRefs: Array<React.Ref<HTMLLIElement>>;
-  private menuRef: React.Ref<HTMLUListElement>;
+  private itemRefs: Array<HTMLLIElement | null>;
+  private menuRef: HTMLUListElement | null;
 
   constructor(props: OptionsMenuProps) {
     super(props);
@@ -46,7 +49,7 @@ export default class OptionsMenuList extends React.Component<
     }
   }
 
-  private handleKeyDown = e => {
+  private handleKeyDown = (e: KeyboardEvent) => {
     const { onClose } = this.props;
     const { which, target } = e;
     switch (which) {
@@ -77,7 +80,7 @@ export default class OptionsMenuList extends React.Component<
       case enter:
       case space:
         e.preventDefault();
-        target.click();
+        (target as HTMLElement).click();
 
         break;
       case tab:
@@ -89,7 +92,7 @@ export default class OptionsMenuList extends React.Component<
   private handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const { menuRef, props } = this;
     const { onSelect, onClose } = props;
-    if (menuRef && menuRef.contains(e.target)) {
+    if (menuRef && menuRef.contains(e.target as HTMLElement)) {
       if (!e.defaultPrevented && props.closeOnSelect) {
         onClose();
       }
@@ -97,7 +100,7 @@ export default class OptionsMenuList extends React.Component<
       onSelect(e);
     }
 
-    const link = e.target.querySelector('a');
+    const link = (e.target as HTMLElement).querySelector('a');
     if (link) {
       link.click();
     }
@@ -112,11 +115,11 @@ export default class OptionsMenuList extends React.Component<
 
   componentDidMount() {
     // see https://github.com/dequelabs/cauldron-react/issues/150
-    this.menuRef.addEventListener('keydown', this.handleKeyDown);
+    this.menuRef?.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    this.menuRef.removeEventListener('keydown', this.handleKeyDown);
+    this.menuRef?.removeEventListener('keydown', this.handleKeyDown);
   }
 
   render() {
@@ -135,13 +138,13 @@ export default class OptionsMenuList extends React.Component<
     /* eslint-enable no-unused-vars */
 
     const items = React.Children.toArray(children).map((child, i) => {
-      const { className, ...other } = child.props;
-      return React.cloneElement(child, {
+      const { className, ...other } = (child as React.ReactElement<any>).props;
+      return React.cloneElement(child as React.ReactElement<any>, {
         key: `list-item-${i}`,
         className: classnames('dqpl-options-menuitem', className),
         tabIndex: -1,
         role: 'menuitem',
-        ref: el => (this.itemRefs[i] = el),
+        ref: (el: HTMLLIElement) => (this.itemRefs[i] = el),
         ...other
       });
     });

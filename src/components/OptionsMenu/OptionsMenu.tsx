@@ -9,14 +9,15 @@ export interface OptionsMenuAlignmentProps {
 }
 
 export interface OptionsMenuRenderTriggerProps {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  show: boolean;
+  onClick: (event: Event) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
+  'aria-expanded': boolean;
+  ref: React.RefObject<HTMLElement>;
 }
 
 export interface OptionsMenuProps extends OptionsMenuAlignmentProps {
   id?: string;
-  menuRef?: RefCallback<OptionsMenuList>;
+  menuRef?: RefCallback<HTMLUListElement>;
   trigger: (props: OptionsMenuRenderTriggerProps) => React.ReactNode;
   onClose: () => void;
   onSelect: (e: React.MouseEvent<HTMLElement>) => void;
@@ -42,7 +43,6 @@ export default class OptionsMenu extends Component<
   };
 
   private triggerRef: React.RefObject<HTMLElement>;
-  private menuRef: OptionsMenuList | null;
 
   constructor(props: AllOptionsMenuProps) {
     super(props);
@@ -61,11 +61,11 @@ export default class OptionsMenu extends Component<
     this.triggerRef.current?.focus();
   };
 
-  handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+  handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const { which, target } = event;
     if (which === down) {
       event.preventDefault();
-      (target as HTMLButtonElement).click();
+      (target as HTMLElement).click();
     }
   };
 
@@ -96,8 +96,7 @@ export default class OptionsMenu extends Component<
         })}
         <OptionsMenuList
           show={show}
-          ref={el => {
-            this.menuRef = el;
+          menuRef={el => {
             if (menuRef) {
               menuRef(el);
             }
