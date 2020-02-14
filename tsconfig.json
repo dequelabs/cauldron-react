@@ -9,8 +9,7 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "typeRoots": ["node_modules/@types"],
-    "jsx": "react",
-    "noEmit": true
+    "jsx": "react"
   },
   "include": ["src/**/*", "demo/**/*", "__tests__/**/*"],
   "exclude": ["node_modules"]

@@ -9,9 +9,9 @@
     "build": "npm run build:lib && npm run build:css",
     "build:lib": "babel --out-dir=lib src --extensions '.ts,.tsx'",
     "build:css": "postcss --output=lib/cauldron.css src/index.css",
-    "build:demo": "webpack --bail --config=webpack.config.demo.js",
+    "build:demo": "webpack --bail --config=webpack.config.demo.ts",
     "postbuild:demo": "cp demo/_redirects demo/dist/",
-    "dev": "webpack-dev-server --config=webpack.config.demo.js",
+    "dev": "webpack-dev-server --config=webpack.config.demo.ts",
     "lint": "eslint .",
     "fmt": "prettier --write 'demo/**/*.{css,js}' '{src,test}/**/*.{js,ts,tsx}' *.{js,json,md,ts}",
     "prepublishOnly": "NODE_ENV=production npm run build",
@@ -29,6 +29,7 @@
     "prop-types": "^15.6.0",
     "rc-tooltip": "^3.7.2",
     "react-syntax-highlighter": "^6.1.1",
+    "ts-loader": "^6.2.1",
     "unique-string": "^1.0.0"
   },
   "repository": {

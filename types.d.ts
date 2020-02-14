@@ -218,9 +218,9 @@ export const OptionsMenu: React.ComponentType<OptionsMenuProps>;
 
 interface OptionsMenuItemProps
   extends Pick<
-      React.HTMLAttributes<HTMLLIElement>,
-      Exclude<keyof React.HTMLAttributes<HTMLLIElement>, 'onSelect'>
-    > {
+    React.HTMLAttributes<HTMLLIElement>,
+    Exclude<keyof React.HTMLAttributes<HTMLLIElement>, 'onSelect'>
+  > {
   disabled?: boolean;
   className?: string;
   onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -256,9 +256,9 @@ interface SelectOption {
 
 interface SelectProps
   extends Omit<
-      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onKeyDown'>,
-      'onSelect'
-    > {
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onKeyDown'>,
+    'onSelect'
+  > {
   options: SelectOption[];
   label: string;
   listId: string;
@@ -315,15 +315,15 @@ export class AriaIsolate {
 export const focusableSelector: string;
 
 export const Card: React.ComponentType<React.HTMLAttributes<HTMLDivElement>>;
-export const CardHeader: React.ComponentType<
-  React.HTMLAttributes<HTMLDivElement>
->;
-export const CardContent: React.ComponentType<
-  React.HTMLAttributes<HTMLDivElement>
->;
-export const CardFooter: React.ComponentType<
-  React.HTMLAttributes<HTMLDivElement>
->;
+export const CardHeader: React.ComponentType<React.HTMLAttributes<
+  HTMLDivElement
+>>;
+export const CardContent: React.ComponentType<React.HTMLAttributes<
+  HTMLDivElement
+>>;
+export const CardFooter: React.ComponentType<React.HTMLAttributes<
+  HTMLDivElement
+>>;
 
 interface TextFieldProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -347,9 +347,7 @@ interface ClickOutsideListenerProps {
   touchEvent?: 'touchstart' | 'touchend' | false;
 }
 
-export const ClickOutsideListener: React.ComponentType<
-  ClickOutsideListenerProps
->;
+export const ClickOutsideListener: React.ComponentType<ClickOutsideListenerProps>;
 
 interface ExpandCollapsePanelProps
   extends React.HTMLAttributes<HTMLDivElement> {

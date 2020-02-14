@@ -5,12 +5,12 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
-    [
-      "module-resolver",
-      {
-        "root": ["."]
+    ["module-resolver", {
+      "root": ["."],
+      "alias": {
+        "src": "./src"
       }
-    ],
+    }],
     "transform-export-extensions",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from"

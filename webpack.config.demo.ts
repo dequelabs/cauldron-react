@@ -34,6 +34,11 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
+      },
+      {
         test: /\.css$/,
         use: [
           'style-loader',
@@ -49,6 +54,9 @@ module.exports = {
         loader: 'file-loader?name=public/fonts/[name].[ext]'
       }
     ]
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
   },
   devServer: {
     port: 8000,
