@@ -10,7 +10,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
 const Icon = ({ label, type, className, ...other }: IconProps) => {
   const data = {
     ...other,
-    'aria-hidden': !!label,
+    'aria-hidden': !label,
     className: classNames('fa', type, className)
   };
 

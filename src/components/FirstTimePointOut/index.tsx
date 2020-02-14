@@ -230,10 +230,10 @@ export default class FirstTimePointOut extends React.Component<
     }
 
     const targetNode =
-      (target as React.RefObject<HTMLElement>).current ||
+      (target as React.RefObject<HTMLElement>)?.current ||
       (target as HTMLElement);
     const portalNode =
-      (portal as React.RefObject<HTMLElement>).current ||
+      (portal as React.RefObject<HTMLElement>)?.current ||
       (portal as HTMLElement);
 
     let { top, left, width, height } = targetNode.getBoundingClientRect();
