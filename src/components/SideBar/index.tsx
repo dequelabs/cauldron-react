@@ -143,17 +143,13 @@ export default class SideBar extends Component<SideBarProps, SideBarState> {
             {...listProps}
           >
             {Children.map(children, (child, index) =>
-              cloneElement(
-                (child as React.ReactElement<any>,
-                {
-                  key: index,
-                  // @ts-ignore FIX THIS
-                  onKeyDown: this.onKeyDown,
-                  tabIndex: focusIndex === index ? 0 : -1,
-                  menuItemRef: (menuItem: HTMLElement) =>
-                    (this.menuItems[index] = menuItem)
-                })
-              )
+              cloneElement(child as React.ReactElement<any>, {
+                key: index,
+                onKeyDown: this.onKeyDown,
+                tabIndex: focusIndex === index ? 0 : -1,
+                menuItemRef: (menuItem: HTMLElement) =>
+                  (this.menuItems[index] = menuItem)
+              })
             )}
           </ul>
         </ClickOutsideListener>
