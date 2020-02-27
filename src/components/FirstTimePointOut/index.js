@@ -12,7 +12,10 @@ export default class FirstTimePointOut extends Component {
   static propTypes = {
     heading: PropTypes.node,
     children: PropTypes.node.isRequired,
-    ftpRef: PropTypes.func,
+    ftpRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     noArrow: function(props, propName) {
       if (props[propName] === true && typeof props['target'] !== 'undefined') {
         return new Error(

@@ -10,7 +10,10 @@ const Link = ({ children, linkRef, className, ...other }) => (
 Link.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  linkRef: PropTypes.func
+  linkRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ])
 };
 Link.displayName = 'Link';
 export default Link;

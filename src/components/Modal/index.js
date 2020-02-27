@@ -141,7 +141,10 @@ Modal.propTypes = {
   ...commonProps,
   className: PropTypes.string,
   show: PropTypes.bool,
-  modalRef: PropTypes.func,
+  modalRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ]),
   onClose: PropTypes.func,
   forceAction: PropTypes.bool,
   heading: PropTypes.object.isRequired,

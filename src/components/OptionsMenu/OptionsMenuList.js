@@ -13,7 +13,10 @@ export default class OptionsMenuList extends React.Component {
     className: PropTypes.string,
     onSelect: PropTypes.func,
     closeOnSelect: PropTypes.bool,
-    menuRef: PropTypes.func
+    menuRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   static defaultProps = {

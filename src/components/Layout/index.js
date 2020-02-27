@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 export default class Layout extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    layoutRef: PropTypes.func
+    layoutRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   static defaultProps = {

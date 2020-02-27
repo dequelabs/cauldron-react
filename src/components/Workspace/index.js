@@ -10,8 +10,14 @@ export default class Workspace extends Component {
       PropTypes.object,
       PropTypes.string
     ]).isRequired,
-    workspaceRef: PropTypes.func,
-    layoutRef: PropTypes.func,
+    workspaceRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    layoutRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     noSideBar: PropTypes.bool
   };
 

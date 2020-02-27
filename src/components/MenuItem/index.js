@@ -6,7 +6,10 @@ import clickLink from './click-link';
 export default class MenuItem extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    menuItemRef: PropTypes.func,
+    menuItemRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     autoClickLink: PropTypes.bool
