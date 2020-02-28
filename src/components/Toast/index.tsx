@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AriaIsolate from '../../utils/aria-isolate';
 import { typeMap, tabIndexHandler } from './utils';
 
@@ -25,6 +26,30 @@ export default class Toast extends React.Component<ToastProps, ToastState> {
     onDismiss: () => {},
     toastRef: () => {},
     show: false
+  };
+
+  static propTypes = {
+    // the ui to be added as the message of the toast
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.array
+    ]).isRequired,
+    // "confirmation", "caution", or "action-needed"
+    type: PropTypes.string.isRequired,
+    // function to be exectued when toast is dismissed
+    onDismiss: PropTypes.func,
+    // if provided, should be a number in ms
+    autoHide: PropTypes.number,
+    // text to be added as the aria-label of the "x" dismiss button (default: "Dismiss")
+    dismissText: PropTypes.string,
+    // an optional ref function to get a handle on the toast element
+    toastRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    // whether or not to show the toast
+    show: PropTypes.bool
   };
 
   private el: HTMLDivElement | null;

@@ -1,4 +1,5 @@
 import React, { StyleHTMLAttributes } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import focusable from 'focusable';
@@ -50,6 +51,34 @@ export default class FirstTimePointOut extends React.Component<
     onClose: () => {},
     dismissText: 'dismiss',
     arrowPosition: 'top-left'
+  };
+
+  static propTypes = {
+    heading: PropTypes.node,
+    children: PropTypes.node.isRequired,
+    ftpRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    noArrow: function(
+      props: FirstTimePointOutProps,
+      propName: keyof FirstTimePointOutProps
+    ) {
+      if (props[propName] === true && typeof props['target'] !== 'undefined') {
+        return new Error(
+          'A "target" prop with "noArrow=true" is not currently supported.'
+        );
+      }
+    },
+    arrowPosition: PropTypes.string,
+    onClose: PropTypes.func,
+    dismissText: PropTypes.string,
+    className: PropTypes.string,
+    target: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.instanceOf(__Element) })
+    ]),
+    portal: PropTypes.instanceOf(__Element)
   };
 
   private resizeDebounceId: number;

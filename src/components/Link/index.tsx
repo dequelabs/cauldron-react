@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface LinkProps
@@ -11,5 +12,16 @@ const Link = ({ children, linkRef, className, ...other }: LinkProps) => (
     {children}
   </a>
 );
+
+Link.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  linkRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ])
+};
+
+Link.displayName = 'Link';
 
 export default Link;

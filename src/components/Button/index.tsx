@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -19,6 +20,18 @@ export default class Button extends React.Component<ButtonProps> {
     variant: 'primary',
     buttonRef: () => {}
   };
+
+  static propTypes = {
+    variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
+    children: PropTypes.node,
+    className: PropTypes.string,
+    buttonRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
+  };
+
+  static displayName = 'Button';
 
   render() {
     const { variant, children, className, buttonRef, ...other } = this.props;

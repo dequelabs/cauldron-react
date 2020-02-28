@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import keyname from 'keyname';
 import clickLink from './click-link';
 
@@ -16,6 +17,17 @@ export default class MenuItem extends Component<MenuItemProps> {
     onClick: () => {},
     onKeyDown: () => {},
     autoClickLink: true
+  };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    menuItemRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    autoClickLink: PropTypes.bool
   };
 
   private item: HTMLLIElement | null;

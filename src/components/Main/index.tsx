@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
   mainRef?: Ref<HTMLDivElement>;
@@ -7,6 +8,14 @@ export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
 export default class Main extends Component<MainProps> {
   static defaultProps = {
     mainRef: () => {}
+  };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    mainRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   render() {

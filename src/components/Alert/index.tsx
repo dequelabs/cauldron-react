@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import Scrim from '../Scrim';
 import AriaIsolate from '../../utils/aria-isolate';
@@ -32,6 +33,26 @@ export default class Alert extends React.Component<AlertProps, AlertState> {
     forceAction: false,
     alertRef: noop,
     contentRef: noop
+  };
+
+  static propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.object
+    ]).isRequired,
+    show: PropTypes.bool,
+    contentRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    alertRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    onClose: PropTypes.func,
+    forceAction: PropTypes.bool
   };
 
   private content: HTMLDivElement | null;

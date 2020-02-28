@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { OptionsMenuProps } from './OptionsMenu';
 import ClickOutsideListener from '../ClickOutsideListener';
 import classnames from 'classnames';
@@ -21,6 +22,19 @@ export default class OptionsMenuList extends React.Component<
   static defaultProps = {
     closeOnSelect: true,
     onSelect: () => {}
+  };
+
+  static propTypes = {
+    show: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    onSelect: PropTypes.func,
+    closeOnSelect: PropTypes.bool,
+    menuRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   private itemRefs: Array<HTMLLIElement | null>;

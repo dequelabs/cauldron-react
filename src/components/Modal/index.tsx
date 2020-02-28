@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
 import Offscreen from '../Offscreen';
@@ -33,6 +34,19 @@ export default class Modal extends React.Component<ModalProps, ModalState> {
     forceAction: false,
     closeButtonText: 'Close',
     modalRef: noop
+  };
+
+  static propTypes = {
+    className: PropTypes.string,
+    show: PropTypes.bool,
+    modalRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    onClose: PropTypes.func,
+    forceAction: PropTypes.bool,
+    heading: PropTypes.object.isRequired,
+    closeButtonText: PropTypes.string
   };
 
   private element: HTMLDivElement | null;

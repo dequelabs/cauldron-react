@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import OptionsMenuWrapper from './OptionsMenuWrapper';
 import OptionsMenuList from './OptionsMenuList';
 
@@ -40,6 +41,20 @@ export default class OptionsMenu extends Component<
     onClose: () => {},
     onSelect: () => {},
     align: 'right'
+  };
+
+  static propTypes = {
+    trigger: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func,
+    className: PropTypes.string,
+    onSelect: PropTypes.func,
+    closeOnSelect: PropTypes.bool,
+    menuRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
+    align: PropTypes.oneOf(['left', 'right'])
   };
 
   private triggerRef: React.RefObject<HTMLElement>;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface CheckboxProps
@@ -28,6 +29,21 @@ export default class Checkbox extends React.Component<
     disabled: false,
     onChange: () => {},
     checkboxRef: () => {}
+  };
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
+    value: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+    checkboxRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   constructor(props: CheckboxProps) {
