@@ -56,7 +56,7 @@ export default class Select extends React.Component<SelectProps, SelectState> {
       // I'm not sure what types the validator needs, and these types aren't really used by ts anyway
       (
         options: SelectOption[],
-        key: index,
+        key: number,
         componentName: string,
         location: string,
         propFullName: string
