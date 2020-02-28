@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'error' | 'link';
-  buttonRef?: Ref<HTMLButtonElement>;
+  buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
 /**

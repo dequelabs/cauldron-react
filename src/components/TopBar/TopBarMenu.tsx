@@ -3,6 +3,7 @@ import MenuItem from '../MenuItem';
 import { OptionsMenuList } from '../OptionsMenu';
 import classnames from 'classnames';
 import keyname from 'keyname';
+import setRef from '../../utils/setRef';
 
 export interface TopBarMenuProps
   extends Pick<
@@ -10,7 +11,7 @@ export interface TopBarMenuProps
     Exclude<keyof React.HTMLAttributes<HTMLLIElement>, 'onKeyDown'>
   > {
   onKeyDown: (e: React.KeyboardEvent<HTMLLIElement>) => void;
-  menuItemRef: RefCallback<HTMLLIElement>;
+  menuItemRef: React.Ref<HTMLLIElement>;
 }
 
 interface TopBarMenuState {
@@ -22,7 +23,8 @@ export default class TopBarMenu extends React.Component<
   TopBarMenuState
 > {
   static defaultProps = {
-    onKeyDown: () => {}
+    onKeyDown: () => {},
+    menuItemRef: () => {}
   };
 
   state: TopBarMenuState = {
@@ -82,9 +84,7 @@ export default class TopBarMenu extends React.Component<
         {...other}
         menuItemRef={el => {
           this.menuItemRef = el;
-          if (props.menuItemRef) {
-            props.menuItemRef(el);
-          }
+          setRef(props.menuItemRef, el);
         }}
         aria-controls={id}
         aria-expanded={open}

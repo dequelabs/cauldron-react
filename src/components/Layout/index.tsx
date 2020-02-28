@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
-  layoutRef?: Ref<HTMLDivElement>;
+  layoutRef?: React.Ref<HTMLDivElement>;
 }
 
 export default class Layout extends React.Component<LayoutProps> {

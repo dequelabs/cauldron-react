@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AriaIsolate from '../../utils/aria-isolate';
 import { typeMap, tabIndexHandler } from './utils';
+import setRef from '../../utils/setRef';
 
 export interface ToastProps {
   type: 'confirmation' | 'caution' | 'action-needed';
   onDismiss: () => void;
   autoHide?: number;
   dismissText?: string;
-  toastRef: RefCallback<HTMLDivElement>;
+  toastRef: React.Ref<HTMLDivElement>;
   show?: boolean;
 }
 
@@ -106,8 +107,8 @@ export default class Toast extends React.Component<ToastProps, ToastState> {
           tabIndex={-1}
           className={`dqpl-toast dqpl-toast-${typeMap[type].className} ${animationClass}`}
           ref={el => {
-            toastRef(el);
             this.el = el;
+            setRef(toastRef, el);
           }}
         >
           <div className="dqpl-toast-message">

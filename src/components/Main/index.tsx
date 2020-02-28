@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
-  mainRef?: Ref<HTMLDivElement>;
+  mainRef?: React.Ref<HTMLDivElement>;
 }
 
 export default class Main extends Component<MainProps> {

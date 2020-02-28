@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import rndid from '../../utils/rndid';
 import tokenList from '../../utils/token-list';
+import setRef from '../../utils/setRef';
 
 export interface TextFieldProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -13,7 +14,7 @@ export interface TextFieldProps
     value: string,
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  fieldRef: RefCallback<HTMLInputElement | HTMLTextAreaElement>;
+  fieldRef: React.Ref<HTMLInputElement | HTMLTextAreaElement>;
   requiredText?: string;
   multiline?: boolean;
 }
@@ -135,7 +136,7 @@ export default class TextField extends React.Component<
           aria-invalid={!!error}
           ref={(input: HTMLInputElement | HTMLTextAreaElement | null) => {
             this.input = input;
-            fieldRef(input);
+            setRef(fieldRef, input);
           }}
           {...other}
           {...inputProps}

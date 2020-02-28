@@ -6,12 +6,13 @@ import Offscreen from '../Offscreen';
 import Scrim from '../Scrim';
 import ClickOutsideListener from '../ClickOutsideListener';
 import AriaIsolate from '../../utils/aria-isolate';
+import setRef from '../../utils/setRef';
 
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   show?: boolean;
-  modalRef: RefCallback<HTMLDivElement>;
+  modalRef: React.Ref<HTMLDivElement>;
   onClose: () => void;
   forceAction?: boolean;
   heading: {
@@ -127,7 +128,7 @@ export default class Modal extends React.Component<ModalProps, ModalState> {
             })}
             ref={el => {
               this.element = el;
-              modalRef(el);
+              setRef(modalRef, el);
             }}
             {...other}
           >

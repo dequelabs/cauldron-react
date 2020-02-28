@@ -4,8 +4,8 @@ import Main from '../Main';
 import Layout from '../Layout';
 
 export interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
-  workspaceRef: RefCallback<HTMLDivElement>;
-  layoutRef: RefCallback<HTMLDivElement>;
+  workspaceRef: React.Ref<HTMLDivElement>;
+  layoutRef: React.Ref<HTMLDivElement>;
   noSideBar: boolean;
 }
 

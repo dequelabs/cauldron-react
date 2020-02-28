@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import keyname from 'keyname';
 import clickLink from './click-link';
+import setRef from '../../utils/setRef';
 
 interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
-  menuItemRef: RefCallback<HTMLLIElement>;
+  menuItemRef: React.Ref<HTMLLIElement>;
   onClick: (e: React.MouseEvent<HTMLLIElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLLIElement>) => void;
   autoClickLink?: boolean;
@@ -66,7 +67,7 @@ export default class MenuItem extends Component<MenuItemProps> {
         role="menuitem"
         ref={item => {
           this.item = item;
-          menuItemRef(item);
+          setRef(menuItemRef, item);
         }}
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}

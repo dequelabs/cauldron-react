@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import setRef from '../../utils/setRef';
 
 export interface CheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -10,7 +11,7 @@ export interface CheckboxProps
   value: string;
   checked: boolean;
   onChange: (e: React.FormEvent<HTMLInputElement>, checked: boolean) => void;
-  checkboxRef: RefCallback<HTMLInputElement>;
+  checkboxRef: React.Ref<HTMLInputElement>;
 }
 
 interface CheckboxState {
@@ -112,7 +113,7 @@ export default class Checkbox extends React.Component<
           onBlur={this.toggleFocus}
           ref={checkbox => {
             this.checkbox = checkbox;
-            this.props.checkboxRef(checkbox);
+            setRef(this.props.checkboxRef, checkbox);
           }}
         />
         <div

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface OptionsMenuTriggerProps
   extends React.HTMLAttributes<HTMLButtonElement> {
-  triggerRef?: Ref<HTMLButtonElement>;
+  triggerRef?: React.Ref<HTMLButtonElement>;
 }
 
 /**

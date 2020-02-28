@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { OptionsMenuProps } from './OptionsMenu';
 import ClickOutsideListener from '../ClickOutsideListener';
 import classnames from 'classnames';
+import setRef from '../../utils/setRef';
 
 const [up, down, tab, enter, space, esc] = [38, 40, 9, 13, 32, 27];
 
@@ -178,7 +179,7 @@ export default class OptionsMenuList extends React.Component<
           ref={el => {
             this.menuRef = el;
             if (menuRef) {
-              menuRef(el);
+              setRef(menuRef, el);
             }
           }}
         >

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import Scrim from '../Scrim';
 import AriaIsolate from '../../utils/aria-isolate';
+import setRef from '../../utils/setRef';
 
 const noop = () => {};
-export const Actions = ({ children }: { children: React.ReactNode }) => (
+export const Actions = ({ children }: PropsWithChildren<{}>) => (
   <div className="dqpl-buttons">{children}</div>
 );
 
@@ -13,8 +14,8 @@ export interface AlertProps {
   children: React.ReactNode;
   className?: string;
   show?: boolean;
-  contentRef: RefCallback<HTMLDivElement>;
-  alertRef: RefCallback<HTMLDivElement>;
+  contentRef: React.Ref<HTMLDivElement>;
+  alertRef: React.Ref<HTMLDivElement>;
   onClose: () => void;
   forceAction: boolean;
 }
@@ -125,14 +126,14 @@ export default class Alert extends React.Component<AlertProps, AlertState> {
           role="alertdialog"
           ref={el => {
             this.element = el;
-            alertRef(el);
+            setRef(alertRef, el);
           }}
         >
           <div
             className="dqpl-dialog-inner"
             ref={el => {
               this.content = el;
-              contentRef(el);
+              setRef(contentRef, el);
             }}
             tabIndex={-1}
           >

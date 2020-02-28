@@ -7,7 +7,7 @@ export interface OptionsMenuItemProps
   > {
   disabled?: boolean;
   className?: string;
-  menuItemRef?: Ref<HTMLLIElement>;
+  menuItemRef?: React.Ref<HTMLLIElement>;
   onSelect: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
@@ -42,7 +42,7 @@ class OptionsMenuItemComponent extends React.Component<OptionsMenuItemProps> {
 
 export default React.forwardRef(function OptionsMenuItem(
   props: OptionsMenuItemProps,
-  ref: Ref<HTMLLIElement>
+  ref: React.Ref<HTMLLIElement>
 ) {
   return <OptionsMenuItemComponent menuItemRef={ref} {...props} />;
 });

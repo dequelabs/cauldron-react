@@ -24,7 +24,7 @@ export interface FirstTimePointOutProps {
   className: string;
   headerId: string;
   children: React.ReactNode;
-  ftpoRef: RefCallback<HTMLElement>;
+  ftpoRef: React.Ref<HTMLDivElement>;
   noArrow?: boolean;
   onClose: () => void;
   dismissText?: string;

@@ -8,7 +8,7 @@ const noop = () => {};
 interface TopBarTriggerProps {
   onClick: (e: React.MouseEvent<HTMLLIElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLLIElement>) => void;
-  menuItemRef?: RefCallback<HTMLLIElement>;
+  menuItemRef?: React.Ref<HTMLLIElement>;
 }
 
 export default class TopBarTrigger extends React.Component<TopBarTriggerProps> {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import OptionsMenuWrapper from './OptionsMenuWrapper';
 import OptionsMenuList from './OptionsMenuList';
+import setRef from '../../utils/setRef';
 
 const [down] = [40];
 
@@ -18,7 +19,7 @@ export interface OptionsMenuRenderTriggerProps {
 
 export interface OptionsMenuProps extends OptionsMenuAlignmentProps {
   id?: string;
-  menuRef?: RefCallback<HTMLUListElement>;
+  menuRef?: React.Ref<HTMLUListElement>;
   trigger: (props: OptionsMenuRenderTriggerProps) => React.ReactNode;
   onClose: () => void;
   onSelect: (e: React.MouseEvent<HTMLElement>) => void;
@@ -113,7 +114,7 @@ export default class OptionsMenu extends Component<
           show={show}
           menuRef={el => {
             if (menuRef) {
-              menuRef(el);
+              setRef(menuRef, el);
             }
           }}
           onClose={this.handleClose}
