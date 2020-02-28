@@ -39,8 +39,6 @@ interface FirstTimePointOutState {
   offscreenContentFocus?: boolean;
 }
 
-const __Element = typeof Element === 'undefined' ? function() {} : Element;
-
 export default class FirstTimePointOut extends React.Component<
   FirstTimePointOutProps,
   FirstTimePointOutState
@@ -76,9 +74,9 @@ export default class FirstTimePointOut extends React.Component<
     className: PropTypes.string,
     target: PropTypes.oneOfType([
       PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(__Element) })
+      PropTypes.shape({ current: PropTypes.any })
     ]),
-    portal: PropTypes.instanceOf(__Element)
+    portal: PropTypes.any
   };
 
   private resizeDebounceId: number;
