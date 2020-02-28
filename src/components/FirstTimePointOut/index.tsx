@@ -21,7 +21,7 @@ export interface FirstTimePointOutProps {
     | 'left-middle'
     | 'left-top';
   heading?: React.ReactNode;
-  className: string;
+  className?: string;
   headerId: string;
   children: React.ReactNode;
   ftpoRef: React.Ref<HTMLDivElement>;

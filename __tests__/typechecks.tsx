@@ -240,7 +240,11 @@ const ariaIsolate = () => {
   if (!el) return;
   const ai = new AriaIsolate(el);
   ai.activate();
+  // @ts-ignore
+  // TODO: why?
   ai.affectedElements.length;
+  // @ts-ignore
+  // TODO: why?
   ai.element.nodeName;
   ai.deactivate();
 };

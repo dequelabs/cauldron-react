@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { OptionsMenu } from '../..';
 
 export interface OptionsMenuTriggerProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -36,7 +37,7 @@ OptionsMenuTriggerComponent.propTypes = {
 };
 
 export default React.forwardRef(function OptionsMenuTrigger(
-  props,
+  props: OptionsMenuTriggerProps,
   ref: React.Ref<HTMLButtonElement>
 ) {
   return <OptionsMenuTriggerComponent {...props} triggerRef={ref} />;

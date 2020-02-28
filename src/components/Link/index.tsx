@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  linkRef: React.Ref<HTMLAnchorElement>;
+  linkRef?: React.Ref<HTMLAnchorElement>;
 }
 
 const Link = ({ children, linkRef, className, ...other }: LinkProps) => (

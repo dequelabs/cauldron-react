@@ -5,6 +5,7 @@ import classNames from 'classnames';
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'error' | 'link';
   buttonRef?: React.Ref<HTMLButtonElement>;
+  disabled?: boolean; // todo, investigate why disabled is needed
 }
 
 /**
