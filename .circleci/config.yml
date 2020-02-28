@@ -23,6 +23,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+      - run: yarn build:lib # needed for ts types
       - run: yarn test
       - run: yarn test:ts
   canary_release:
