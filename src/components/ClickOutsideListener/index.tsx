@@ -1,4 +1,5 @@
 import React from 'react';
+import setRef from '../../utils/setRef';
 
 export interface ClickOutsideListenerProps {
   children: React.ReactNode;
@@ -72,14 +73,11 @@ export default class ClickOutsideListener extends React.Component<
   resolveRef = (node: HTMLElement) => {
     this.nodeRef = node;
 
+    setRef;
     // If child has its own ref, we want to update
     // its ref with the newly cloned node
-    let { ref } = this.props.children as any;
-    if (typeof ref === 'function') {
-      ref(node);
-    } else if (ref !== null) {
-      ref.current = node;
-    }
+    let { ref } = this.props.children as React.ReactElement<any>;
+    setRef(ref, node);
   };
 
   render() {
