@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import setRef from '../../utils/setRef';
 
 export interface ClickOutsideListenerProps {
@@ -14,6 +15,13 @@ export default class ClickOutsideListener extends React.Component<
   static defaultProps = {
     mouseEvent: 'click',
     touchEvent: 'touchend'
+  };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onClickOutside: PropTypes.func.isRequired,
+    mouseEvent: PropTypes.oneOf(['mousedown', 'click', 'mouseup', false]),
+    touchEvent: PropTypes.oneOf(['touchstart', 'touchend', false])
   };
 
   private nodeRef: HTMLElement | null;
@@ -76,13 +84,13 @@ export default class ClickOutsideListener extends React.Component<
     setRef;
     // If child has its own ref, we want to update
     // its ref with the newly cloned node
-    let { ref } = this.props.children as React.ReactElement<any>;
+    let { ref } = this.props.children as any;
     setRef(ref, node);
   };
 
   render() {
     const { props, resolveRef } = this;
-    return React.cloneElement(props.children as React.ReactElement<any>, {
+    return React.cloneElement(props.children as any, {
       ref: resolveRef
     });
   }

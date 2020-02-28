@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PanelTrigger from './PanelTrigger';
 import {
@@ -29,6 +30,14 @@ export default class ExpandCollapsePanel extends React.Component<
   static defaultProps = {
     animationTiming: 250,
     onToggle: () => {}
+  };
+
+  static propTypes = {
+    open: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    animationTiming: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+    onToggle: PropTypes.func
   };
 
   readonly state: ExpandCollapsePanelState = {

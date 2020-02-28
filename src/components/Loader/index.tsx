@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,5 +15,10 @@ export default function Loader({ label, className, ...other }: LoaderProps) {
   };
   return <div {...props} />;
 }
+
+Loader.propTypes = {
+  label: PropTypes.string,
+  className: PropTypes.string
+};
 
 Loader.displayName = 'Loader';

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export interface OptionsMenuItemProps
   extends Pick<
@@ -14,6 +15,12 @@ export interface OptionsMenuItemProps
 class OptionsMenuItemComponent extends React.Component<OptionsMenuItemProps> {
   static defaultProps = {
     onSelect: () => {}
+  };
+
+  static propTypes = {
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    onSelect: PropTypes.func
   };
 
   handleClick = (event: React.MouseEvent<HTMLElement>) => {

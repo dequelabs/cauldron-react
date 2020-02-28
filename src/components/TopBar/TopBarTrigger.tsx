@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import keyname from 'keyname';
 import MenuItem from '../MenuItem';
 import Icon from '../Icon';
@@ -15,6 +16,11 @@ export default class TopBarTrigger extends React.Component<TopBarTriggerProps> {
   static defaultProps = {
     onClick: noop,
     onKeyDown: noop
+  };
+
+  static propTypes = {
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func
   };
 
   constructor(props: TopBarTriggerProps) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface RadioItem extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -26,6 +27,31 @@ export default class RadioGroup extends React.Component<
     className: '',
     defaultValue: null,
     onChange: () => {}
+  };
+
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    radios: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    hasLabel: (
+      props: { [key: string]: string },
+      propName: string,
+      componentName: string
+    ) => {
+      if (!props['aria-label'] && !props['aria-labelledby']) {
+        return new Error(
+          `${componentName} must have an "aria-label" or "aria-labelledby" prop`
+        );
+      }
+    },
+    className: PropTypes.string,
+    defaultValue: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   private inputs: HTMLInputElement[] = [];

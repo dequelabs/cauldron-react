@@ -1,4 +1,5 @@
 import React, { Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import keyname from 'keyname';
 import { isWide } from '../../utils/viewport';
@@ -16,6 +17,12 @@ export default class TopBar extends React.Component<TopBarProps, TopBarState> {
   static defaultProps = {
     className: '',
     hasTrigger: false
+  };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    hasTrigger: PropTypes.bool
   };
 
   private menuItems: HTMLLIElement[] = [];

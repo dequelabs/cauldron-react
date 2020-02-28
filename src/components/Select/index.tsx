@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import keyname from 'keyname';
 import rndid from '../../utils/rndid';
@@ -46,6 +47,34 @@ export default class Select extends React.Component<SelectProps, SelectState> {
     onKeyDown: () => {},
     onSelect: () => {},
     value: null
+  };
+
+  static propTypes = {
+    // ensure options is an array of objects with at least a "value" property
+    options: PropTypes.arrayOf(
+      // @ts-ignore
+      // I'm not sure what types the validator needs, and these types aren't really used by ts anyway
+      (
+        options: SelectOption[],
+        key: index,
+        componentName: string,
+        location: string,
+        propFullName: string
+      ) => {
+        const option = options[key];
+        if (!option.value) {
+          return new Error(
+            `Invalid prop ${propFullName} supplied to ${componentName}`
+          );
+        }
+      }
+    ).isRequired,
+    label: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    onKeyDown: PropTypes.func,
+    required: PropTypes.bool,
+    onSelect: PropTypes.func,
+    value: PropTypes.string
   };
 
   state: SelectState = { expanded: false };

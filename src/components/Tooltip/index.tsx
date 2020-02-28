@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RcTooltip from 'rc-tooltip';
 
 export interface TooltipProps {
@@ -26,5 +27,12 @@ export default function Tooltip({
     </RcTooltip>
   );
 }
+
+Tooltip.propTypes = {
+  children: PropTypes.node.isRequired,
+  overlay: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
+  placement: PropTypes.string
+};
 
 Tooltip.defaultProps = { placement: 'top' };

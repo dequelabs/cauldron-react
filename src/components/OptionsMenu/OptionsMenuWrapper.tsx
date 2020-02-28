@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { OptionsMenuAlignmentProps } from './OptionsMenu';
 
@@ -32,5 +33,11 @@ const OptionsMenuWrapper = ({
     {...other}
   />
 );
+
+OptionsMenuWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  align: PropTypes.oneOf(['left', 'right'])
+};
 
 export default OptionsMenuWrapper;

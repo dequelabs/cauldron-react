@@ -1,4 +1,5 @@
 import React, { Component, Children, cloneElement, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import keyname from 'keyname';
 import Scrim from '../Scrim';
@@ -22,6 +23,13 @@ export default class SideBar extends Component<SideBarProps, SideBarState> {
   static defaultProps = {
     className: '',
     show: false
+  };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onDismiss: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    show: PropTypes.bool
   };
 
   private menuItems: HTMLElement[] = [];

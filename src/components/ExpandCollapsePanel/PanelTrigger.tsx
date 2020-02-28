@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Icon from '../Icon';
 
@@ -32,5 +33,12 @@ function PanelTrigger({
     </button>
   );
 }
+
+PanelTrigger.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  open: PropTypes.bool,
+  onClick: PropTypes.func,
+  className: PropTypes.string
+};
 
 export default React.memo(PanelTrigger);

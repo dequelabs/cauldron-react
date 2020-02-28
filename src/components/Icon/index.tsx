@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,6 +20,12 @@ const Icon = ({ label, type, className, ...other }: IconProps) => {
   }
 
   return <div {...data} />;
+};
+
+Icon.propTypes = {
+  label: PropTypes.string,
+  className: PropTypes.string,
+  type: PropTypes.string.isRequired
 };
 
 export default Icon;

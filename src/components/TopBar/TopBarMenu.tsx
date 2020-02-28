@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MenuItem from '../MenuItem';
 import { OptionsMenuList } from '../OptionsMenu';
 import classnames from 'classnames';
@@ -25,6 +26,11 @@ export default class TopBarMenu extends React.Component<
   static defaultProps = {
     onKeyDown: () => {},
     menuItemRef: () => {}
+  };
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired
   };
 
   state: TopBarMenuState = {
