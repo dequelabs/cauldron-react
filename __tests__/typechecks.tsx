@@ -35,7 +35,7 @@ import {
   ExpandCollapsePanel,
   PanelTrigger,
   TopBarMenu
-} from '../';
+} from '../src';
 
 const noop = () => {};
 const noopEventHandler = (e: any) => {};
