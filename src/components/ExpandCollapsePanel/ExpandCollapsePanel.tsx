@@ -31,12 +31,12 @@ export default class ExpandCollapsePanel extends React.Component<
     onToggle: () => {}
   };
 
-  state: ExpandCollapsePanelState = {
+  readonly state: ExpandCollapsePanelState = {
     controlled: typeof this.props.open !== 'undefined',
     isOpen: typeof this.props.open !== 'undefined' ? this.props.open : false
   };
 
-  panel = React.createRef<HTMLDivElement>();
+  private panel = React.createRef<HTMLDivElement>();
 
   private styleTag: HTMLStyleElement;
 
