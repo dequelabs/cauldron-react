@@ -23,7 +23,10 @@ export default class Toast extends Component {
     // text to be added as the aria-label of the "x" dismiss button (default: "Dismiss")
     dismissText: PropTypes.string,
     // an optional ref function to get a handle on the toast element
-    toastRef: PropTypes.func,
+    toastRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     // whether or not to show the toast
     show: PropTypes.bool
   };

@@ -12,7 +12,10 @@ export default class TextField extends Component {
     defaultValue: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    fieldRef: PropTypes.func,
+    fieldRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     required: PropTypes.bool,
     requiredText: PropTypes.string, // support localized required text
     multiline: PropTypes.bool,

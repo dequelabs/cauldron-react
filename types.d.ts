@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-type RefCallback = (ref: any) => void;
-
 type Ref<T> = React.RefObject<T> | T;
 
 interface WorkspaceProps {
   children: React.ReactNode;
-  workspaceRef?: RefCallback;
-  layoutRef?: RefCallback;
+  workspaceRef?: React.Ref<HTMLDivElement>;
+  layoutRef?: React.Ref<HTMLDivElement>;
   noSideBar?: boolean;
 }
 
@@ -15,14 +13,14 @@ export const Workspace: React.ComponentType<WorkspaceProps>;
 
 interface LayoutProps {
   children: React.ReactNode;
-  layoutRef?: RefCallback;
+  layoutRef?: React.Ref<HTMLDivElement>;
 }
 
 export const Layout: React.ComponentType<LayoutProps>;
 
 interface MainProps {
   children: React.ReactNode;
-  mainRef?: RefCallback;
+  mainRef?: React.Ref<HTMLDivElement>;
 }
 
 export const Main: React.ComponentType<MainProps>;
@@ -49,7 +47,7 @@ export const Scrim: React.ComponentType<ScrimProps>;
 
 interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
-  menuItemRef?: RefCallback;
+  menuItemRef?: React.Ref<HTMLLIElement>;
   onClick?: () => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLLIElement>) => void;
   autoClickLink?: boolean;
@@ -68,7 +66,7 @@ export const TopBar: React.ComponentType<TopBarProps>;
 interface TopBarTriggerProps {
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLLIElement>) => void;
-  menuItemRef?: RefCallback;
+  menuItemRef?: React.Ref<HTMLLIElement>;
 }
 
 export const TopBarTrigger: React.ComponentType<TopBarTriggerProps>;
@@ -86,8 +84,8 @@ interface AlertProps {
   className?: string;
   children: React.ReactNode;
   show?: boolean;
-  contentRef?: RefCallback;
-  alertRef?: RefCallback;
+  contentRef?: React.Ref<HTMLDivElement>;
+  alertRef?: React.Ref<HTMLDivElement>;
   onClose?: () => void;
   forceAction?: boolean;
 }
@@ -104,7 +102,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   show?: boolean;
-  modalRef?: RefCallback;
+  modalRef?: React.Ref<HTMLDivElement>;
   onClose?: () => void;
   forceAction?: boolean;
   heading: {
@@ -140,7 +138,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'error' | 'link';
   children: React.ReactNode;
   className?: string;
-  buttonRef?: RefCallback;
+  buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export const Button: React.ComponentType<ButtonProps>;
@@ -161,7 +159,7 @@ interface FirstTimePointOutProps {
     | 'left-top';
   headerId: string;
   children: React.ReactNode;
-  ftpRef?: RefCallback;
+  ftpRef?: React.Ref<HTMLDivElement>;
   noArrow?: boolean;
   onClose?: () => void;
   dismissText?: string;
@@ -177,7 +175,7 @@ interface ToastProps {
   onDismiss?: () => void;
   autoHide?: number;
   dismissText?: string;
-  toastRef?: RefCallback;
+  toastRef?: React.Ref<HTMLDivElement>;
   show?: boolean;
 }
 
@@ -198,7 +196,7 @@ export const Loader: React.ComponentType<LoaderProps>;
 interface OptionsMenuRenderTriggerProps {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
   show: boolean;
-  ref: RefCallback;
+  ref: React.Ref<HTMLElement>;
   onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
 }
 
@@ -206,7 +204,7 @@ interface OptionsMenuProps extends OptionsMenuAlignmentProps {
   children: React.ReactNode;
   id?: string;
   className?: string;
-  menuRef?: RefCallback;
+  menuRef?: React.Ref<HTMLUListElement>;
   trigger: (props: OptionsMenuRenderTriggerProps) => React.ReactNode;
   onClose?: () => void;
   onSelect?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -229,7 +227,7 @@ interface OptionsMenuItemProps
 export const OptionsMenuItem: React.ComponentType<OptionsMenuItemProps>;
 
 interface OptionsMenuTriggerProps {
-  ref?: RefCallback;
+  ref?: React.Ref<HTMLButtonElement>;
   className?: string;
 }
 
@@ -299,7 +297,7 @@ interface CheckboxProps
   checked?: boolean;
   className?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>, checked: boolean) => void;
-  checkboxRef?: RefCallback;
+  checkboxRef?: React.Ref<HTMLInputElement>;
 }
 
 export const Checkbox: React.ComponentType<CheckboxProps>;
@@ -331,7 +329,7 @@ interface TextFieldProps
   error?: React.ReactNode;
   defaultValue?: string;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
-  fieldRef?: RefCallback;
+  fieldRef?: React.Ref<HTMLInputElement> | React.Ref<HTMLTextAreaElement>;
   requiredText?: string;
   multiline?: boolean;
 }

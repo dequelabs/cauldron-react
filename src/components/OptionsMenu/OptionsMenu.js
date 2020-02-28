@@ -13,7 +13,10 @@ export default class OptionsMenu extends Component {
     className: PropTypes.string,
     onSelect: PropTypes.func,
     closeOnSelect: PropTypes.bool,
-    menuRef: PropTypes.func,
+    menuRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ]),
     align: PropTypes.oneOf(['left', 'right'])
   };
 

@@ -12,7 +12,10 @@ export default class Checkbox extends Component {
     disabled: PropTypes.bool,
     className: PropTypes.string,
     onChange: PropTypes.func,
-    checkboxRef: PropTypes.func
+    checkboxRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any })
+    ])
   };
 
   static defaultProps = {

@@ -35,7 +35,10 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['primary', 'secondary', 'error', 'link']),
   children: PropTypes.node,
   className: PropTypes.string,
-  buttonRef: PropTypes.func
+  buttonRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ])
 };
 Button.displayName = 'Button';
 Button.defaultProps = {

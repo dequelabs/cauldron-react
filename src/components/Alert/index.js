@@ -127,8 +127,14 @@ Alert.propTypes = {
     PropTypes.object
   ]).isRequired,
   show: PropTypes.bool,
-  contentRef: PropTypes.func,
-  alertRef: PropTypes.func,
+  contentRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ]),
+  alertRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ]),
   onClose: PropTypes.func,
   forceAction: PropTypes.bool
 };

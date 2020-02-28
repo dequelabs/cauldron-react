@@ -40,17 +40,20 @@ const noop = () => {};
 const noopEventHandler = (e: any) => {};
 const noopRef = (ref: any) => {};
 
-const alert = () => (
-  <Alert
-    alertRef={noopRef}
-    className="hello"
-    contentRef={noopRef}
-    show={false}
-    forceAction={true}
-  >
-    Hello!
-  </Alert>
-);
+const alert = () => {
+  const alertRef = React.useRef<HTMLDivElement>(null);
+  return (
+    <Alert
+      alertRef={alertRef}
+      className="hello"
+      contentRef={noopRef}
+      show={false}
+      forceAction={true}
+    >
+      Hello!
+    </Alert>
+  );
+};
 
 const alertActions = () => <AlertActions>Hi</AlertActions>;
 
