@@ -31,7 +31,8 @@ export {
   default as OptionsMenu,
   OptionsMenuList,
   OptionsMenuItem,
-  OptionsMenuTrigger
+  OptionsMenuTrigger,
+  OptionsMenuWrapper
 } from './components/OptionsMenu';
 export { default as Select } from './components/Select';
 export { default as RadioGroup } from './components/RadioGroup';
@@ -49,6 +50,7 @@ export {
   default as ExpandCollapsePanel,
   PanelTrigger
 } from './components/ExpandCollapsePanel';
+export { default as Sidebar } from './components/SideBar';
 /**
  * Helpers / Utils
  */

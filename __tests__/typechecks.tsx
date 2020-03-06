@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-// TODO: figure out why optionsmenuwrapper and sidebar aren't available
 import {
   Alert,
   AlertActions,
@@ -18,11 +17,11 @@ import {
   OptionsMenu,
   OptionsMenuItem,
   OptionsMenuTrigger,
-  // OptionsMenuWrapper,
+  OptionsMenuWrapper,
   RadioGroup,
   Scrim,
   Select,
-  // Sidebar,
+  Sidebar,
   SkipLink,
   Toast,
   TopBar,
@@ -142,11 +141,11 @@ const modal = () => (
 
 const offscreen = () => <Offscreen className="bananas">offscreen</Offscreen>;
 
-// const optionsWrapper = () => {
-//   <OptionsMenuWrapper align="left">
-//     <div />
-//   </OptionsMenuWrapper>;
-// };
+const optionsWrapper = () => {
+  <OptionsMenuWrapper align="left">
+    <div />
+  </OptionsMenuWrapper>;
+};
 
 const optionsTrigger = () => {
   <OptionsMenuTrigger>hi</OptionsMenuTrigger>;
@@ -200,11 +199,11 @@ const select = () => (
   />
 );
 
-// const sidebar = () => (
-//   <Sidebar onDismiss={noop} className="hi" show>
-//     hello
-//   </Sidebar>
-// );
+const sidebar = () => (
+  <Sidebar onDismiss={noop} className="hi" show>
+    hello
+  </Sidebar>
+);
 
 const skiplink = () => (
   <SkipLink skipText="hi" target="hello" targetText="bye">
