@@ -4,7 +4,7 @@
   "description": "Fully accessible react components library for Deque Cauldron",
   "main": "lib/index.js",
   "style": "lib/cauldron.css",
-  "typings": "types.d.ts",
+  "types": "lib/src/index.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:css",
     "build:lib": "babel --out-dir=lib src --extensions '.ts,.tsx'",
