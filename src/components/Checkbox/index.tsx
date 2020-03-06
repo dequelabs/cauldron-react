@@ -47,6 +47,8 @@ export default class Checkbox extends React.Component<
     ])
   };
 
+  static displayName = 'Checkbox';
+
   constructor(props: CheckboxProps) {
     super(props);
     this.state = { checked: this.props.checked, focused: false };

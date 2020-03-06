@@ -53,6 +53,8 @@ export default class Toast extends React.Component<ToastProps, ToastState> {
     show: PropTypes.bool
   };
 
+  static displayName = 'Toast';
+
   private el: HTMLDivElement | null;
 
   constructor(props: ToastProps) {
