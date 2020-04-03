@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Highlight from '../../../Highlight';
-import { Button, Alert, AlertActions } from 'src/';
+import { Button, Alert, AlertActions, Code } from 'src/';
 
 export default class Demo extends Component {
   constructor() {
@@ -28,7 +27,7 @@ export default class Demo extends Component {
           </AlertActions>
         </Alert>
         <h2>{'Code Sample'}</h2>
-        <Highlight langauge="javascript">
+        <Code langauge="javascript">
           {`
 import React, { Component } from 'react';
 import { Button, Alert, AlertActions } from 'cauldron-react';
@@ -66,7 +65,7 @@ class Demo extends Component {
   }
 }
           `}
-        </Highlight>
+        </Code>
       </div>
     );
   }

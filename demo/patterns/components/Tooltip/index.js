@@ -1,6 +1,5 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
-import { Tooltip, Button } from 'src/';
+import { Tooltip, Button, Code } from 'src/';
 import './index.css';
 
 const Demo = () => (
@@ -62,7 +61,7 @@ const Demo = () => (
       , so you do not have to worry about offscreen tooltips!
     </p>
     <h2>Code Sample</h2>
-    <Highlight language="javascript">
+    <Code language="javascript">
       {`
 import React from 'react';
 import { Tooltip, Button } from 'cauldron-react';
@@ -77,7 +76,7 @@ const Demo = () => (
   </Tooltip>
 );
       `}
-    </Highlight>
+    </Code>
   </div>
 );
 

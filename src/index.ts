@@ -51,6 +51,8 @@ export {
   PanelTrigger
 } from './components/ExpandCollapsePanel';
 export { default as Sidebar } from './components/SideBar';
+export { default as Code } from './components/Code';
+
 /**
  * Helpers / Utils
  */

@@ -1,6 +1,5 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
-import { Card, CardHeader, CardContent, CardFooter } from 'src/';
+import { Card, CardHeader, CardContent, CardFooter, Code } from 'src/';
 import './index.css';
 
 const Demo = () => (
@@ -17,7 +16,7 @@ const Demo = () => (
       <CardFooter>Footer content</CardFooter>
     </Card>
     <h2>Code Sample</h2>
-    <Highlight language="javascript">
+    <Code language="javascript">
       {`
 import React from 'react';
 import {
@@ -41,7 +40,7 @@ const Demo = () => (
   </Card>
 );
       `}
-    </Highlight>
+    </Code>
   </div>
 );
 

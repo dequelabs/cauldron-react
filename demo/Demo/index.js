@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import jsxStringify from 'react-element-to-jsx-string';
-import Highlight from '../Highlight';
+import { Code } from '../../src/';
 import './index.css';
 
 const stringifyConfig = {
@@ -24,9 +24,7 @@ class Demo extends Component {
     return (
       <div className="Demo">
         <h1>{displayName}</h1>
-        <Highlight>
-          {`import { ${displayName} } from 'cauldron-react'`}
-        </Highlight>
+        <Code>{`import { ${displayName} } from 'cauldron-react'`}</Code>
         {states.length ? (
           <div className="Demo-states">
             <h2>Examples</h2>
@@ -47,11 +45,11 @@ class Demo extends Component {
                   {DEMO_renderBefore}
                   <Component {...thinState} />
                   {DEMO_renderAfter}
-                  <Highlight>
+                  <Code>
                     {`${componentMarkup}${
                       afterMarkup ? `\n${afterMarkup}` : ''
                     }`}
-                  </Highlight>
+                  </Code>
                 </div>
               );
             })}

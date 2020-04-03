@@ -53,6 +53,7 @@
     "@types/classnames": "^2.2.9",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "@types/react-syntax-highlighter": "^11.0.4",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "autoprefixer": "^9.3.1",
