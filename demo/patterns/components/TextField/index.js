@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Highlight from '../../../Highlight';
-import { TextField, Button } from 'src/';
+import { TextField, Button, Code } from 'src/';
 import './index.css';
 
 export default class Demo extends Component {
@@ -46,7 +45,7 @@ export default class Demo extends Component {
           <Button type="submit">Submit</Button>
         </form>
         <h2>Code Sample</h2>
-        <Highlight language="javascript">
+        <Code language="javascript">
           {`
 import React from 'react';
 import {
@@ -89,7 +88,7 @@ export default class Demo extends Component {
   }
 }
       `}
-        </Highlight>
+        </Code>
       </div>
     );
   }

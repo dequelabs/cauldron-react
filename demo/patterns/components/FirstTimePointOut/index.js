@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Highlight from '../../../Highlight';
-import { FirstTimePointOut } from 'src/';
+import { FirstTimePointOut, Code } from 'src/';
 
 const Demo = () => {
   const buttonRef = React.createRef();
@@ -29,11 +28,11 @@ const Demo = () => {
       >
         <p>This is a first time point out with a pointer</p>
       </FirstTimePointOut>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`<FirstTimePointOut heading={<h4>First time point out!</h4>} dismissText="Close">
   <p>This is a first time point out with a pointer</p>
 </FirstTimePointOut>`}
-      </Highlight>
+      </Code>
 
       <h3>With Positioned Arrow</h3>
       <FirstTimePointOut
@@ -43,7 +42,7 @@ const Demo = () => {
       >
         <p>This is a first time point out with a positioned pointer</p>
       </FirstTimePointOut>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`<FirstTimePointOut
   heading={<h4>First time point out!</h4>}
   dismissText="Close"
@@ -51,20 +50,18 @@ const Demo = () => {
 >
   <p>This is a first time point out with a positioned pointer</p>
 </FirstTimePointOut>`}
-      </Highlight>
+      </Code>
 
       <h3>Without Arrow</h3>
-      <FirstTimePointOut
-        noArrow={true}
-      >
+      <FirstTimePointOut noArrow={true}>
         <p>This is a first time point out without a pointer</p>
       </FirstTimePointOut>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`<FirstTimePointOut noArrow={true}>
   <h4>First time point out!</h4>
   <p>This is a first time point out without a pointer</p>
 </FirstTimePointOut>`}
-      </Highlight>
+      </Code>
 
       <h3>Targeted First Time Point Outs</h3>
       <p>
@@ -116,7 +113,7 @@ const Demo = () => {
       >
         <p>This is a first time point out pointing to an element target.</p>
       </FirstTimePointOut>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`function TargetedFTPO() {
   const buttonRef = React.createRef();
   return (
@@ -128,7 +125,7 @@ const Demo = () => {
     </div>
   );
 }`}
-      </Highlight>
+      </Code>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Highlight from '../../../Highlight';
-import { RadioGroup } from 'src/';
+import { RadioGroup, Code } from 'src/';
 
 export default class Demo extends Component {
   render() {
@@ -20,7 +19,7 @@ export default class Demo extends Component {
           ]}
         />
         <h2>Code Sample</h2>
-        <Highlight language="javascript">
+        <Code language="javascript">
           {`
   import React from 'react';
   import { RadioGroup } from 'cauldron-react';
@@ -42,7 +41,7 @@ export default class Demo extends Component {
     </div>
   );
           `}
-        </Highlight>
+        </Code>
       </div>
     );
   }

@@ -13,7 +13,10 @@ Dummy.propTypes = {
 Dummy.displayName = 'Dummy';
 
 const defaultProps = {
-  states: [{ children: 'hi', foo: true }, { children: 'hi', foo: false }],
+  states: [
+    { children: 'hi', foo: true },
+    { children: 'hi', foo: false }
+  ],
   component: Dummy,
   propDocs: {
     children: {
@@ -31,7 +34,7 @@ test('renders the examples based on props.states', () => {
   const demo = mount(<Demo {...defaultProps} />);
   expect(demo.find('.foo').length).toBe(1);
   expect(demo.find('.bar').length).toBe(1);
-  expect(demo.find('Highlight').length).toBe(
+  expect(demo.find('Code').length).toBe(
     // adding 1 here to account for the "import {x } from 'cauldron-react'" code block
     Object.keys(defaultProps.propDocs).length + 1
   );

@@ -1,6 +1,5 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
-import { Button } from 'src/';
+import { Button, Code } from 'src/';
 
 class TopBarMenuDemo extends React.Component {
   buttonRef = React.createRef();
@@ -25,7 +24,7 @@ class TopBarMenuDemo extends React.Component {
           Toggle TopBar Menu
         </Button>
         <h2>Code Sample</h2>
-        <Highlight language="javascript">
+        <Code language="javascript">
           {`import React from 'react';
 import { TopBar, TopBarMenu, OptionsMenu } from 'cauldron-react';
 
@@ -40,7 +39,7 @@ const Demo = () => (
     </TopBarMenu>
   </TopBar>
 );`}
-        </Highlight>
+        </Code>
       </div>
     );
   }

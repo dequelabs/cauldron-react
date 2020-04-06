@@ -1,13 +1,13 @@
 import React from 'react';
-import Highlight from '../Highlight';
+import { Code } from '../../src/';
 
 const Home = () => (
   <div>
     <h1>{'Cauldron React'}</h1>
     <h2>{'Installation'}</h2>
-    <Highlight language="shell">{'$ npm install cauldron-react'}</Highlight>
+    <Code language="shell">{'$ npm install cauldron-react'}</Code>
     <h2>{'Usage'}</h2>
-    <Highlight language="javascript">
+    <Code language="javascript">
       {`
 import { Workspace, Button } from 'cauldron-react';
 
@@ -18,7 +18,7 @@ const Foo = () => (
   </Workspace>
 );
       `}
-    </Highlight>
+    </Code>
   </div>
 );
 

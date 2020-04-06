@@ -1,6 +1,5 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
-import { ClickOutsideListener } from 'src/';
+import { ClickOutsideListener, Code } from 'src/';
 
 const Demo = () => (
   <div>
@@ -14,7 +13,7 @@ const Demo = () => (
       </button>
     </ClickOutsideListener>
     <h2>Code Sample</h2>
-    <Highlight language="javascript">
+    <Code language="javascript">
       {`
 import React from 'react';
 import { ClickOutsideListener } from 'cauldron-react';
@@ -25,7 +24,7 @@ const Demo = () => (
   </ClickOutsideListener>
 );
       `}
-    </Highlight>
+    </Code>
   </div>
 );
 

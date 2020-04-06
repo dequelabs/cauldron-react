@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import Highlight from '../../../Highlight';
-import { OptionsMenu, OptionsMenuItem, OptionsMenuTrigger, Icon } from 'src/';
+import {
+  OptionsMenu,
+  OptionsMenuItem,
+  OptionsMenuTrigger,
+  Icon,
+  Code
+} from 'src/';
 
 export default class Demo extends Component {
   render() {
@@ -39,7 +44,7 @@ export default class Demo extends Component {
         </OptionsMenu>
 
         <h2>Code Sample</h2>
-        <Highlight language="javascript">
+        <Code language="javascript">
           {`
 import React, { Component } from 'react';
 import {
@@ -89,7 +94,7 @@ class Demo extends Component {
 }
 
           `}
-        </Highlight>
+        </Code>
       </div>
     );
   }

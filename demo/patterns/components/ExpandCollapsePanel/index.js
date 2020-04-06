@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
-import Highlight from '../../../Highlight';
-import { ExpandCollapsePanel, PanelTrigger } from 'src/';
+import { ExpandCollapsePanel, PanelTrigger, Code } from 'src/';
 
 const ControlledExpandCollapse = () => {
   const [open, setOpen] = useState(false);
@@ -37,7 +36,7 @@ export default class Demo extends Component {
         </p>
         <ControlledExpandCollapse />
         <h2>Code Sample</h2>
-        <Highlight language="javascript">{`
+        <Code language="javascript">{`
 import React, { useState } from 'react';
 import { ExpandCollapsePanel, PanelTrigger } from 'cauldron-react';
 
@@ -70,7 +69,7 @@ const Demo = () => {
   </ExpandCollapsePanel>
   <ControlledExpandCollapsePanel />
 };
-        `}</Highlight>
+        `}</Code>
       </div>
     );
   }

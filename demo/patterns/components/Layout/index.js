@@ -1,5 +1,5 @@
 import React from 'react';
-import Highlight from '../../../Highlight';
+import { Code } from 'src/';
 
 export default function Layout() {
   return (
@@ -16,7 +16,7 @@ export default function Layout() {
         Main components.
       </p>
       <h3>Code sample</h3>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`
 import { Workspace, Sidebar, TopBar } from 'cauldron-react';
 
@@ -33,14 +33,14 @@ const App = () => (
   </div>
 );
         `}
-      </Highlight>
+      </Code>
       <h2>{'Option 2: <Main /> and <Layout /> components'}</h2>
       <p>
         This option is a bit more flexible but requires you to compose the 2
         required compoents
       </p>
       <h3>Code sample</h3>
-      <Highlight language="javascript">
+      <Code language="javascript">
         {`
 import { Layout, Main, TopBar, SideBar } from 'cauldron-react';
 
@@ -61,7 +61,7 @@ const App = () => (
   </div>
 );
         `}
-      </Highlight>
+      </Code>
     </div>
   );
 }
