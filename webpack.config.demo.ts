@@ -1,18 +1,22 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const path = require('path');
 
 const { NODE_ENV = 'development' } = process.env;
 const isProd = NODE_ENV === 'production';
 
-module.exports = {
+const config = {
   context: __dirname,
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? 'source-map' : 'eval-source-map',
   entry: './demo/index.js',
   output: {
     path: path.resolve(__dirname, 'demo', 'dist'),
-    filename: '[name].js',
+    filename: isProd ? '[name].[hash].js' : '[name].js',
     publicPath: '/'
   },
   plugins: [
@@ -41,7 +45,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          isProd ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: { importLoaders: 1 }
@@ -63,3 +67,17 @@ module.exports = {
     historyApiFallback: true
   }
 };
+
+if (isProd) {
+  config.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css'
+    })
+  );
+
+  config.optimization = {
+    minimizer: [new OptimizeCSSAssetsPlugin({}), new TerserPlugin()]
+  };
+}
+
+module.exports = config;
