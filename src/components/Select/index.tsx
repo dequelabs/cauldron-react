@@ -18,8 +18,6 @@ export interface SelectProps
   > {
   options: SelectOption[];
   label: string;
-  listId: string;
-  selectedId: string;
   className?: string;
   onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
   onSelect: (option: SelectOption) => void;
