@@ -13,6 +13,11 @@ export default class LinkDemo extends Component {
             {
               children: 'I am a link!',
               href: '#'
+            },
+            {
+              children: 'I am a link that looks like a button',
+              href: '#',
+              variant: 'button'
             }
           ]}
           propDocs={{
