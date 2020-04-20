@@ -110,6 +110,7 @@ const link = () => (
     <Link href="hi">link</Link>
     <Link download="hi">link</Link>
     <Link rel="hi">link</Link>
+    <Link variant="button">link</Link>
   </>
 );
 
