@@ -181,12 +181,10 @@ const select = () => (
   <Select
     className="hi"
     label="7"
-    listId="sdfsdf"
     onKeyDown={noopEventHandler}
     onSelect={noopEventHandler}
     required
     value="6"
-    selectedId="7"
     options={[
       { value: 'Monday' },
       { value: 'Tuesday' },
