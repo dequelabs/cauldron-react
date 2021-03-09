@@ -1,7 +1,7 @@
 ---
 # :warning: DEPRECATION NOTICE :warning:
 
-This repo is deprecated. Please go to https://github.com/cauldron
+This repo is deprecated. Please go to https://github.com/dequelabs/cauldron
 ---
 
 # Cauldron React
